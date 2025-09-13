@@ -1,22 +1,22 @@
 # Tech Stack Q&A Record
 
-**Q: In the rich library usage, which class is used most frequently for creating formatted tables?**
-A: Console
+**Q: Based on the rich library usage in this project, which of the following is the most frequently used class for creating formatted tables?**
+A: Table (used 5 times)
 
-**Q: Which click function is used most frequently for outputting text to the console?**
-A: option
+**Q: In the click library implementation, which decorator is used most frequently for defining command-line options?**
+A: @option (used 3 times)
 
-**Q: When working with AST (Abstract Syntax Tree) in Python, which function would you use to traverse all nodes in a syntax tree?**
-A: parse
+**Q: What is the primary function from the dotenv library being used across multiple files in this project?**
+A: load_dotenv (used 3 times across 3 files)
 
-**Q: What is the primary purpose of the load_dotenv function from the python-dotenv library?**
-A: Create environment variable files
+**Q: Which AST (Abstract Syntax Tree) module function is used to traverse and analyze Python source code in this project?**
+A: ast.parse (used 2 times)
 
-**Q: In pandas, which class is primarily used for handling two-dimensional labeled data structures?**
-A: DataFrame
+**Q: How is the OpenAI client primarily instantiated in this project based on the usage patterns?**
+A: AsyncOpenAI (used 2 times)
 
-**Q: Which rich library class would you use to create a console object for controlling text output formatting?**
-A: Not familiar with this
+**Q: Which rich library style is used more frequently for table formatting based on the usage statistics?**
+A: ROUNDED (used 5 times)
 
-**Q: When building a CLI application with click, which decorator would you use to define a command-line option?**
-A: @argument
+**Q: What pattern does the project follow for environment variable loading based on the dotenv usage?**
+A: Use a custom configuration manager
