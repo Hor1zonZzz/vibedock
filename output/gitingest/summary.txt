@@ -1,0 +1,5 @@
+Repository: cyclotruc/gitingest
+Commit: 4e259a02fe72115bee538271622f1234a81c8e1a
+Files analyzed: 109
+
+Estimated tokens: 86.7k

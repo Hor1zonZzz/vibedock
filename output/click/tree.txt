@@ -1,0 +1,159 @@
+Directory structure:
+└── pallets-click/
+    ├── README.md
+    ├── CHANGES.rst
+    ├── LICENSE.txt
+    ├── pyproject.toml
+    ├── uv.lock
+    ├── .editorconfig
+    ├── .pre-commit-config.yaml
+    ├── .readthedocs.yaml
+    ├── docs/
+    │   ├── advanced.rst
+    │   ├── api.rst
+    │   ├── arguments.rst
+    │   ├── changes.rst
+    │   ├── click-concepts.rst
+    │   ├── commands-and-groups.rst
+    │   ├── commands.rst
+    │   ├── complex.rst
+    │   ├── conf.py
+    │   ├── contrib.md
+    │   ├── documentation.md
+    │   ├── entry-points.rst
+    │   ├── exceptions.rst
+    │   ├── extending-click.rst
+    │   ├── faqs.md
+    │   ├── handling-files.rst
+    │   ├── index.rst
+    │   ├── license.rst
+    │   ├── option-decorators.rst
+    │   ├── options.md
+    │   ├── parameter-types.rst
+    │   ├── parameters.md
+    │   ├── prompts.md
+    │   ├── quickstart.md
+    │   ├── setuptools.md
+    │   ├── shell-completion.md
+    │   ├── support-multiple-versions.md
+    │   ├── testing.md
+    │   ├── unicode-support.md
+    │   ├── utils.md
+    │   ├── virtualenv.md
+    │   ├── why.md
+    │   └── wincmd.md
+    ├── examples/
+    │   ├── README
+    │   ├── aliases/
+    │   │   ├── README
+    │   │   ├── aliases.ini
+    │   │   ├── aliases.py
+    │   │   └── pyproject.toml
+    │   ├── colors/
+    │   │   ├── README
+    │   │   ├── colors.py
+    │   │   └── pyproject.toml
+    │   ├── completion/
+    │   │   ├── README
+    │   │   ├── completion.py
+    │   │   └── pyproject.toml
+    │   ├── complex/
+    │   │   ├── README
+    │   │   ├── pyproject.toml
+    │   │   └── complex/
+    │   │       ├── __init__.py
+    │   │       ├── cli.py
+    │   │       └── commands/
+    │   │           ├── __init__.py
+    │   │           ├── cmd_init.py
+    │   │           └── cmd_status.py
+    │   ├── imagepipe/
+    │   │   ├── README
+    │   │   ├── imagepipe.py
+    │   │   └── pyproject.toml
+    │   ├── inout/
+    │   │   ├── README
+    │   │   ├── inout.py
+    │   │   └── pyproject.toml
+    │   ├── naval/
+    │   │   ├── README
+    │   │   ├── naval.py
+    │   │   └── pyproject.toml
+    │   ├── repo/
+    │   │   ├── README
+    │   │   ├── pyproject.toml
+    │   │   └── repo.py
+    │   ├── termui/
+    │   │   ├── README
+    │   │   ├── pyproject.toml
+    │   │   └── termui.py
+    │   └── validation/
+    │       ├── README
+    │       ├── pyproject.toml
+    │       └── validation.py
+    ├── src/
+    │   └── click/
+    │       ├── __init__.py
+    │       ├── _compat.py
+    │       ├── _termui_impl.py
+    │       ├── _textwrap.py
+    │       ├── _utils.py
+    │       ├── _winconsole.py
+    │       ├── core.py
+    │       ├── decorators.py
+    │       ├── exceptions.py
+    │       ├── formatting.py
+    │       ├── globals.py
+    │       ├── parser.py
+    │       ├── py.typed
+    │       ├── shell_completion.py
+    │       ├── termui.py
+    │       ├── testing.py
+    │       ├── types.py
+    │       └── utils.py
+    ├── tests/
+    │   ├── conftest.py
+    │   ├── test_arguments.py
+    │   ├── test_basic.py
+    │   ├── test_chain.py
+    │   ├── test_command_decorators.py
+    │   ├── test_commands.py
+    │   ├── test_compat.py
+    │   ├── test_context.py
+    │   ├── test_custom_classes.py
+    │   ├── test_defaults.py
+    │   ├── test_formatting.py
+    │   ├── test_imports.py
+    │   ├── test_info_dict.py
+    │   ├── test_normalization.py
+    │   ├── test_options.py
+    │   ├── test_parser.py
+    │   ├── test_shell_completion.py
+    │   ├── test_termui.py
+    │   ├── test_testing.py
+    │   ├── test_types.py
+    │   ├── test_utils.py
+    │   └── typing/
+    │       ├── typing_aliased_group.py
+    │       ├── typing_confirmation_option.py
+    │       ├── typing_group_kw_options.py
+    │       ├── typing_help_option.py
+    │       ├── typing_options.py
+    │       ├── typing_password_option.py
+    │       ├── typing_progressbar.py
+    │       ├── typing_simple_example.py
+    │       └── typing_version_option.py
+    ├── .devcontainer/
+    │   ├── devcontainer.json
+    │   └── on-create-command.sh
+    └── .github/
+        ├── pull_request_template.md
+        ├── ISSUE_TEMPLATE/
+        │   ├── bug-report.md
+        │   ├── config.yml
+        │   └── feature-request.md
+        └── workflows/
+            ├── lock.yaml
+            ├── pre-commit.yaml
+            ├── publish.yaml
+            └── tests.yaml

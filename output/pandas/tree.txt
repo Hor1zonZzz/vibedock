@@ -1,0 +1,2627 @@
+Directory structure:
+└── pandas-dev-pandas/
+    ├── README.md
+    ├── AUTHORS.md
+    ├── CITATION.cff
+    ├── codecov.yml
+    ├── Dockerfile
+    ├── environment.yml
+    ├── generate_pxi.py
+    ├── generate_version.py
+    ├── LICENSE
+    ├── MANIFEST.in
+    ├── meson.build
+    ├── pyproject.toml
+    ├── pyright_reportGeneralTypeIssues.json
+    ├── requirements-dev.txt
+    ├── setup.py
+    ├── .devcontainer.json
+    ├── .gitpod.yml
+    ├── .pre-commit-config.yaml
+    ├── asv_bench/
+    │   ├── asv.conf.json
+    │   └── benchmarks/
+    │       ├── __init__.py
+    │       ├── algorithms.py
+    │       ├── arithmetic.py
+    │       ├── array.py
+    │       ├── attrs_caching.py
+    │       ├── boolean.py
+    │       ├── categoricals.py
+    │       ├── ctors.py
+    │       ├── dtypes.py
+    │       ├── eval.py
+    │       ├── finalize.py
+    │       ├── frame_ctor.py
+    │       ├── frame_methods.py
+    │       ├── gil.py
+    │       ├── groupby.py
+    │       ├── hash_functions.py
+    │       ├── index_cached_properties.py
+    │       ├── index_object.py
+    │       ├── indexing.py
+    │       ├── indexing_engines.py
+    │       ├── inference.py
+    │       ├── join_merge.py
+    │       ├── libs.py
+    │       ├── multiindex_object.py
+    │       ├── package.py
+    │       ├── pandas_vb_common.py
+    │       ├── period.py
+    │       ├── plotting.py
+    │       ├── reindex.py
+    │       ├── replace.py
+    │       ├── reshape.py
+    │       ├── rolling.py
+    │       ├── series_methods.py
+    │       ├── sparse.py
+    │       ├── stat_ops.py
+    │       ├── strftime.py
+    │       ├── strings.py
+    │       ├── timedelta.py
+    │       ├── timeseries.py
+    │       ├── algos/
+    │       │   ├── __init__.py
+    │       │   └── isin.py
+    │       ├── io/
+    │       │   ├── __init__.py
+    │       │   ├── csv.py
+    │       │   ├── excel.py
+    │       │   ├── hdf.py
+    │       │   ├── json.py
+    │       │   ├── parsers.py
+    │       │   ├── pickle.py
+    │       │   ├── sas.py
+    │       │   ├── sql.py
+    │       │   ├── stata.py
+    │       │   └── style.py
+    │       └── tslibs/
+    │           ├── __init__.py
+    │           ├── fields.py
+    │           ├── normalize.py
+    │           ├── offsets.py
+    │           ├── period.py
+    │           ├── resolution.py
+    │           ├── timedelta.py
+    │           ├── timestamp.py
+    │           ├── tslib.py
+    │           └── tz_convert.py
+    ├── ci/
+    │   ├── code_checks.sh
+    │   ├── meta.yaml
+    │   ├── run_tests.sh
+    │   ├── upload_wheels.sh
+    │   ├── .condarc
+    │   └── deps/
+    │       ├── actions-311-minimum_versions.yaml
+    │       ├── actions-311.yaml
+    │       ├── actions-312.yaml
+    │       ├── actions-313-downstream_compat.yaml
+    │       ├── actions-313-freethreading.yaml
+    │       ├── actions-313-numpydev.yaml
+    │       ├── actions-313-pyarrownightly.yaml
+    │       └── actions-313.yaml
+    ├── doc/
+    │   ├── make.py
+    │   ├── redirects.csv
+    │   ├── _templates/
+    │   │   ├── api_redirect.html
+    │   │   ├── pandas_footer.html
+    │   │   ├── sidebar-nav-bs.html
+    │   │   └── autosummary/
+    │   │       ├── accessor.rst
+    │   │       ├── accessor_attribute.rst
+    │   │       ├── accessor_callable.rst
+    │   │       ├── accessor_method.rst
+    │   │       ├── class.rst
+    │   │       └── class_without_autosummary.rst
+    │   ├── cheatsheet/
+    │   │   ├── README.md
+    │   │   ├── Pandas_Cheat_Sheet.pptx
+    │   │   ├── Pandas_Cheat_Sheet_FA.pptx
+    │   │   └── Pandas_Cheat_Sheet_JA.pptx
+    │   ├── scripts/
+    │   │   └── eval_performance.py
+    │   ├── source/
+    │   │   ├── conf.py
+    │   │   ├── index.rst.template
+    │   │   ├── _static/
+    │   │   │   └── css/
+    │   │   │       ├── getting_started.css
+    │   │   │       └── pandas.css
+    │   │   ├── development/
+    │   │   │   ├── community.rst
+    │   │   │   ├── contributing.rst
+    │   │   │   ├── contributing_codebase.rst
+    │   │   │   ├── contributing_docstring.rst
+    │   │   │   ├── contributing_documentation.rst
+    │   │   │   ├── contributing_environment.rst
+    │   │   │   ├── contributing_gitpod.rst
+    │   │   │   ├── copy_on_write.rst
+    │   │   │   ├── debugging_extensions.rst
+    │   │   │   ├── developer.rst
+    │   │   │   ├── extending.rst
+    │   │   │   ├── index.rst
+    │   │   │   ├── internals.rst
+    │   │   │   ├── maintaining.rst
+    │   │   │   └── policies.rst
+    │   │   ├── getting_started/
+    │   │   │   ├── index.rst
+    │   │   │   ├── install.rst
+    │   │   │   ├── overview.rst
+    │   │   │   ├── tutorials.rst
+    │   │   │   ├── comparison/
+    │   │   │   │   ├── comparison_with_r.rst
+    │   │   │   │   ├── comparison_with_sas.rst
+    │   │   │   │   ├── comparison_with_spreadsheets.rst
+    │   │   │   │   ├── comparison_with_spss.rst
+    │   │   │   │   ├── comparison_with_sql.rst
+    │   │   │   │   ├── comparison_with_stata.rst
+    │   │   │   │   ├── index.rst
+    │   │   │   │   └── includes/
+    │   │   │   │       ├── case.rst
+    │   │   │   │       ├── column_operations.rst
+    │   │   │   │       ├── column_selection.rst
+    │   │   │   │       ├── construct_dataframe.rst
+    │   │   │   │       ├── copies.rst
+    │   │   │   │       ├── extract_substring.rst
+    │   │   │   │       ├── filtering.rst
+    │   │   │   │       ├── find_substring.rst
+    │   │   │   │       ├── groupby.rst
+    │   │   │   │       ├── if_then.rst
+    │   │   │   │       ├── introduction.rst
+    │   │   │   │       ├── length.rst
+    │   │   │   │       ├── limit.rst
+    │   │   │   │       ├── merge.rst
+    │   │   │   │       ├── merge_setup.rst
+    │   │   │   │       ├── missing.rst
+    │   │   │   │       ├── missing_intro.rst
+    │   │   │   │       ├── nth_word.rst
+    │   │   │   │       ├── sorting.rst
+    │   │   │   │       ├── time_date.rst
+    │   │   │   │       └── transform.rst
+    │   │   │   └── intro_tutorials/
+    │   │   │       ├── 01_table_oriented.rst
+    │   │   │       ├── 02_read_write.rst
+    │   │   │       ├── 03_subset_data.rst
+    │   │   │       ├── 04_plotting.rst
+    │   │   │       ├── 05_add_columns.rst
+    │   │   │       ├── 06_calculate_statistics.rst
+    │   │   │       ├── 07_reshape_table_layout.rst
+    │   │   │       ├── 08_combine_dataframes.rst
+    │   │   │       ├── 09_timeseries.rst
+    │   │   │       ├── 10_text_data.rst
+    │   │   │       ├── index.rst
+    │   │   │       └── includes/
+    │   │   │           ├── air_quality_no2.rst
+    │   │   │           └── titanic.rst
+    │   │   ├── reference/
+    │   │   │   ├── arrays.rst
+    │   │   │   ├── extensions.rst
+    │   │   │   ├── frame.rst
+    │   │   │   ├── general_functions.rst
+    │   │   │   ├── groupby.rst
+    │   │   │   ├── index.rst
+    │   │   │   ├── indexing.rst
+    │   │   │   ├── io.rst
+    │   │   │   ├── missing_value.rst
+    │   │   │   ├── offset_frequency.rst
+    │   │   │   ├── options.rst
+    │   │   │   ├── plotting.rst
+    │   │   │   ├── resampling.rst
+    │   │   │   ├── series.rst
+    │   │   │   ├── style.rst
+    │   │   │   ├── testing.rst
+    │   │   │   └── window.rst
+    │   │   ├── user_guide/
+    │   │   │   ├── 10min.rst
+    │   │   │   ├── advanced.rst
+    │   │   │   ├── basics.rst
+    │   │   │   ├── boolean.rst
+    │   │   │   ├── categorical.rst
+    │   │   │   ├── cookbook.rst
+    │   │   │   ├── copy_on_write.rst
+    │   │   │   ├── dsintro.rst
+    │   │   │   ├── duplicates.rst
+    │   │   │   ├── enhancingperf.rst
+    │   │   │   ├── gotchas.rst
+    │   │   │   ├── groupby.rst
+    │   │   │   ├── index.rst
+    │   │   │   ├── indexing.rst
+    │   │   │   ├── integer_na.rst
+    │   │   │   ├── io.rst
+    │   │   │   ├── merging.rst
+    │   │   │   ├── migration-3-strings.rst
+    │   │   │   ├── missing_data.rst
+    │   │   │   ├── options.rst
+    │   │   │   ├── pyarrow.rst
+    │   │   │   ├── reshaping.rst
+    │   │   │   ├── scale.rst
+    │   │   │   ├── sparse.rst
+    │   │   │   ├── style.ipynb
+    │   │   │   ├── text.rst
+    │   │   │   ├── timedeltas.rst
+    │   │   │   ├── timeseries.rst
+    │   │   │   ├── user_defined_functions.rst
+    │   │   │   ├── visualization.rst
+    │   │   │   ├── window.rst
+    │   │   │   └── templates/
+    │   │   │       ├── html_style_structure.html
+    │   │   │       ├── html_table_structure.html
+    │   │   │       └── myhtml.tpl
+    │   │   └── whatsnew/
+    │   │       ├── index.rst
+    │   │       ├── v0.10.0.rst
+    │   │       ├── v0.10.1.rst
+    │   │       ├── v0.11.0.rst
+    │   │       ├── v0.12.0.rst
+    │   │       ├── v0.13.0.rst
+    │   │       ├── v0.13.1.rst
+    │   │       ├── v0.14.0.rst
+    │   │       ├── v0.14.1.rst
+    │   │       ├── v0.15.0.rst
+    │   │       ├── v0.15.1.rst
+    │   │       ├── v0.15.2.rst
+    │   │       ├── v0.16.0.rst
+    │   │       ├── v0.16.1.rst
+    │   │       ├── v0.16.2.rst
+    │   │       ├── v0.17.0.rst
+    │   │       ├── v0.17.1.rst
+    │   │       ├── v0.18.0.rst
+    │   │       ├── v0.18.1.rst
+    │   │       ├── v0.19.0.rst
+    │   │       ├── v0.19.1.rst
+    │   │       ├── v0.19.2.rst
+    │   │       ├── v0.20.0.rst
+    │   │       ├── v0.20.2.rst
+    │   │       ├── v0.20.3.rst
+    │   │       ├── v0.21.0.rst
+    │   │       ├── v0.21.1.rst
+    │   │       ├── v0.22.0.rst
+    │   │       ├── v0.23.0.rst
+    │   │       ├── v0.23.1.rst
+    │   │       ├── v0.23.2.rst
+    │   │       ├── v0.23.3.rst
+    │   │       ├── v0.23.4.rst
+    │   │       ├── v0.24.0.rst
+    │   │       ├── v0.24.1.rst
+    │   │       ├── v0.24.2.rst
+    │   │       ├── v0.25.0.rst
+    │   │       ├── v0.25.1.rst
+    │   │       ├── v0.25.2.rst
+    │   │       ├── v0.25.3.rst
+    │   │       ├── v0.4.x.rst
+    │   │       ├── v0.5.0.rst
+    │   │       ├── v0.6.0.rst
+    │   │       ├── v0.6.1.rst
+    │   │       ├── v0.7.0.rst
+    │   │       ├── v0.7.1.rst
+    │   │       ├── v0.7.2.rst
+    │   │       ├── v0.7.3.rst
+    │   │       ├── v0.8.0.rst
+    │   │       ├── v0.8.1.rst
+    │   │       ├── v0.9.0.rst
+    │   │       ├── v0.9.1.rst
+    │   │       ├── v1.0.0.rst
+    │   │       ├── v1.0.1.rst
+    │   │       ├── v1.0.2.rst
+    │   │       ├── v1.0.3.rst
+    │   │       ├── v1.0.4.rst
+    │   │       ├── v1.0.5.rst
+    │   │       ├── v1.1.0.rst
+    │   │       ├── v1.1.1.rst
+    │   │       ├── v1.1.2.rst
+    │   │       ├── v1.1.3.rst
+    │   │       ├── v1.1.4.rst
+    │   │       ├── v1.1.5.rst
+    │   │       ├── v1.2.0.rst
+    │   │       ├── v1.2.1.rst
+    │   │       ├── v1.2.2.rst
+    │   │       ├── v1.2.3.rst
+    │   │       ├── v1.2.4.rst
+    │   │       ├── v1.2.5.rst
+    │   │       ├── v1.3.0.rst
+    │   │       ├── v1.3.1.rst
+    │   │       ├── v1.3.2.rst
+    │   │       ├── v1.3.3.rst
+    │   │       ├── v1.3.4.rst
+    │   │       ├── v1.3.5.rst
+    │   │       ├── v1.4.0.rst
+    │   │       ├── v1.4.1.rst
+    │   │       ├── v1.4.2.rst
+    │   │       ├── v1.4.3.rst
+    │   │       ├── v1.4.4.rst
+    │   │       ├── v1.5.0.rst
+    │   │       ├── v1.5.1.rst
+    │   │       ├── v1.5.2.rst
+    │   │       ├── v1.5.3.rst
+    │   │       ├── v2.0.0.rst
+    │   │       ├── v2.0.1.rst
+    │   │       ├── v2.0.2.rst
+    │   │       ├── v2.0.3.rst
+    │   │       ├── v2.1.0.rst
+    │   │       ├── v2.1.1.rst
+    │   │       ├── v2.1.2.rst
+    │   │       ├── v2.1.3.rst
+    │   │       ├── v2.1.4.rst
+    │   │       ├── v2.2.0.rst
+    │   │       ├── v2.2.1.rst
+    │   │       ├── v2.2.2.rst
+    │   │       ├── v2.2.3.rst
+    │   │       ├── v2.3.0.rst
+    │   │       ├── v2.3.1.rst
+    │   │       ├── v2.3.2.rst
+    │   │       ├── v2.3.3.rst
+    │   │       ├── v3.0.0.rst
+    │   │       └── whatsnew_0171_html_table.html
+    │   └── sphinxext/
+    │       ├── README.rst
+    │       ├── announce.py
+    │       └── contributors.py
+    ├── gitpod/
+    │   ├── Dockerfile
+    │   ├── gitpod.Dockerfile
+    │   ├── settings.json
+    │   └── workspace_config
+    ├── LICENSES/
+    │   ├── BOTTLENECK_LICENCE
+    │   ├── DATEUTIL_LICENSE
+    │   ├── HAVEN_LICENSE
+    │   ├── HAVEN_MIT
+    │   ├── KLIB_LICENSE
+    │   ├── MUSL_LICENSE
+    │   ├── NUMPY_LICENSE
+    │   ├── PACKAGING_LICENSE
+    │   ├── PSF_LICENSE
+    │   ├── PYPERCLIP_LICENSE
+    │   ├── PYUPGRADE_LICENSE
+    │   ├── SAS7BDAT_LICENSE
+    │   └── ULTRAJSON_LICENSE
+    ├── pandas/
+    │   ├── __init__.py
+    │   ├── _typing.py
+    │   ├── _version.py
+    │   ├── conftest.py
+    │   ├── meson.build
+    │   ├── testing.py
+    │   ├── _config/
+    │   │   ├── __init__.py
+    │   │   ├── config.py
+    │   │   ├── dates.py
+    │   │   ├── display.py
+    │   │   └── localization.py
+    │   ├── _libs/
+    │   │   ├── __init__.py
+    │   │   ├── algos.pxd
+    │   │   ├── algos.pyi
+    │   │   ├── algos.pyx
+    │   │   ├── algos_common_helper.pxi.in
+    │   │   ├── algos_take_helper.pxi.in
+    │   │   ├── arrays.pxd
+    │   │   ├── arrays.pyi
+    │   │   ├── arrays.pyx
+    │   │   ├── byteswap.pyi
+    │   │   ├── byteswap.pyx
+    │   │   ├── dtypes.pxd
+    │   │   ├── free_threading_config.pxi.in
+    │   │   ├── groupby.pyi
+    │   │   ├── groupby.pyx
+    │   │   ├── hashing.pyi
+    │   │   ├── hashing.pyx
+    │   │   ├── hashtable.pxd
+    │   │   ├── hashtable.pyi
+    │   │   ├── hashtable.pyx
+    │   │   ├── hashtable_class_helper.pxi.in
+    │   │   ├── hashtable_func_helper.pxi.in
+    │   │   ├── index.pyi
+    │   │   ├── index.pyx
+    │   │   ├── index_class_helper.pxi.in
+    │   │   ├── indexing.pyi
+    │   │   ├── indexing.pyx
+    │   │   ├── internals.pyi
+    │   │   ├── internals.pyx
+    │   │   ├── interval.pyi
+    │   │   ├── interval.pyx
+    │   │   ├── intervaltree.pxi.in
+    │   │   ├── join.pyi
+    │   │   ├── join.pyx
+    │   │   ├── json.pyi
+    │   │   ├── khash.pxd
+    │   │   ├── khash_for_primitive_helper.pxi.in
+    │   │   ├── lib.pxd
+    │   │   ├── lib.pyi
+    │   │   ├── lib.pyx
+    │   │   ├── meson.build
+    │   │   ├── missing.pxd
+    │   │   ├── missing.pyi
+    │   │   ├── missing.pyx
+    │   │   ├── ops.pyi
+    │   │   ├── ops.pyx
+    │   │   ├── ops_dispatch.pyi
+    │   │   ├── ops_dispatch.pyx
+    │   │   ├── parsers.pyi
+    │   │   ├── parsers.pyx
+    │   │   ├── properties.pyi
+    │   │   ├── properties.pyx
+    │   │   ├── reshape.pyi
+    │   │   ├── reshape.pyx
+    │   │   ├── sas.pyi
+    │   │   ├── sas.pyx
+    │   │   ├── sparse.pyi
+    │   │   ├── sparse.pyx
+    │   │   ├── sparse_op_helper.pxi.in
+    │   │   ├── testing.pyi
+    │   │   ├── testing.pyx
+    │   │   ├── tslib.pyi
+    │   │   ├── tslib.pyx
+    │   │   ├── util.pxd
+    │   │   ├── writers.pyi
+    │   │   ├── writers.pyx
+    │   │   ├── include/
+    │   │   │   └── pandas/
+    │   │   │       ├── portable.h
+    │   │   │       ├── skiplist.h
+    │   │   │       ├── datetime/
+    │   │   │       │   ├── date_conversions.h
+    │   │   │       │   └── pd_datetime.h
+    │   │   │       ├── parser/
+    │   │   │       │   ├── io.h
+    │   │   │       │   ├── pd_parser.h
+    │   │   │       │   └── tokenizer.h
+    │   │   │       └── vendored/
+    │   │   │           ├── klib/
+    │   │   │           │   ├── khash.h
+    │   │   │           │   └── khash_python.h
+    │   │   │           ├── numpy/
+    │   │   │           │   └── datetime/
+    │   │   │           │       ├── np_datetime.h
+    │   │   │           │       └── np_datetime_strings.h
+    │   │   │           └── ujson/
+    │   │   │               └── lib/
+    │   │   │                   └── ultrajson.h
+    │   │   ├── src/
+    │   │   │   ├── datetime/
+    │   │   │   │   ├── date_conversions.c
+    │   │   │   │   └── pd_datetime.c
+    │   │   │   ├── parser/
+    │   │   │   │   ├── io.c
+    │   │   │   │   ├── pd_parser.c
+    │   │   │   │   └── tokenizer.c
+    │   │   │   └── vendored/
+    │   │   │       ├── numpy/
+    │   │   │       │   └── datetime/
+    │   │   │       │       ├── np_datetime.c
+    │   │   │       │       └── np_datetime_strings.c
+    │   │   │       └── ujson/
+    │   │   │           ├── lib/
+    │   │   │           │   ├── ultrajsondec.c
+    │   │   │           │   └── ultrajsonenc.c
+    │   │   │           └── python/
+    │   │   │               ├── JSONtoObj.c
+    │   │   │               ├── objToJSON.c
+    │   │   │               └── ujson.c
+    │   │   ├── tslibs/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── base.pxd
+    │   │   │   ├── base.pyx
+    │   │   │   ├── ccalendar.pxd
+    │   │   │   ├── ccalendar.pyi
+    │   │   │   ├── ccalendar.pyx
+    │   │   │   ├── conversion.pxd
+    │   │   │   ├── conversion.pyi
+    │   │   │   ├── conversion.pyx
+    │   │   │   ├── dtypes.pxd
+    │   │   │   ├── dtypes.pyi
+    │   │   │   ├── dtypes.pyx
+    │   │   │   ├── fields.pyi
+    │   │   │   ├── fields.pyx
+    │   │   │   ├── meson.build
+    │   │   │   ├── nattype.pxd
+    │   │   │   ├── nattype.pyi
+    │   │   │   ├── nattype.pyx
+    │   │   │   ├── np_datetime.pxd
+    │   │   │   ├── np_datetime.pyi
+    │   │   │   ├── np_datetime.pyx
+    │   │   │   ├── offsets.pxd
+    │   │   │   ├── offsets.pyi
+    │   │   │   ├── offsets.pyx
+    │   │   │   ├── parsing.pxd
+    │   │   │   ├── parsing.pyi
+    │   │   │   ├── parsing.pyx
+    │   │   │   ├── period.pxd
+    │   │   │   ├── period.pyi
+    │   │   │   ├── period.pyx
+    │   │   │   ├── strptime.pxd
+    │   │   │   ├── strptime.pyi
+    │   │   │   ├── strptime.pyx
+    │   │   │   ├── timedeltas.pxd
+    │   │   │   ├── timedeltas.pyi
+    │   │   │   ├── timedeltas.pyx
+    │   │   │   ├── timestamps.pxd
+    │   │   │   ├── timestamps.pyi
+    │   │   │   ├── timestamps.pyx
+    │   │   │   ├── timezones.pxd
+    │   │   │   ├── timezones.pyi
+    │   │   │   ├── timezones.pyx
+    │   │   │   ├── tzconversion.pxd
+    │   │   │   ├── tzconversion.pyi
+    │   │   │   ├── tzconversion.pyx
+    │   │   │   ├── util.pxd
+    │   │   │   ├── vectorized.pyi
+    │   │   │   └── vectorized.pyx
+    │   │   └── window/
+    │   │       ├── __init__.py
+    │   │       ├── aggregations.pyi
+    │   │       ├── aggregations.pyx
+    │   │       ├── indexers.pyi
+    │   │       ├── indexers.pyx
+    │   │       └── meson.build
+    │   ├── _testing/
+    │   │   ├── __init__.py
+    │   │   ├── _hypothesis.py
+    │   │   ├── _io.py
+    │   │   ├── _warnings.py
+    │   │   ├── asserters.py
+    │   │   ├── compat.py
+    │   │   └── contexts.py
+    │   ├── api/
+    │   │   ├── __init__.py
+    │   │   ├── internals.py
+    │   │   ├── executors/
+    │   │   │   └── __init__.py
+    │   │   ├── extensions/
+    │   │   │   └── __init__.py
+    │   │   ├── indexers/
+    │   │   │   └── __init__.py
+    │   │   ├── interchange/
+    │   │   │   └── __init__.py
+    │   │   ├── types/
+    │   │   │   └── __init__.py
+    │   │   └── typing/
+    │   │       └── __init__.py
+    │   ├── arrays/
+    │   │   └── __init__.py
+    │   ├── compat/
+    │   │   ├── __init__.py
+    │   │   ├── _constants.py
+    │   │   ├── _optional.py
+    │   │   ├── pickle_compat.py
+    │   │   ├── pyarrow.py
+    │   │   └── numpy/
+    │   │       ├── __init__.py
+    │   │       └── function.py
+    │   ├── core/
+    │   │   ├── __init__.py
+    │   │   ├── accessor.py
+    │   │   ├── algorithms.py
+    │   │   ├── api.py
+    │   │   ├── apply.py
+    │   │   ├── arraylike.py
+    │   │   ├── base.py
+    │   │   ├── col.py
+    │   │   ├── common.py
+    │   │   ├── config_init.py
+    │   │   ├── construction.py
+    │   │   ├── flags.py
+    │   │   ├── frame.py
+    │   │   ├── generic.py
+    │   │   ├── indexing.py
+    │   │   ├── missing.py
+    │   │   ├── nanops.py
+    │   │   ├── resample.py
+    │   │   ├── roperator.py
+    │   │   ├── sample.py
+    │   │   ├── series.py
+    │   │   ├── shared_docs.py
+    │   │   ├── sorting.py
+    │   │   ├── _numba/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── executor.py
+    │   │   │   ├── extensions.py
+    │   │   │   └── kernels/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── mean_.py
+    │   │   │       ├── min_max_.py
+    │   │   │       ├── shared.py
+    │   │   │       ├── sum_.py
+    │   │   │       └── var_.py
+    │   │   ├── array_algos/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── datetimelike_accumulations.py
+    │   │   │   ├── masked_accumulations.py
+    │   │   │   ├── masked_reductions.py
+    │   │   │   ├── putmask.py
+    │   │   │   ├── quantile.py
+    │   │   │   ├── replace.py
+    │   │   │   ├── take.py
+    │   │   │   └── transforms.py
+    │   │   ├── arrays/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── _arrow_string_mixins.py
+    │   │   │   ├── _mixins.py
+    │   │   │   ├── _ranges.py
+    │   │   │   ├── _utils.py
+    │   │   │   ├── base.py
+    │   │   │   ├── boolean.py
+    │   │   │   ├── categorical.py
+    │   │   │   ├── datetimelike.py
+    │   │   │   ├── datetimes.py
+    │   │   │   ├── floating.py
+    │   │   │   ├── integer.py
+    │   │   │   ├── interval.py
+    │   │   │   ├── masked.py
+    │   │   │   ├── numeric.py
+    │   │   │   ├── numpy_.py
+    │   │   │   ├── period.py
+    │   │   │   ├── string_.py
+    │   │   │   ├── string_arrow.py
+    │   │   │   ├── timedeltas.py
+    │   │   │   ├── arrow/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── _arrow_utils.py
+    │   │   │   │   ├── accessors.py
+    │   │   │   │   ├── array.py
+    │   │   │   │   └── extension_types.py
+    │   │   │   └── sparse/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── accessor.py
+    │   │   │       ├── array.py
+    │   │   │       └── scipy_sparse.py
+    │   │   ├── computation/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── align.py
+    │   │   │   ├── api.py
+    │   │   │   ├── check.py
+    │   │   │   ├── common.py
+    │   │   │   ├── engines.py
+    │   │   │   ├── eval.py
+    │   │   │   ├── expr.py
+    │   │   │   ├── expressions.py
+    │   │   │   ├── ops.py
+    │   │   │   ├── parsing.py
+    │   │   │   ├── pytables.py
+    │   │   │   └── scope.py
+    │   │   ├── dtypes/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── api.py
+    │   │   │   ├── astype.py
+    │   │   │   ├── base.py
+    │   │   │   ├── cast.py
+    │   │   │   ├── common.py
+    │   │   │   ├── concat.py
+    │   │   │   ├── dtypes.py
+    │   │   │   ├── generic.py
+    │   │   │   ├── inference.py
+    │   │   │   └── missing.py
+    │   │   ├── groupby/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── base.py
+    │   │   │   ├── categorical.py
+    │   │   │   ├── generic.py
+    │   │   │   ├── groupby.py
+    │   │   │   ├── grouper.py
+    │   │   │   ├── indexing.py
+    │   │   │   ├── numba_.py
+    │   │   │   └── ops.py
+    │   │   ├── indexers/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── objects.py
+    │   │   │   └── utils.py
+    │   │   ├── indexes/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── accessors.py
+    │   │   │   ├── api.py
+    │   │   │   ├── base.py
+    │   │   │   ├── category.py
+    │   │   │   ├── datetimelike.py
+    │   │   │   ├── datetimes.py
+    │   │   │   ├── extension.py
+    │   │   │   ├── frozen.py
+    │   │   │   ├── interval.py
+    │   │   │   ├── multi.py
+    │   │   │   ├── period.py
+    │   │   │   ├── range.py
+    │   │   │   └── timedeltas.py
+    │   │   ├── interchange/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── buffer.py
+    │   │   │   ├── column.py
+    │   │   │   ├── dataframe.py
+    │   │   │   ├── dataframe_protocol.py
+    │   │   │   ├── from_dataframe.py
+    │   │   │   └── utils.py
+    │   │   ├── internals/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── api.py
+    │   │   │   ├── blocks.py
+    │   │   │   ├── concat.py
+    │   │   │   ├── construction.py
+    │   │   │   ├── managers.py
+    │   │   │   └── ops.py
+    │   │   ├── methods/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── describe.py
+    │   │   │   ├── selectn.py
+    │   │   │   └── to_dict.py
+    │   │   ├── ops/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── array_ops.py
+    │   │   │   ├── common.py
+    │   │   │   ├── dispatch.py
+    │   │   │   ├── docstrings.py
+    │   │   │   ├── invalid.py
+    │   │   │   ├── mask_ops.py
+    │   │   │   └── missing.py
+    │   │   ├── reshape/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── api.py
+    │   │   │   ├── concat.py
+    │   │   │   ├── encoding.py
+    │   │   │   ├── melt.py
+    │   │   │   ├── merge.py
+    │   │   │   ├── pivot.py
+    │   │   │   ├── reshape.py
+    │   │   │   └── tile.py
+    │   │   ├── sparse/
+    │   │   │   ├── __init__.py
+    │   │   │   └── api.py
+    │   │   ├── strings/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── accessor.py
+    │   │   │   └── object_array.py
+    │   │   ├── tools/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── datetimes.py
+    │   │   │   ├── numeric.py
+    │   │   │   ├── timedeltas.py
+    │   │   │   └── times.py
+    │   │   ├── util/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── hashing.py
+    │   │   │   └── numba_.py
+    │   │   └── window/
+    │   │       ├── __init__.py
+    │   │       ├── common.py
+    │   │       ├── doc.py
+    │   │       ├── ewm.py
+    │   │       ├── expanding.py
+    │   │       ├── numba_.py
+    │   │       ├── online.py
+    │   │       └── rolling.py
+    │   ├── errors/
+    │   │   ├── __init__.py
+    │   │   └── cow.py
+    │   ├── io/
+    │   │   ├── __init__.py
+    │   │   ├── _util.py
+    │   │   ├── api.py
+    │   │   ├── clipboards.py
+    │   │   ├── common.py
+    │   │   ├── feather_format.py
+    │   │   ├── html.py
+    │   │   ├── iceberg.py
+    │   │   ├── orc.py
+    │   │   ├── parquet.py
+    │   │   ├── pickle.py
+    │   │   ├── pytables.py
+    │   │   ├── spss.py
+    │   │   ├── sql.py
+    │   │   ├── stata.py
+    │   │   ├── xml.py
+    │   │   ├── clipboard/
+    │   │   │   └── __init__.py
+    │   │   ├── excel/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── _base.py
+    │   │   │   ├── _calamine.py
+    │   │   │   ├── _odfreader.py
+    │   │   │   ├── _odswriter.py
+    │   │   │   ├── _openpyxl.py
+    │   │   │   ├── _pyxlsb.py
+    │   │   │   ├── _util.py
+    │   │   │   ├── _xlrd.py
+    │   │   │   └── _xlsxwriter.py
+    │   │   ├── formats/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── _color_data.py
+    │   │   │   ├── console.py
+    │   │   │   ├── css.py
+    │   │   │   ├── csvs.py
+    │   │   │   ├── excel.py
+    │   │   │   ├── format.py
+    │   │   │   ├── html.py
+    │   │   │   ├── info.py
+    │   │   │   ├── printing.py
+    │   │   │   ├── string.py
+    │   │   │   ├── style.py
+    │   │   │   ├── style_render.py
+    │   │   │   ├── xml.py
+    │   │   │   └── templates/
+    │   │   │       ├── html.tpl
+    │   │   │       ├── html_style.tpl
+    │   │   │       ├── html_table.tpl
+    │   │   │       ├── latex.tpl
+    │   │   │       ├── latex_longtable.tpl
+    │   │   │       ├── latex_table.tpl
+    │   │   │       ├── string.tpl
+    │   │   │       └── typst.tpl
+    │   │   ├── json/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── _json.py
+    │   │   │   ├── _normalize.py
+    │   │   │   └── _table_schema.py
+    │   │   ├── parsers/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── arrow_parser_wrapper.py
+    │   │   │   ├── base_parser.py
+    │   │   │   ├── c_parser_wrapper.py
+    │   │   │   ├── python_parser.py
+    │   │   │   └── readers.py
+    │   │   └── sas/
+    │   │       ├── __init__.py
+    │   │       ├── sas7bdat.py
+    │   │       ├── sas_constants.py
+    │   │       ├── sas_xport.py
+    │   │       └── sasreader.py
+    │   ├── plotting/
+    │   │   ├── __init__.py
+    │   │   ├── _core.py
+    │   │   ├── _misc.py
+    │   │   └── _matplotlib/
+    │   │       ├── __init__.py
+    │   │       ├── boxplot.py
+    │   │       ├── converter.py
+    │   │       ├── core.py
+    │   │       ├── groupby.py
+    │   │       ├── hist.py
+    │   │       ├── misc.py
+    │   │       ├── style.py
+    │   │       ├── timeseries.py
+    │   │       └── tools.py
+    │   ├── tests/
+    │   │   ├── __init__.py
+    │   │   ├── test_aggregation.py
+    │   │   ├── test_algos.py
+    │   │   ├── test_col.py
+    │   │   ├── test_common.py
+    │   │   ├── test_downstream.py
+    │   │   ├── test_errors.py
+    │   │   ├── test_expressions.py
+    │   │   ├── test_flags.py
+    │   │   ├── test_multilevel.py
+    │   │   ├── test_nanops.py
+    │   │   ├── test_optional_dependency.py
+    │   │   ├── test_register_accessor.py
+    │   │   ├── test_sorting.py
+    │   │   ├── test_take.py
+    │   │   ├── api/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_api.py
+    │   │   │   └── test_types.py
+    │   │   ├── apply/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── common.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_frame_apply.py
+    │   │   │   ├── test_frame_apply_relabeling.py
+    │   │   │   ├── test_frame_transform.py
+    │   │   │   ├── test_invalid_arg.py
+    │   │   │   ├── test_numba.py
+    │   │   │   ├── test_series_apply.py
+    │   │   │   ├── test_series_apply_relabeling.py
+    │   │   │   ├── test_series_transform.py
+    │   │   │   └── test_str.py
+    │   │   ├── arithmetic/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── common.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_array_ops.py
+    │   │   │   ├── test_bool.py
+    │   │   │   ├── test_categorical.py
+    │   │   │   ├── test_datetime64.py
+    │   │   │   ├── test_interval.py
+    │   │   │   ├── test_numeric.py
+    │   │   │   ├── test_object.py
+    │   │   │   ├── test_period.py
+    │   │   │   └── test_timedelta64.py
+    │   │   ├── arrays/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── masked_shared.py
+    │   │   │   ├── test_array.py
+    │   │   │   ├── test_datetimelike.py
+    │   │   │   ├── test_datetimes.py
+    │   │   │   ├── test_ndarray_backed.py
+    │   │   │   ├── test_period.py
+    │   │   │   ├── test_timedeltas.py
+    │   │   │   ├── boolean/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_comparison.py
+    │   │   │   │   ├── test_construction.py
+    │   │   │   │   ├── test_function.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_logical.py
+    │   │   │   │   ├── test_ops.py
+    │   │   │   │   ├── test_reduction.py
+    │   │   │   │   └── test_repr.py
+    │   │   │   ├── categorical/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_algos.py
+    │   │   │   │   ├── test_analytics.py
+    │   │   │   │   ├── test_api.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_dtypes.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_map.py
+    │   │   │   │   ├── test_missing.py
+    │   │   │   │   ├── test_operators.py
+    │   │   │   │   ├── test_replace.py
+    │   │   │   │   ├── test_repr.py
+    │   │   │   │   ├── test_sorting.py
+    │   │   │   │   ├── test_subclass.py
+    │   │   │   │   ├── test_take.py
+    │   │   │   │   └── test_warnings.py
+    │   │   │   ├── datetimes/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_cumulative.py
+    │   │   │   │   └── test_reductions.py
+    │   │   │   ├── floating/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── conftest.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_comparison.py
+    │   │   │   │   ├── test_concat.py
+    │   │   │   │   ├── test_construction.py
+    │   │   │   │   ├── test_contains.py
+    │   │   │   │   ├── test_function.py
+    │   │   │   │   ├── test_repr.py
+    │   │   │   │   └── test_to_numpy.py
+    │   │   │   ├── integer/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── conftest.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_comparison.py
+    │   │   │   │   ├── test_concat.py
+    │   │   │   │   ├── test_construction.py
+    │   │   │   │   ├── test_dtypes.py
+    │   │   │   │   ├── test_function.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_reduction.py
+    │   │   │   │   └── test_repr.py
+    │   │   │   ├── interval/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_interval.py
+    │   │   │   │   ├── test_interval_pyarrow.py
+    │   │   │   │   └── test_overlaps.py
+    │   │   │   ├── masked/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_arrow_compat.py
+    │   │   │   │   ├── test_function.py
+    │   │   │   │   └── test_indexing.py
+    │   │   │   ├── numpy_/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   └── test_numpy.py
+    │   │   │   ├── period/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arrow_compat.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   └── test_reductions.py
+    │   │   │   ├── sparse/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_accessor.py
+    │   │   │   │   ├── test_arithmetics.py
+    │   │   │   │   ├── test_array.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_combine_concat.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_dtype.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_libsparse.py
+    │   │   │   │   ├── test_reductions.py
+    │   │   │   │   └── test_unary.py
+    │   │   │   ├── string_/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_concat.py
+    │   │   │   │   ├── test_string.py
+    │   │   │   │   └── test_string_arrow.py
+    │   │   │   └── timedeltas/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_constructors.py
+    │   │   │       ├── test_cumulative.py
+    │   │   │       └── test_reductions.py
+    │   │   ├── base/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── common.py
+    │   │   │   ├── test_constructors.py
+    │   │   │   ├── test_conversion.py
+    │   │   │   ├── test_fillna.py
+    │   │   │   ├── test_misc.py
+    │   │   │   ├── test_transpose.py
+    │   │   │   ├── test_unique.py
+    │   │   │   └── test_value_counts.py
+    │   │   ├── computation/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_compat.py
+    │   │   │   └── test_eval.py
+    │   │   ├── config/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_config.py
+    │   │   │   └── test_localization.py
+    │   │   ├── construction/
+    │   │   │   ├── __init__.py
+    │   │   │   └── test_extract_array.py
+    │   │   ├── copy_view/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_array.py
+    │   │   │   ├── test_astype.py
+    │   │   │   ├── test_chained_assignment_deprecation.py
+    │   │   │   ├── test_clip.py
+    │   │   │   ├── test_constructors.py
+    │   │   │   ├── test_copy_deprecation.py
+    │   │   │   ├── test_core_functionalities.py
+    │   │   │   ├── test_functions.py
+    │   │   │   ├── test_indexing.py
+    │   │   │   ├── test_internals.py
+    │   │   │   ├── test_interp_fillna.py
+    │   │   │   ├── test_methods.py
+    │   │   │   ├── test_replace.py
+    │   │   │   ├── test_setitem.py
+    │   │   │   ├── test_util.py
+    │   │   │   ├── util.py
+    │   │   │   └── index/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_datetimeindex.py
+    │   │   │       ├── test_index.py
+    │   │   │       ├── test_periodindex.py
+    │   │   │       └── test_timedeltaindex.py
+    │   │   ├── dtypes/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_common.py
+    │   │   │   ├── test_concat.py
+    │   │   │   ├── test_dtypes.py
+    │   │   │   ├── test_generic.py
+    │   │   │   ├── test_inference.py
+    │   │   │   ├── test_missing.py
+    │   │   │   └── cast/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_can_hold_element.py
+    │   │   │       ├── test_construct_from_scalar.py
+    │   │   │       ├── test_construct_ndarray.py
+    │   │   │       ├── test_construct_object_arr.py
+    │   │   │       ├── test_dict_compat.py
+    │   │   │       ├── test_downcast.py
+    │   │   │       ├── test_find_common_type.py
+    │   │   │       ├── test_infer_datetimelike.py
+    │   │   │       ├── test_infer_dtype.py
+    │   │   │       ├── test_maybe_box_native.py
+    │   │   │       └── test_promote.py
+    │   │   ├── extension/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_arrow.py
+    │   │   │   ├── test_categorical.py
+    │   │   │   ├── test_common.py
+    │   │   │   ├── test_datetime.py
+    │   │   │   ├── test_extension.py
+    │   │   │   ├── test_interval.py
+    │   │   │   ├── test_masked.py
+    │   │   │   ├── test_numpy.py
+    │   │   │   ├── test_period.py
+    │   │   │   ├── test_sparse.py
+    │   │   │   ├── test_string.py
+    │   │   │   ├── array_with_attr/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── array.py
+    │   │   │   │   └── test_array_with_attr.py
+    │   │   │   ├── base/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── accumulate.py
+    │   │   │   │   ├── base.py
+    │   │   │   │   ├── casting.py
+    │   │   │   │   ├── constructors.py
+    │   │   │   │   ├── dim2.py
+    │   │   │   │   ├── dtype.py
+    │   │   │   │   ├── getitem.py
+    │   │   │   │   ├── groupby.py
+    │   │   │   │   ├── index.py
+    │   │   │   │   ├── interface.py
+    │   │   │   │   ├── io.py
+    │   │   │   │   ├── methods.py
+    │   │   │   │   ├── missing.py
+    │   │   │   │   ├── ops.py
+    │   │   │   │   ├── printing.py
+    │   │   │   │   ├── reduce.py
+    │   │   │   │   ├── reshaping.py
+    │   │   │   │   └── setitem.py
+    │   │   │   ├── date/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   └── array.py
+    │   │   │   ├── decimal/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── array.py
+    │   │   │   │   └── test_decimal.py
+    │   │   │   ├── json/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── array.py
+    │   │   │   │   └── test_json.py
+    │   │   │   └── list/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── array.py
+    │   │   │       └── test_list.py
+    │   │   ├── frame/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── common.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_alter_axes.py
+    │   │   │   ├── test_api.py
+    │   │   │   ├── test_arithmetic.py
+    │   │   │   ├── test_arrow_interface.py
+    │   │   │   ├── test_block_internals.py
+    │   │   │   ├── test_constructors.py
+    │   │   │   ├── test_cumulative.py
+    │   │   │   ├── test_iteration.py
+    │   │   │   ├── test_logical_ops.py
+    │   │   │   ├── test_nonunique_indexes.py
+    │   │   │   ├── test_npfuncs.py
+    │   │   │   ├── test_query_eval.py
+    │   │   │   ├── test_reductions.py
+    │   │   │   ├── test_repr.py
+    │   │   │   ├── test_stack_unstack.py
+    │   │   │   ├── test_subclass.py
+    │   │   │   ├── test_ufunc.py
+    │   │   │   ├── test_unary.py
+    │   │   │   ├── test_validate.py
+    │   │   │   ├── constructors/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_from_dict.py
+    │   │   │   │   └── test_from_records.py
+    │   │   │   ├── indexing/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_coercion.py
+    │   │   │   │   ├── test_delitem.py
+    │   │   │   │   ├── test_get.py
+    │   │   │   │   ├── test_get_value.py
+    │   │   │   │   ├── test_getitem.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_insert.py
+    │   │   │   │   ├── test_mask.py
+    │   │   │   │   ├── test_set_value.py
+    │   │   │   │   ├── test_setitem.py
+    │   │   │   │   ├── test_take.py
+    │   │   │   │   ├── test_where.py
+    │   │   │   │   └── test_xs.py
+    │   │   │   └── methods/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_add_prefix_suffix.py
+    │   │   │       ├── test_align.py
+    │   │   │       ├── test_asfreq.py
+    │   │   │       ├── test_asof.py
+    │   │   │       ├── test_assign.py
+    │   │   │       ├── test_astype.py
+    │   │   │       ├── test_at_time.py
+    │   │   │       ├── test_between_time.py
+    │   │   │       ├── test_clip.py
+    │   │   │       ├── test_combine.py
+    │   │   │       ├── test_combine_first.py
+    │   │   │       ├── test_compare.py
+    │   │   │       ├── test_convert_dtypes.py
+    │   │   │       ├── test_copy.py
+    │   │   │       ├── test_count.py
+    │   │   │       ├── test_cov_corr.py
+    │   │   │       ├── test_describe.py
+    │   │   │       ├── test_diff.py
+    │   │   │       ├── test_dot.py
+    │   │   │       ├── test_drop.py
+    │   │   │       ├── test_drop_duplicates.py
+    │   │   │       ├── test_droplevel.py
+    │   │   │       ├── test_dropna.py
+    │   │   │       ├── test_dtypes.py
+    │   │   │       ├── test_duplicated.py
+    │   │   │       ├── test_equals.py
+    │   │   │       ├── test_explode.py
+    │   │   │       ├── test_fillna.py
+    │   │   │       ├── test_filter.py
+    │   │   │       ├── test_first_valid_index.py
+    │   │   │       ├── test_get_numeric_data.py
+    │   │   │       ├── test_head_tail.py
+    │   │   │       ├── test_infer_objects.py
+    │   │   │       ├── test_info.py
+    │   │   │       ├── test_interpolate.py
+    │   │   │       ├── test_is_homogeneous_dtype.py
+    │   │   │       ├── test_isetitem.py
+    │   │   │       ├── test_isin.py
+    │   │   │       ├── test_iterrows.py
+    │   │   │       ├── test_join.py
+    │   │   │       ├── test_map.py
+    │   │   │       ├── test_matmul.py
+    │   │   │       ├── test_nlargest.py
+    │   │   │       ├── test_pct_change.py
+    │   │   │       ├── test_pipe.py
+    │   │   │       ├── test_pop.py
+    │   │   │       ├── test_quantile.py
+    │   │   │       ├── test_rank.py
+    │   │   │       ├── test_reindex.py
+    │   │   │       ├── test_reindex_like.py
+    │   │   │       ├── test_rename.py
+    │   │   │       ├── test_rename_axis.py
+    │   │   │       ├── test_reorder_levels.py
+    │   │   │       ├── test_replace.py
+    │   │   │       ├── test_reset_index.py
+    │   │   │       ├── test_round.py
+    │   │   │       ├── test_sample.py
+    │   │   │       ├── test_select_dtypes.py
+    │   │   │       ├── test_set_axis.py
+    │   │   │       ├── test_set_index.py
+    │   │   │       ├── test_shift.py
+    │   │   │       ├── test_size.py
+    │   │   │       ├── test_sort_index.py
+    │   │   │       ├── test_sort_values.py
+    │   │   │       ├── test_swaplevel.py
+    │   │   │       ├── test_to_csv.py
+    │   │   │       ├── test_to_dict.py
+    │   │   │       ├── test_to_dict_of_blocks.py
+    │   │   │       ├── test_to_numpy.py
+    │   │   │       ├── test_to_period.py
+    │   │   │       ├── test_to_records.py
+    │   │   │       ├── test_to_timestamp.py
+    │   │   │       ├── test_transpose.py
+    │   │   │       ├── test_truncate.py
+    │   │   │       ├── test_tz_convert.py
+    │   │   │       ├── test_tz_localize.py
+    │   │   │       ├── test_update.py
+    │   │   │       ├── test_value_counts.py
+    │   │   │       └── test_values.py
+    │   │   ├── generic/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_duplicate_labels.py
+    │   │   │   ├── test_finalize.py
+    │   │   │   ├── test_frame.py
+    │   │   │   ├── test_generic.py
+    │   │   │   ├── test_label_or_level_utils.py
+    │   │   │   ├── test_series.py
+    │   │   │   └── test_to_xarray.py
+    │   │   ├── groupby/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_all_methods.py
+    │   │   │   ├── test_api.py
+    │   │   │   ├── test_apply.py
+    │   │   │   ├── test_bin_groupby.py
+    │   │   │   ├── test_categorical.py
+    │   │   │   ├── test_counting.py
+    │   │   │   ├── test_cumulative.py
+    │   │   │   ├── test_filters.py
+    │   │   │   ├── test_groupby.py
+    │   │   │   ├── test_groupby_dropna.py
+    │   │   │   ├── test_groupby_subclass.py
+    │   │   │   ├── test_grouping.py
+    │   │   │   ├── test_index_as_string.py
+    │   │   │   ├── test_indexing.py
+    │   │   │   ├── test_libgroupby.py
+    │   │   │   ├── test_missing.py
+    │   │   │   ├── test_numba.py
+    │   │   │   ├── test_numeric_only.py
+    │   │   │   ├── test_pipe.py
+    │   │   │   ├── test_raises.py
+    │   │   │   ├── test_reductions.py
+    │   │   │   ├── test_timegrouper.py
+    │   │   │   ├── aggregate/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_aggregate.py
+    │   │   │   │   ├── test_cython.py
+    │   │   │   │   ├── test_numba.py
+    │   │   │   │   └── test_other.py
+    │   │   │   ├── methods/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_describe.py
+    │   │   │   │   ├── test_groupby_shift_diff.py
+    │   │   │   │   ├── test_is_monotonic.py
+    │   │   │   │   ├── test_kurt.py
+    │   │   │   │   ├── test_nlargest_nsmallest.py
+    │   │   │   │   ├── test_nth.py
+    │   │   │   │   ├── test_quantile.py
+    │   │   │   │   ├── test_rank.py
+    │   │   │   │   ├── test_sample.py
+    │   │   │   │   ├── test_size.py
+    │   │   │   │   ├── test_skew.py
+    │   │   │   │   └── test_value_counts.py
+    │   │   │   └── transform/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_numba.py
+    │   │   │       └── test_transform.py
+    │   │   ├── indexes/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_any_index.py
+    │   │   │   ├── test_base.py
+    │   │   │   ├── test_common.py
+    │   │   │   ├── test_datetimelike.py
+    │   │   │   ├── test_engines.py
+    │   │   │   ├── test_frozen.py
+    │   │   │   ├── test_index_new.py
+    │   │   │   ├── test_indexing.py
+    │   │   │   ├── test_numpy_compat.py
+    │   │   │   ├── test_old_base.py
+    │   │   │   ├── test_setops.py
+    │   │   │   ├── test_subclass.py
+    │   │   │   ├── base_class/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_pickle.py
+    │   │   │   │   ├── test_reshape.py
+    │   │   │   │   ├── test_setops.py
+    │   │   │   │   └── test_where.py
+    │   │   │   ├── categorical/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_append.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_category.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_equals.py
+    │   │   │   │   ├── test_fillna.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_map.py
+    │   │   │   │   ├── test_reindex.py
+    │   │   │   │   └── test_setops.py
+    │   │   │   ├── datetimelike_/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_drop_duplicates.py
+    │   │   │   │   ├── test_equals.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_is_monotonic.py
+    │   │   │   │   ├── test_nat.py
+    │   │   │   │   ├── test_sort_values.py
+    │   │   │   │   └── test_value_counts.py
+    │   │   │   ├── datetimes/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_date_range.py
+    │   │   │   │   ├── test_datetime.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_freq_attr.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_iter.py
+    │   │   │   │   ├── test_join.py
+    │   │   │   │   ├── test_npfuncs.py
+    │   │   │   │   ├── test_ops.py
+    │   │   │   │   ├── test_partial_slicing.py
+    │   │   │   │   ├── test_pickle.py
+    │   │   │   │   ├── test_reindex.py
+    │   │   │   │   ├── test_scalar_compat.py
+    │   │   │   │   ├── test_setops.py
+    │   │   │   │   ├── test_timezones.py
+    │   │   │   │   └── methods/
+    │   │   │   │       ├── __init__.py
+    │   │   │   │       ├── test_asof.py
+    │   │   │   │       ├── test_astype.py
+    │   │   │   │       ├── test_delete.py
+    │   │   │   │       ├── test_factorize.py
+    │   │   │   │       ├── test_fillna.py
+    │   │   │   │       ├── test_insert.py
+    │   │   │   │       ├── test_isocalendar.py
+    │   │   │   │       ├── test_map.py
+    │   │   │   │       ├── test_normalize.py
+    │   │   │   │       ├── test_repeat.py
+    │   │   │   │       ├── test_resolution.py
+    │   │   │   │       ├── test_round.py
+    │   │   │   │       ├── test_shift.py
+    │   │   │   │       ├── test_snap.py
+    │   │   │   │       ├── test_to_frame.py
+    │   │   │   │       ├── test_to_julian_date.py
+    │   │   │   │       ├── test_to_period.py
+    │   │   │   │       ├── test_to_pydatetime.py
+    │   │   │   │       ├── test_to_series.py
+    │   │   │   │       ├── test_tz_convert.py
+    │   │   │   │       ├── test_tz_localize.py
+    │   │   │   │       └── test_unique.py
+    │   │   │   ├── interval/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_equals.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_interval.py
+    │   │   │   │   ├── test_interval_range.py
+    │   │   │   │   ├── test_interval_tree.py
+    │   │   │   │   ├── test_join.py
+    │   │   │   │   ├── test_pickle.py
+    │   │   │   │   └── test_setops.py
+    │   │   │   ├── multi/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── conftest.py
+    │   │   │   │   ├── test_analytics.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_compat.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_conversion.py
+    │   │   │   │   ├── test_copy.py
+    │   │   │   │   ├── test_drop.py
+    │   │   │   │   ├── test_duplicates.py
+    │   │   │   │   ├── test_equivalence.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_get_level_values.py
+    │   │   │   │   ├── test_get_set.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_integrity.py
+    │   │   │   │   ├── test_isin.py
+    │   │   │   │   ├── test_join.py
+    │   │   │   │   ├── test_lexsort.py
+    │   │   │   │   ├── test_missing.py
+    │   │   │   │   ├── test_monotonic.py
+    │   │   │   │   ├── test_names.py
+    │   │   │   │   ├── test_partial_indexing.py
+    │   │   │   │   ├── test_pickle.py
+    │   │   │   │   ├── test_reindex.py
+    │   │   │   │   ├── test_reshape.py
+    │   │   │   │   ├── test_setops.py
+    │   │   │   │   ├── test_sorting.py
+    │   │   │   │   ├── test_take.py
+    │   │   │   │   └── test_util.py
+    │   │   │   ├── numeric/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_join.py
+    │   │   │   │   ├── test_numeric.py
+    │   │   │   │   └── test_setops.py
+    │   │   │   ├── object/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   └── test_indexing.py
+    │   │   │   ├── period/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_freq_attr.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_join.py
+    │   │   │   │   ├── test_monotonic.py
+    │   │   │   │   ├── test_partial_slicing.py
+    │   │   │   │   ├── test_period.py
+    │   │   │   │   ├── test_period_range.py
+    │   │   │   │   ├── test_pickle.py
+    │   │   │   │   ├── test_resolution.py
+    │   │   │   │   ├── test_scalar_compat.py
+    │   │   │   │   ├── test_searchsorted.py
+    │   │   │   │   ├── test_setops.py
+    │   │   │   │   ├── test_tools.py
+    │   │   │   │   └── methods/
+    │   │   │   │       ├── __init__.py
+    │   │   │   │       ├── test_asfreq.py
+    │   │   │   │       ├── test_astype.py
+    │   │   │   │       ├── test_factorize.py
+    │   │   │   │       ├── test_fillna.py
+    │   │   │   │       ├── test_insert.py
+    │   │   │   │       ├── test_is_full.py
+    │   │   │   │       ├── test_repeat.py
+    │   │   │   │       ├── test_shift.py
+    │   │   │   │       └── test_to_timestamp.py
+    │   │   │   ├── ranges/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_join.py
+    │   │   │   │   ├── test_range.py
+    │   │   │   │   └── test_setops.py
+    │   │   │   ├── string/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_astype.py
+    │   │   │   │   └── test_indexing.py
+    │   │   │   └── timedeltas/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_arithmetic.py
+    │   │   │       ├── test_constructors.py
+    │   │   │       ├── test_delete.py
+    │   │   │       ├── test_formats.py
+    │   │   │       ├── test_freq_attr.py
+    │   │   │       ├── test_indexing.py
+    │   │   │       ├── test_join.py
+    │   │   │       ├── test_ops.py
+    │   │   │       ├── test_pickle.py
+    │   │   │       ├── test_scalar_compat.py
+    │   │   │       ├── test_searchsorted.py
+    │   │   │       ├── test_setops.py
+    │   │   │       ├── test_timedelta.py
+    │   │   │       ├── test_timedelta_range.py
+    │   │   │       └── methods/
+    │   │   │           ├── __init__.py
+    │   │   │           ├── test_astype.py
+    │   │   │           ├── test_factorize.py
+    │   │   │           ├── test_fillna.py
+    │   │   │           ├── test_insert.py
+    │   │   │           ├── test_repeat.py
+    │   │   │           └── test_shift.py
+    │   │   ├── indexing/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── common.py
+    │   │   │   ├── test_at.py
+    │   │   │   ├── test_categorical.py
+    │   │   │   ├── test_chaining_and_caching.py
+    │   │   │   ├── test_check_indexer.py
+    │   │   │   ├── test_coercion.py
+    │   │   │   ├── test_datetime.py
+    │   │   │   ├── test_floats.py
+    │   │   │   ├── test_iat.py
+    │   │   │   ├── test_iloc.py
+    │   │   │   ├── test_indexers.py
+    │   │   │   ├── test_indexing.py
+    │   │   │   ├── test_loc.py
+    │   │   │   ├── test_na_indexing.py
+    │   │   │   ├── test_partial.py
+    │   │   │   ├── test_scalar.py
+    │   │   │   ├── interval/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_interval.py
+    │   │   │   │   └── test_interval_new.py
+    │   │   │   └── multiindex/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_chaining_and_caching.py
+    │   │   │       ├── test_datetime.py
+    │   │   │       ├── test_getitem.py
+    │   │   │       ├── test_iloc.py
+    │   │   │       ├── test_indexing_slow.py
+    │   │   │       ├── test_loc.py
+    │   │   │       ├── test_multiindex.py
+    │   │   │       ├── test_partial.py
+    │   │   │       ├── test_setitem.py
+    │   │   │       ├── test_slice.py
+    │   │   │       └── test_sorted.py
+    │   │   ├── interchange/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_impl.py
+    │   │   │   ├── test_spec_conformance.py
+    │   │   │   └── test_utils.py
+    │   │   ├── internals/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_api.py
+    │   │   │   └── test_internals.py
+    │   │   ├── io/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── generate_legacy_storage_files.py
+    │   │   │   ├── test_clipboard.py
+    │   │   │   ├── test_common.py
+    │   │   │   ├── test_compression.py
+    │   │   │   ├── test_feather.py
+    │   │   │   ├── test_fsspec.py
+    │   │   │   ├── test_gcs.py
+    │   │   │   ├── test_html.py
+    │   │   │   ├── test_http_headers.py
+    │   │   │   ├── test_iceberg.py
+    │   │   │   ├── test_orc.py
+    │   │   │   ├── test_parquet.py
+    │   │   │   ├── test_pickle.py
+    │   │   │   ├── test_s3.py
+    │   │   │   ├── test_spss.py
+    │   │   │   ├── test_sql.py
+    │   │   │   ├── test_stata.py
+    │   │   │   ├── data/
+    │   │   │   │   ├── csv/
+    │   │   │   │   │   ├── banklist.csv
+    │   │   │   │   │   ├── iris.csv
+    │   │   │   │   │   ├── test1.csv
+    │   │   │   │   │   ├── test1.csv.bz2
+    │   │   │   │   │   ├── test1.csv.gz
+    │   │   │   │   │   ├── test_mmap.csv
+    │   │   │   │   │   ├── tips.csv
+    │   │   │   │   │   ├── tips.csv.bz2
+    │   │   │   │   │   └── tips.csv.gz
+    │   │   │   │   ├── excel/
+    │   │   │   │   │   ├── blank.ods
+    │   │   │   │   │   ├── blank.xls
+    │   │   │   │   │   ├── blank.xlsb
+    │   │   │   │   │   ├── blank.xlsm
+    │   │   │   │   │   ├── blank.xlsx
+    │   │   │   │   │   ├── blank_with_header.ods
+    │   │   │   │   │   ├── blank_with_header.xls
+    │   │   │   │   │   ├── blank_with_header.xlsb
+    │   │   │   │   │   ├── blank_with_header.xlsm
+    │   │   │   │   │   ├── blank_with_header.xlsx
+    │   │   │   │   │   ├── chartsheet.xls
+    │   │   │   │   │   ├── chartsheet.xlsb
+    │   │   │   │   │   ├── chartsheet.xlsm
+    │   │   │   │   │   ├── chartsheet.xlsx
+    │   │   │   │   │   ├── df_empty.xlsx
+    │   │   │   │   │   ├── df_equals.xlsx
+    │   │   │   │   │   ├── df_header_oob.xlsx
+    │   │   │   │   │   ├── df_mangle_dup_col_dtypes.ods
+    │   │   │   │   │   ├── df_mangle_dup_col_dtypes.xls
+    │   │   │   │   │   ├── df_mangle_dup_col_dtypes.xlsb
+    │   │   │   │   │   ├── df_mangle_dup_col_dtypes.xlsm
+    │   │   │   │   │   ├── df_mangle_dup_col_dtypes.xlsx
+    │   │   │   │   │   ├── dimension_large.xlsx
+    │   │   │   │   │   ├── dimension_missing.xlsx
+    │   │   │   │   │   ├── dimension_small.xlsx
+    │   │   │   │   │   ├── empty_trailing_rows.xlsx
+    │   │   │   │   │   ├── empty_with_blank_row.xlsx
+    │   │   │   │   │   ├── gh-35802.ods
+    │   │   │   │   │   ├── gh-36122.ods
+    │   │   │   │   │   ├── ints_spelled_with_decimals.xlsx
+    │   │   │   │   │   ├── invalid_value_type.ods
+    │   │   │   │   │   ├── multiindex_no_index_names.xlsx
+    │   │   │   │   │   ├── one_col_blank_line.ods
+    │   │   │   │   │   ├── one_col_blank_line.xls
+    │   │   │   │   │   ├── one_col_blank_line.xlsb
+    │   │   │   │   │   ├── one_col_blank_line.xlsm
+    │   │   │   │   │   ├── one_col_blank_line.xlsx
+    │   │   │   │   │   ├── test1.ods
+    │   │   │   │   │   ├── test1.xls
+    │   │   │   │   │   ├── test1.xlsb
+    │   │   │   │   │   ├── test1.xlsm
+    │   │   │   │   │   ├── test1.xlsx
+    │   │   │   │   │   ├── test2.ods
+    │   │   │   │   │   ├── test2.xls
+    │   │   │   │   │   ├── test2.xlsb
+    │   │   │   │   │   ├── test2.xlsm
+    │   │   │   │   │   ├── test2.xlsx
+    │   │   │   │   │   ├── test3.ods
+    │   │   │   │   │   ├── test3.xls
+    │   │   │   │   │   ├── test3.xlsb
+    │   │   │   │   │   ├── test3.xlsm
+    │   │   │   │   │   ├── test3.xlsx
+    │   │   │   │   │   ├── test4.ods
+    │   │   │   │   │   ├── test4.xls
+    │   │   │   │   │   ├── test4.xlsb
+    │   │   │   │   │   ├── test4.xlsm
+    │   │   │   │   │   ├── test4.xlsx
+    │   │   │   │   │   ├── test5.ods
+    │   │   │   │   │   ├── test5.xls
+    │   │   │   │   │   ├── test5.xlsb
+    │   │   │   │   │   ├── test5.xlsm
+    │   │   │   │   │   ├── test5.xlsx
+    │   │   │   │   │   ├── test6.xls
+    │   │   │   │   │   ├── test_cell_annotation.ods
+    │   │   │   │   │   ├── test_converters.ods
+    │   │   │   │   │   ├── test_converters.xls
+    │   │   │   │   │   ├── test_converters.xlsb
+    │   │   │   │   │   ├── test_converters.xlsm
+    │   │   │   │   │   ├── test_converters.xlsx
+    │   │   │   │   │   ├── test_datetime_mi.ods
+    │   │   │   │   │   ├── test_datetime_mi.xls
+    │   │   │   │   │   ├── test_datetime_mi.xlsb
+    │   │   │   │   │   ├── test_datetime_mi.xlsm
+    │   │   │   │   │   ├── test_datetime_mi.xlsx
+    │   │   │   │   │   ├── test_decimal.ods
+    │   │   │   │   │   ├── test_decimal.xls
+    │   │   │   │   │   ├── test_decimal.xlsb
+    │   │   │   │   │   ├── test_decimal.xlsm
+    │   │   │   │   │   ├── test_decimal.xlsx
+    │   │   │   │   │   ├── test_index_name_pre17.ods
+    │   │   │   │   │   ├── test_index_name_pre17.xls
+    │   │   │   │   │   ├── test_index_name_pre17.xlsb
+    │   │   │   │   │   ├── test_index_name_pre17.xlsm
+    │   │   │   │   │   ├── test_index_name_pre17.xlsx
+    │   │   │   │   │   ├── test_multisheet.ods
+    │   │   │   │   │   ├── test_multisheet.xls
+    │   │   │   │   │   ├── test_multisheet.xlsb
+    │   │   │   │   │   ├── test_multisheet.xlsm
+    │   │   │   │   │   ├── test_multisheet.xlsx
+    │   │   │   │   │   ├── test_newlines.ods
+    │   │   │   │   │   ├── test_none_type.xlsx
+    │   │   │   │   │   ├── test_spaces.ods
+    │   │   │   │   │   ├── test_spaces.xls
+    │   │   │   │   │   ├── test_spaces.xlsb
+    │   │   │   │   │   ├── test_spaces.xlsm
+    │   │   │   │   │   ├── test_spaces.xlsx
+    │   │   │   │   │   ├── test_squeeze.ods
+    │   │   │   │   │   ├── test_squeeze.xls
+    │   │   │   │   │   ├── test_squeeze.xlsb
+    │   │   │   │   │   ├── test_squeeze.xlsm
+    │   │   │   │   │   ├── test_squeeze.xlsx
+    │   │   │   │   │   ├── test_types.ods
+    │   │   │   │   │   ├── test_types.xls
+    │   │   │   │   │   ├── test_types.xlsb
+    │   │   │   │   │   ├── test_types.xlsm
+    │   │   │   │   │   ├── test_types.xlsx
+    │   │   │   │   │   ├── test_unempty_cells.ods
+    │   │   │   │   │   ├── testdateoverflow.ods
+    │   │   │   │   │   ├── testdateoverflow.xls
+    │   │   │   │   │   ├── testdateoverflow.xlsb
+    │   │   │   │   │   ├── testdateoverflow.xlsm
+    │   │   │   │   │   ├── testdateoverflow.xlsx
+    │   │   │   │   │   ├── testdtype.ods
+    │   │   │   │   │   ├── testdtype.xls
+    │   │   │   │   │   ├── testdtype.xlsb
+    │   │   │   │   │   ├── testdtype.xlsm
+    │   │   │   │   │   ├── testdtype.xlsx
+    │   │   │   │   │   ├── testmultiindex.ods
+    │   │   │   │   │   ├── testmultiindex.xls
+    │   │   │   │   │   ├── testmultiindex.xlsb
+    │   │   │   │   │   ├── testmultiindex.xlsm
+    │   │   │   │   │   ├── testmultiindex.xlsx
+    │   │   │   │   │   ├── testskiprows.ods
+    │   │   │   │   │   ├── testskiprows.xls
+    │   │   │   │   │   ├── testskiprows.xlsb
+    │   │   │   │   │   ├── testskiprows.xlsm
+    │   │   │   │   │   ├── testskiprows.xlsx
+    │   │   │   │   │   ├── times_1900.ods
+    │   │   │   │   │   ├── times_1900.xls
+    │   │   │   │   │   ├── times_1900.xlsb
+    │   │   │   │   │   ├── times_1900.xlsm
+    │   │   │   │   │   ├── times_1900.xlsx
+    │   │   │   │   │   ├── times_1904.ods
+    │   │   │   │   │   ├── times_1904.xls
+    │   │   │   │   │   ├── times_1904.xlsb
+    │   │   │   │   │   ├── times_1904.xlsm
+    │   │   │   │   │   ├── times_1904.xlsx
+    │   │   │   │   │   ├── trailing_blanks.ods
+    │   │   │   │   │   ├── trailing_blanks.xls
+    │   │   │   │   │   ├── trailing_blanks.xlsb
+    │   │   │   │   │   ├── trailing_blanks.xlsm
+    │   │   │   │   │   ├── trailing_blanks.xlsx
+    │   │   │   │   │   └── writertable.odt
+    │   │   │   │   ├── feather/
+    │   │   │   │   │   └── feather-0_3_1.feather
+    │   │   │   │   ├── fixed_width/
+    │   │   │   │   │   └── fixed_width_format.txt
+    │   │   │   │   ├── html/
+    │   │   │   │   │   ├── banklist.html
+    │   │   │   │   │   ├── spam.html
+    │   │   │   │   │   ├── valid_markup.html
+    │   │   │   │   │   └── wikipedia_states.html
+    │   │   │   │   ├── html_encoding/
+    │   │   │   │   │   ├── chinese_utf-16.html
+    │   │   │   │   │   ├── chinese_utf-32.html
+    │   │   │   │   │   ├── chinese_utf-8.html
+    │   │   │   │   │   └── letz_latin1.html
+    │   │   │   │   ├── legacy_pickle/
+    │   │   │   │   │   ├── 1.1.0/
+    │   │   │   │   │   │   └── 1.1.0_x86_64_darwin_3.8.5.pickle
+    │   │   │   │   │   ├── 1.2.4/
+    │   │   │   │   │   │   └── empty_frame_v1_2_4-GH#42345.pkl
+    │   │   │   │   │   ├── 1.3.5/
+    │   │   │   │   │   │   └── 1.3.5_x86_64_darwin_3.10.13.pickle
+    │   │   │   │   │   ├── 1.4.2/
+    │   │   │   │   │   │   └── 1.4.2_x86_64_linux_3.9.7.pickle
+    │   │   │   │   │   ├── 1.5.3/
+    │   │   │   │   │   │   └── 1.5.3_x86_64_win_3.11.13.pickle
+    │   │   │   │   │   ├── 2.0.3/
+    │   │   │   │   │   │   └── 2.0.3_AMD64_windows_3.11.12.pickle
+    │   │   │   │   │   ├── 2.1.4/
+    │   │   │   │   │   │   └── 2.1.4_AMD64_windows_3.11.12.pickle
+    │   │   │   │   │   └── 2.2.3/
+    │   │   │   │   │       └── 2.2.3_AMD64_windows_3.11.12.pickle
+    │   │   │   │   ├── orc/
+    │   │   │   │   │   ├── TestOrcFile.decimal.orc
+    │   │   │   │   │   ├── TestOrcFile.emptyFile.orc
+    │   │   │   │   │   ├── TestOrcFile.test1.orc
+    │   │   │   │   │   ├── TestOrcFile.testDate1900.orc
+    │   │   │   │   │   ├── TestOrcFile.testDate2038.orc
+    │   │   │   │   │   └── TestOrcFile.testSnappy.orc
+    │   │   │   │   ├── parquet/
+    │   │   │   │   │   └── simple.parquet
+    │   │   │   │   ├── pickle/
+    │   │   │   │   │   └── categorical.0.25.0.pickle
+    │   │   │   │   ├── spss/
+    │   │   │   │   │   ├── labelled-num-na.sav
+    │   │   │   │   │   ├── labelled-num.sav
+    │   │   │   │   │   ├── labelled-str.sav
+    │   │   │   │   │   └── umlauts.sav
+    │   │   │   │   ├── stata/
+    │   │   │   │   │   ├── stata1_119.dta.gz
+    │   │   │   │   │   ├── stata3.csv
+    │   │   │   │   │   ├── stata5.csv
+    │   │   │   │   │   └── stata6.csv
+    │   │   │   │   ├── tar/
+    │   │   │   │   │   └── test-csv.tar
+    │   │   │   │   └── xml/
+    │   │   │   │       ├── baby_names.xml
+    │   │   │   │       ├── books.xml
+    │   │   │   │       ├── cta_rail_lines.kml
+    │   │   │   │       ├── doc_ch_utf.xml
+    │   │   │   │       ├── flatten_doc.xsl
+    │   │   │   │       └── row_field_output.xsl
+    │   │   │   ├── excel/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_odf.py
+    │   │   │   │   ├── test_odswriter.py
+    │   │   │   │   ├── test_openpyxl.py
+    │   │   │   │   ├── test_readers.py
+    │   │   │   │   ├── test_style.py
+    │   │   │   │   ├── test_writers.py
+    │   │   │   │   ├── test_xlrd.py
+    │   │   │   │   └── test_xlsxwriter.py
+    │   │   │   ├── formats/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_console.py
+    │   │   │   │   ├── test_css.py
+    │   │   │   │   ├── test_eng_formatting.py
+    │   │   │   │   ├── test_format.py
+    │   │   │   │   ├── test_ipython_compat.py
+    │   │   │   │   ├── test_printing.py
+    │   │   │   │   ├── test_to_csv.py
+    │   │   │   │   ├── test_to_excel.py
+    │   │   │   │   ├── test_to_html.py
+    │   │   │   │   ├── test_to_latex.py
+    │   │   │   │   ├── test_to_markdown.py
+    │   │   │   │   ├── test_to_string.py
+    │   │   │   │   ├── data/
+    │   │   │   │   │   └── html/
+    │   │   │   │   │       ├── datetime64_hourformatter.html
+    │   │   │   │   │       ├── datetime64_monthformatter.html
+    │   │   │   │   │       ├── escape_disabled.html
+    │   │   │   │   │       ├── escaped.html
+    │   │   │   │   │       ├── gh12031_expected_output.html
+    │   │   │   │   │       ├── gh13828_expected_output.html
+    │   │   │   │   │       ├── gh14882_expected_output_1.html
+    │   │   │   │   │       ├── gh14882_expected_output_2.html
+    │   │   │   │   │       ├── gh14998_expected_output.html
+    │   │   │   │   │       ├── gh15019_expected_output.html
+    │   │   │   │   │       ├── gh21625_expected_output.html
+    │   │   │   │   │       ├── gh22270_expected_output.html
+    │   │   │   │   │       ├── gh22579_expected_output.html
+    │   │   │   │   │       ├── gh22783_expected_output.html
+    │   │   │   │   │       ├── gh22783_named_columns_index.html
+    │   │   │   │   │       ├── gh40024_expected_output.html
+    │   │   │   │   │       ├── gh47103_expected_output.html
+    │   │   │   │   │       ├── gh6131_expected_output.html
+    │   │   │   │   │       ├── gh8452_expected_output.html
+    │   │   │   │   │       ├── html_repr_max_rows_10_min_rows_12.html
+    │   │   │   │   │       ├── html_repr_max_rows_10_min_rows_4.html
+    │   │   │   │   │       ├── html_repr_max_rows_12_min_rows_None.html
+    │   │   │   │   │       ├── html_repr_max_rows_None_min_rows_12.html
+    │   │   │   │   │       ├── html_repr_min_rows_default_no_truncation.html
+    │   │   │   │   │       ├── html_repr_min_rows_default_truncated.html
+    │   │   │   │   │       ├── index_1.html
+    │   │   │   │   │       ├── index_2.html
+    │   │   │   │   │       ├── index_3.html
+    │   │   │   │   │       ├── index_4.html
+    │   │   │   │   │       ├── index_5.html
+    │   │   │   │   │       ├── index_formatter.html
+    │   │   │   │   │       ├── index_named_multi_columns_named_multi.html
+    │   │   │   │   │       ├── index_named_multi_columns_named_standard.html
+    │   │   │   │   │       ├── index_named_multi_columns_none.html
+    │   │   │   │   │       ├── index_named_multi_columns_unnamed_multi.html
+    │   │   │   │   │       ├── index_named_multi_columns_unnamed_standard.html
+    │   │   │   │   │       ├── index_named_standard_columns_named_multi.html
+    │   │   │   │   │       ├── index_named_standard_columns_named_standard.html
+    │   │   │   │   │       ├── index_named_standard_columns_none.html
+    │   │   │   │   │       ├── index_named_standard_columns_unnamed_multi.html
+    │   │   │   │   │       ├── index_named_standard_columns_unnamed_standard.html
+    │   │   │   │   │       ├── index_none_columns_named_multi.html
+    │   │   │   │   │       ├── index_none_columns_named_standard.html
+    │   │   │   │   │       ├── index_none_columns_none.html
+    │   │   │   │   │       ├── index_none_columns_unnamed_multi.html
+    │   │   │   │   │       ├── index_none_columns_unnamed_standard.html
+    │   │   │   │   │       ├── index_unnamed_multi_columns_named_multi.html
+    │   │   │   │   │       ├── index_unnamed_multi_columns_named_standard.html
+    │   │   │   │   │       ├── index_unnamed_multi_columns_none.html
+    │   │   │   │   │       ├── index_unnamed_multi_columns_unnamed_multi.html
+    │   │   │   │   │       ├── index_unnamed_multi_columns_unnamed_standard.html
+    │   │   │   │   │       ├── index_unnamed_standard_columns_named_multi.html
+    │   │   │   │   │       ├── index_unnamed_standard_columns_named_standard.html
+    │   │   │   │   │       ├── index_unnamed_standard_columns_none.html
+    │   │   │   │   │       ├── index_unnamed_standard_columns_unnamed_multi.html
+    │   │   │   │   │       ├── index_unnamed_standard_columns_unnamed_standard.html
+    │   │   │   │   │       ├── justify.html
+    │   │   │   │   │       ├── multiindex_1.html
+    │   │   │   │   │       ├── multiindex_2.html
+    │   │   │   │   │       ├── multiindex_sparsify_1.html
+    │   │   │   │   │       ├── multiindex_sparsify_2.html
+    │   │   │   │   │       ├── multiindex_sparsify_false_multi_sparse_1.html
+    │   │   │   │   │       ├── multiindex_sparsify_false_multi_sparse_2.html
+    │   │   │   │   │       ├── render_links_false.html
+    │   │   │   │   │       ├── render_links_true.html
+    │   │   │   │   │       ├── trunc_df_index_named_multi_columns_named_multi.html
+    │   │   │   │   │       ├── trunc_df_index_named_multi_columns_named_standard.html
+    │   │   │   │   │       ├── trunc_df_index_named_multi_columns_none.html
+    │   │   │   │   │       ├── trunc_df_index_named_multi_columns_unnamed_multi.html
+    │   │   │   │   │       ├── trunc_df_index_named_multi_columns_unnamed_standard.html
+    │   │   │   │   │       ├── trunc_df_index_named_standard_columns_named_multi.html
+    │   │   │   │   │       ├── trunc_df_index_named_standard_columns_named_standard.html
+    │   │   │   │   │       ├── trunc_df_index_named_standard_columns_none.html
+    │   │   │   │   │       ├── trunc_df_index_named_standard_columns_unnamed_multi.html
+    │   │   │   │   │       ├── trunc_df_index_named_standard_columns_unnamed_standard.html
+    │   │   │   │   │       ├── trunc_df_index_none_columns_named_multi.html
+    │   │   │   │   │       ├── trunc_df_index_none_columns_named_standard.html
+    │   │   │   │   │       ├── trunc_df_index_none_columns_none.html
+    │   │   │   │   │       ├── trunc_df_index_none_columns_unnamed_multi.html
+    │   │   │   │   │       ├── trunc_df_index_none_columns_unnamed_standard.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_multi_columns_named_multi.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_multi_columns_named_standard.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_multi_columns_none.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_multi_columns_unnamed_multi.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_multi_columns_unnamed_standard.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_standard_columns_named_multi.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_standard_columns_named_standard.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_standard_columns_none.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_standard_columns_unnamed_multi.html
+    │   │   │   │   │       ├── trunc_df_index_unnamed_standard_columns_unnamed_standard.html
+    │   │   │   │   │       ├── truncate.html
+    │   │   │   │   │       ├── truncate_formatter.html
+    │   │   │   │   │       ├── truncate_multi_index.html
+    │   │   │   │   │       ├── truncate_multi_index_sparse_off.html
+    │   │   │   │   │       ├── unicode_1.html
+    │   │   │   │   │       ├── unicode_2.html
+    │   │   │   │   │       ├── various_dtypes_formatted.html
+    │   │   │   │   │       └── with_classes.html
+    │   │   │   │   └── style/
+    │   │   │   │       ├── __init__.py
+    │   │   │   │       ├── test_bar.py
+    │   │   │   │       ├── test_exceptions.py
+    │   │   │   │       ├── test_format.py
+    │   │   │   │       ├── test_highlight.py
+    │   │   │   │       ├── test_html.py
+    │   │   │   │       ├── test_matplotlib.py
+    │   │   │   │       ├── test_non_unique.py
+    │   │   │   │       ├── test_style.py
+    │   │   │   │       ├── test_to_latex.py
+    │   │   │   │       ├── test_to_string.py
+    │   │   │   │       ├── test_to_typst.py
+    │   │   │   │       └── test_tooltip.py
+    │   │   │   ├── json/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── conftest.py
+    │   │   │   │   ├── test_compression.py
+    │   │   │   │   ├── test_deprecated_kwargs.py
+    │   │   │   │   ├── test_json_table_schema.py
+    │   │   │   │   ├── test_json_table_schema_ext_dtype.py
+    │   │   │   │   ├── test_normalize.py
+    │   │   │   │   ├── test_pandas.py
+    │   │   │   │   ├── test_readlines.py
+    │   │   │   │   ├── test_ujson.py
+    │   │   │   │   └── data/
+    │   │   │   │       ├── line_delimited.json
+    │   │   │   │       ├── teams.csv
+    │   │   │   │       ├── tsframe_iso_v012.json
+    │   │   │   │       └── tsframe_v012.json
+    │   │   │   ├── parser/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── conftest.py
+    │   │   │   │   ├── test_c_parser_only.py
+    │   │   │   │   ├── test_comment.py
+    │   │   │   │   ├── test_compression.py
+    │   │   │   │   ├── test_concatenate_chunks.py
+    │   │   │   │   ├── test_converters.py
+    │   │   │   │   ├── test_dialect.py
+    │   │   │   │   ├── test_encoding.py
+    │   │   │   │   ├── test_header.py
+    │   │   │   │   ├── test_index_col.py
+    │   │   │   │   ├── test_mangle_dupes.py
+    │   │   │   │   ├── test_multi_thread.py
+    │   │   │   │   ├── test_na_values.py
+    │   │   │   │   ├── test_network.py
+    │   │   │   │   ├── test_parse_dates.py
+    │   │   │   │   ├── test_python_parser_only.py
+    │   │   │   │   ├── test_quoting.py
+    │   │   │   │   ├── test_read_fwf.py
+    │   │   │   │   ├── test_skiprows.py
+    │   │   │   │   ├── test_textreader.py
+    │   │   │   │   ├── test_unsupported.py
+    │   │   │   │   ├── test_upcast.py
+    │   │   │   │   ├── common/
+    │   │   │   │   │   ├── __init__.py
+    │   │   │   │   │   ├── test_chunksize.py
+    │   │   │   │   │   ├── test_common_basic.py
+    │   │   │   │   │   ├── test_data_list.py
+    │   │   │   │   │   ├── test_decimal.py
+    │   │   │   │   │   ├── test_file_buffer_url.py
+    │   │   │   │   │   ├── test_float.py
+    │   │   │   │   │   ├── test_index.py
+    │   │   │   │   │   ├── test_inf.py
+    │   │   │   │   │   ├── test_ints.py
+    │   │   │   │   │   ├── test_iterator.py
+    │   │   │   │   │   └── test_read_errors.py
+    │   │   │   │   ├── data/
+    │   │   │   │   │   ├── items.jsonl
+    │   │   │   │   │   ├── salaries.csv
+    │   │   │   │   │   ├── salaries.csv.bz2
+    │   │   │   │   │   ├── salaries.csv.gz
+    │   │   │   │   │   ├── salaries.csv.xz
+    │   │   │   │   │   ├── salaries.csv.zst
+    │   │   │   │   │   ├── sauron.SHIFT_JIS.csv
+    │   │   │   │   │   ├── sub_char.csv
+    │   │   │   │   │   ├── tar_csv.tar
+    │   │   │   │   │   ├── tar_csv.tar.gz
+    │   │   │   │   │   ├── test2.csv
+    │   │   │   │   │   ├── test_mmap.csv
+    │   │   │   │   │   ├── unicode_series.csv
+    │   │   │   │   │   └── utf16_ex.txt
+    │   │   │   │   ├── dtypes/
+    │   │   │   │   │   ├── __init__.py
+    │   │   │   │   │   ├── test_categorical.py
+    │   │   │   │   │   ├── test_dtypes_basic.py
+    │   │   │   │   │   └── test_empty.py
+    │   │   │   │   └── usecols/
+    │   │   │   │       ├── __init__.py
+    │   │   │   │       ├── test_parse_dates.py
+    │   │   │   │       ├── test_strings.py
+    │   │   │   │       └── test_usecols_basic.py
+    │   │   │   ├── pytables/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── common.py
+    │   │   │   │   ├── conftest.py
+    │   │   │   │   ├── test_append.py
+    │   │   │   │   ├── test_categorical.py
+    │   │   │   │   ├── test_compat.py
+    │   │   │   │   ├── test_complex.py
+    │   │   │   │   ├── test_errors.py
+    │   │   │   │   ├── test_file_handling.py
+    │   │   │   │   ├── test_keys.py
+    │   │   │   │   ├── test_put.py
+    │   │   │   │   ├── test_pytables_missing.py
+    │   │   │   │   ├── test_read.py
+    │   │   │   │   ├── test_retain_attributes.py
+    │   │   │   │   ├── test_round_trip.py
+    │   │   │   │   ├── test_select.py
+    │   │   │   │   ├── test_store.py
+    │   │   │   │   ├── test_subclass.py
+    │   │   │   │   ├── test_time_series.py
+    │   │   │   │   └── test_timezones.py
+    │   │   │   ├── sas/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_byteswap.py
+    │   │   │   │   ├── test_sas.py
+    │   │   │   │   ├── test_sas7bdat.py
+    │   │   │   │   ├── test_xport.py
+    │   │   │   │   └── data/
+    │   │   │   │       ├── 0x00controlbyte.sas7bdat.bz2
+    │   │   │   │       ├── 0x40controlbyte.csv
+    │   │   │   │       ├── 0x40controlbyte.sas7bdat
+    │   │   │   │       ├── airline.csv
+    │   │   │   │       ├── airline.sas7bdat
+    │   │   │   │       ├── airline.sas7bdat.gz
+    │   │   │   │       ├── cars.sas7bdat
+    │   │   │   │       ├── corrupt.sas7bdat
+    │   │   │   │       ├── dates_null.sas7bdat
+    │   │   │   │       ├── datetime.csv
+    │   │   │   │       ├── datetime.sas7bdat
+    │   │   │   │       ├── DEMO_G.csv
+    │   │   │   │       ├── DEMO_PUF.cpt
+    │   │   │   │       ├── DRXFCD_G.csv
+    │   │   │   │       ├── load_log.sas7bdat
+    │   │   │   │       ├── many_columns.csv
+    │   │   │   │       ├── many_columns.sas7bdat
+    │   │   │   │       ├── max_sas_date.sas7bdat
+    │   │   │   │       ├── paxraw_d_short.csv
+    │   │   │   │       ├── productsales.csv
+    │   │   │   │       ├── productsales.sas7bdat
+    │   │   │   │       ├── SSHSV1_A.csv
+    │   │   │   │       ├── test1.sas7bdat
+    │   │   │   │       ├── test10.sas7bdat
+    │   │   │   │       ├── test11.sas7bdat
+    │   │   │   │       ├── test12.sas7bdat
+    │   │   │   │       ├── test13.sas7bdat
+    │   │   │   │       ├── test14.sas7bdat
+    │   │   │   │       ├── test15.sas7bdat
+    │   │   │   │       ├── test16.sas7bdat
+    │   │   │   │       ├── test2.sas7bdat
+    │   │   │   │       ├── test3.sas7bdat
+    │   │   │   │       ├── test4.sas7bdat
+    │   │   │   │       ├── test5.sas7bdat
+    │   │   │   │       ├── test6.sas7bdat
+    │   │   │   │       ├── test7.sas7bdat
+    │   │   │   │       ├── test8.sas7bdat
+    │   │   │   │       ├── test9.sas7bdat
+    │   │   │   │       ├── test_12659.csv
+    │   │   │   │       ├── test_12659.sas7bdat
+    │   │   │   │       ├── test_meta2_page.sas7bdat
+    │   │   │   │       ├── test_sas7bdat_1.csv
+    │   │   │   │       ├── test_sas7bdat_2.csv
+    │   │   │   │       ├── zero_rows.sas7bdat
+    │   │   │   │       └── zero_variables.sas7bdat
+    │   │   │   └── xml/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── conftest.py
+    │   │   │       ├── test_to_xml.py
+    │   │   │       ├── test_xml.py
+    │   │   │       └── test_xml_dtypes.py
+    │   │   ├── libs/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_hashtable.py
+    │   │   │   ├── test_join.py
+    │   │   │   ├── test_lib.py
+    │   │   │   └── test_libalgos.py
+    │   │   ├── plotting/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── common.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_backend.py
+    │   │   │   ├── test_boxplot_method.py
+    │   │   │   ├── test_common.py
+    │   │   │   ├── test_converter.py
+    │   │   │   ├── test_datetimelike.py
+    │   │   │   ├── test_groupby.py
+    │   │   │   ├── test_hist_method.py
+    │   │   │   ├── test_misc.py
+    │   │   │   ├── test_series.py
+    │   │   │   ├── test_style.py
+    │   │   │   └── frame/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_frame.py
+    │   │   │       ├── test_frame_color.py
+    │   │   │       ├── test_frame_groupby.py
+    │   │   │       ├── test_frame_legend.py
+    │   │   │       ├── test_frame_subplots.py
+    │   │   │       └── test_hist_box_by.py
+    │   │   ├── reductions/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_reductions.py
+    │   │   │   └── test_stat_reductions.py
+    │   │   ├── resample/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_base.py
+    │   │   │   ├── test_datetime_index.py
+    │   │   │   ├── test_period_index.py
+    │   │   │   ├── test_resample_api.py
+    │   │   │   ├── test_resampler_grouper.py
+    │   │   │   ├── test_time_grouper.py
+    │   │   │   └── test_timedelta.py
+    │   │   ├── reshape/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_crosstab.py
+    │   │   │   ├── test_cut.py
+    │   │   │   ├── test_from_dummies.py
+    │   │   │   ├── test_get_dummies.py
+    │   │   │   ├── test_melt.py
+    │   │   │   ├── test_pivot.py
+    │   │   │   ├── test_pivot_multilevel.py
+    │   │   │   ├── test_qcut.py
+    │   │   │   ├── test_union_categoricals.py
+    │   │   │   ├── concat/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_append.py
+    │   │   │   │   ├── test_append_common.py
+    │   │   │   │   ├── test_categorical.py
+    │   │   │   │   ├── test_concat.py
+    │   │   │   │   ├── test_dataframe.py
+    │   │   │   │   ├── test_datetimes.py
+    │   │   │   │   ├── test_empty.py
+    │   │   │   │   ├── test_index.py
+    │   │   │   │   ├── test_invalid.py
+    │   │   │   │   ├── test_series.py
+    │   │   │   │   └── test_sort.py
+    │   │   │   ├── data/
+    │   │   │   │   └── cut_data.csv
+    │   │   │   └── merge/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_join.py
+    │   │   │       ├── test_merge.py
+    │   │   │       ├── test_merge_antijoin.py
+    │   │   │       ├── test_merge_asof.py
+    │   │   │       ├── test_merge_cross.py
+    │   │   │       ├── test_merge_index_as_string.py
+    │   │   │       ├── test_merge_ordered.py
+    │   │   │       └── test_multi.py
+    │   │   ├── scalar/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_na_scalar.py
+    │   │   │   ├── test_nat.py
+    │   │   │   ├── interval/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_contains.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_interval.py
+    │   │   │   │   └── test_overlaps.py
+    │   │   │   ├── period/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_asfreq.py
+    │   │   │   │   └── test_period.py
+    │   │   │   ├── timedelta/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_arithmetic.py
+    │   │   │   │   ├── test_constructors.py
+    │   │   │   │   ├── test_formats.py
+    │   │   │   │   ├── test_timedelta.py
+    │   │   │   │   └── methods/
+    │   │   │   │       ├── __init__.py
+    │   │   │   │       ├── test_as_unit.py
+    │   │   │   │       └── test_round.py
+    │   │   │   └── timestamp/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_arithmetic.py
+    │   │   │       ├── test_comparisons.py
+    │   │   │       ├── test_constructors.py
+    │   │   │       ├── test_formats.py
+    │   │   │       ├── test_timestamp.py
+    │   │   │       ├── test_timezones.py
+    │   │   │       └── methods/
+    │   │   │           ├── __init__.py
+    │   │   │           ├── test_as_unit.py
+    │   │   │           ├── test_normalize.py
+    │   │   │           ├── test_replace.py
+    │   │   │           ├── test_round.py
+    │   │   │           ├── test_timestamp_method.py
+    │   │   │           ├── test_to_julian_date.py
+    │   │   │           ├── test_to_pydatetime.py
+    │   │   │           ├── test_tz_convert.py
+    │   │   │           └── test_tz_localize.py
+    │   │   ├── series/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_api.py
+    │   │   │   ├── test_arithmetic.py
+    │   │   │   ├── test_arrow_interface.py
+    │   │   │   ├── test_constructors.py
+    │   │   │   ├── test_cumulative.py
+    │   │   │   ├── test_formats.py
+    │   │   │   ├── test_iteration.py
+    │   │   │   ├── test_logical_ops.py
+    │   │   │   ├── test_missing.py
+    │   │   │   ├── test_npfuncs.py
+    │   │   │   ├── test_reductions.py
+    │   │   │   ├── test_subclass.py
+    │   │   │   ├── test_ufunc.py
+    │   │   │   ├── test_unary.py
+    │   │   │   ├── test_validate.py
+    │   │   │   ├── accessors/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_cat_accessor.py
+    │   │   │   │   ├── test_dt_accessor.py
+    │   │   │   │   ├── test_list_accessor.py
+    │   │   │   │   ├── test_sparse_accessor.py
+    │   │   │   │   ├── test_str_accessor.py
+    │   │   │   │   └── test_struct_accessor.py
+    │   │   │   ├── indexing/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_datetime.py
+    │   │   │   │   ├── test_delitem.py
+    │   │   │   │   ├── test_get.py
+    │   │   │   │   ├── test_getitem.py
+    │   │   │   │   ├── test_indexing.py
+    │   │   │   │   ├── test_mask.py
+    │   │   │   │   ├── test_set_value.py
+    │   │   │   │   ├── test_setitem.py
+    │   │   │   │   ├── test_take.py
+    │   │   │   │   ├── test_where.py
+    │   │   │   │   └── test_xs.py
+    │   │   │   └── methods/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_add_prefix_suffix.py
+    │   │   │       ├── test_align.py
+    │   │   │       ├── test_argsort.py
+    │   │   │       ├── test_asof.py
+    │   │   │       ├── test_astype.py
+    │   │   │       ├── test_autocorr.py
+    │   │   │       ├── test_between.py
+    │   │   │       ├── test_case_when.py
+    │   │   │       ├── test_clip.py
+    │   │   │       ├── test_combine.py
+    │   │   │       ├── test_combine_first.py
+    │   │   │       ├── test_compare.py
+    │   │   │       ├── test_convert_dtypes.py
+    │   │   │       ├── test_copy.py
+    │   │   │       ├── test_count.py
+    │   │   │       ├── test_cov_corr.py
+    │   │   │       ├── test_describe.py
+    │   │   │       ├── test_diff.py
+    │   │   │       ├── test_drop.py
+    │   │   │       ├── test_drop_duplicates.py
+    │   │   │       ├── test_dropna.py
+    │   │   │       ├── test_dtypes.py
+    │   │   │       ├── test_duplicated.py
+    │   │   │       ├── test_equals.py
+    │   │   │       ├── test_explode.py
+    │   │   │       ├── test_fillna.py
+    │   │   │       ├── test_get_numeric_data.py
+    │   │   │       ├── test_head_tail.py
+    │   │   │       ├── test_infer_objects.py
+    │   │   │       ├── test_info.py
+    │   │   │       ├── test_interpolate.py
+    │   │   │       ├── test_is_monotonic.py
+    │   │   │       ├── test_is_unique.py
+    │   │   │       ├── test_isin.py
+    │   │   │       ├── test_isna.py
+    │   │   │       ├── test_item.py
+    │   │   │       ├── test_map.py
+    │   │   │       ├── test_matmul.py
+    │   │   │       ├── test_nlargest.py
+    │   │   │       ├── test_nunique.py
+    │   │   │       ├── test_pct_change.py
+    │   │   │       ├── test_pop.py
+    │   │   │       ├── test_quantile.py
+    │   │   │       ├── test_rank.py
+    │   │   │       ├── test_reindex.py
+    │   │   │       ├── test_reindex_like.py
+    │   │   │       ├── test_rename.py
+    │   │   │       ├── test_rename_axis.py
+    │   │   │       ├── test_repeat.py
+    │   │   │       ├── test_replace.py
+    │   │   │       ├── test_reset_index.py
+    │   │   │       ├── test_round.py
+    │   │   │       ├── test_searchsorted.py
+    │   │   │       ├── test_set_name.py
+    │   │   │       ├── test_size.py
+    │   │   │       ├── test_sort_index.py
+    │   │   │       ├── test_sort_values.py
+    │   │   │       ├── test_to_csv.py
+    │   │   │       ├── test_to_dict.py
+    │   │   │       ├── test_to_frame.py
+    │   │   │       ├── test_to_numpy.py
+    │   │   │       ├── test_tolist.py
+    │   │   │       ├── test_truncate.py
+    │   │   │       ├── test_tz_localize.py
+    │   │   │       ├── test_unique.py
+    │   │   │       ├── test_unstack.py
+    │   │   │       ├── test_update.py
+    │   │   │       ├── test_value_counts.py
+    │   │   │       └── test_values.py
+    │   │   ├── strings/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_api.py
+    │   │   │   ├── test_case_justify.py
+    │   │   │   ├── test_cat.py
+    │   │   │   ├── test_extract.py
+    │   │   │   ├── test_find_replace.py
+    │   │   │   ├── test_get_dummies.py
+    │   │   │   ├── test_split_partition.py
+    │   │   │   ├── test_string_array.py
+    │   │   │   └── test_strings.py
+    │   │   ├── tools/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_to_datetime.py
+    │   │   │   ├── test_to_numeric.py
+    │   │   │   ├── test_to_time.py
+    │   │   │   └── test_to_timedelta.py
+    │   │   ├── tseries/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── frequencies/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_freq_code.py
+    │   │   │   │   ├── test_frequencies.py
+    │   │   │   │   └── test_inference.py
+    │   │   │   ├── holiday/
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   ├── test_calendar.py
+    │   │   │   │   ├── test_federal.py
+    │   │   │   │   ├── test_holiday.py
+    │   │   │   │   └── test_observance.py
+    │   │   │   └── offsets/
+    │   │   │       ├── __init__.py
+    │   │   │       ├── common.py
+    │   │   │       ├── test_business_day.py
+    │   │   │       ├── test_business_halfyear.py
+    │   │   │       ├── test_business_hour.py
+    │   │   │       ├── test_business_month.py
+    │   │   │       ├── test_business_quarter.py
+    │   │   │       ├── test_business_year.py
+    │   │   │       ├── test_common.py
+    │   │   │       ├── test_custom_business_day.py
+    │   │   │       ├── test_custom_business_hour.py
+    │   │   │       ├── test_custom_business_month.py
+    │   │   │       ├── test_dst.py
+    │   │   │       ├── test_easter.py
+    │   │   │       ├── test_fiscal.py
+    │   │   │       ├── test_halfyear.py
+    │   │   │       ├── test_index.py
+    │   │   │       ├── test_month.py
+    │   │   │       ├── test_offsets.py
+    │   │   │       ├── test_offsets_properties.py
+    │   │   │       ├── test_quarter.py
+    │   │   │       ├── test_ticks.py
+    │   │   │       ├── test_week.py
+    │   │   │       ├── test_year.py
+    │   │   │       └── data/
+    │   │   │           └── cday-0.14.1.pickle
+    │   │   ├── tslibs/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_api.py
+    │   │   │   ├── test_array_to_datetime.py
+    │   │   │   ├── test_ccalendar.py
+    │   │   │   ├── test_conversion.py
+    │   │   │   ├── test_fields.py
+    │   │   │   ├── test_libfrequencies.py
+    │   │   │   ├── test_liboffsets.py
+    │   │   │   ├── test_np_datetime.py
+    │   │   │   ├── test_npy_units.py
+    │   │   │   ├── test_parse_iso8601.py
+    │   │   │   ├── test_parsing.py
+    │   │   │   ├── test_period.py
+    │   │   │   ├── test_resolution.py
+    │   │   │   ├── test_strptime.py
+    │   │   │   ├── test_timedeltas.py
+    │   │   │   ├── test_timezones.py
+    │   │   │   ├── test_to_offset.py
+    │   │   │   └── test_tzconversion.py
+    │   │   ├── util/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── conftest.py
+    │   │   │   ├── test_assert_almost_equal.py
+    │   │   │   ├── test_assert_attr_equal.py
+    │   │   │   ├── test_assert_categorical_equal.py
+    │   │   │   ├── test_assert_extension_array_equal.py
+    │   │   │   ├── test_assert_frame_equal.py
+    │   │   │   ├── test_assert_index_equal.py
+    │   │   │   ├── test_assert_interval_array_equal.py
+    │   │   │   ├── test_assert_numpy_array_equal.py
+    │   │   │   ├── test_assert_produces_warning.py
+    │   │   │   ├── test_assert_series_equal.py
+    │   │   │   ├── test_deprecate.py
+    │   │   │   ├── test_deprecate_kwarg.py
+    │   │   │   ├── test_deprecate_nonkeyword_arguments.py
+    │   │   │   ├── test_doc.py
+    │   │   │   ├── test_hashing.py
+    │   │   │   ├── test_numba.py
+    │   │   │   ├── test_rewrite_warning.py
+    │   │   │   ├── test_shares_memory.py
+    │   │   │   ├── test_show_versions.py
+    │   │   │   ├── test_util.py
+    │   │   │   ├── test_validate_args.py
+    │   │   │   ├── test_validate_args_and_kwargs.py
+    │   │   │   ├── test_validate_inclusive.py
+    │   │   │   └── test_validate_kwargs.py
+    │   │   └── window/
+    │   │       ├── __init__.py
+    │   │       ├── conftest.py
+    │   │       ├── test_api.py
+    │   │       ├── test_apply.py
+    │   │       ├── test_base_indexer.py
+    │   │       ├── test_cython_aggregations.py
+    │   │       ├── test_dtypes.py
+    │   │       ├── test_ewm.py
+    │   │       ├── test_expanding.py
+    │   │       ├── test_groupby.py
+    │   │       ├── test_numba.py
+    │   │       ├── test_online.py
+    │   │       ├── test_pairwise.py
+    │   │       ├── test_rolling.py
+    │   │       ├── test_rolling_functions.py
+    │   │       ├── test_rolling_quantile.py
+    │   │       ├── test_rolling_skew_kurt.py
+    │   │       ├── test_timeseries_window.py
+    │   │       ├── test_win_type.py
+    │   │       └── moments/
+    │   │           ├── __init__.py
+    │   │           ├── conftest.py
+    │   │           ├── test_moments_consistency_ewm.py
+    │   │           ├── test_moments_consistency_expanding.py
+    │   │           └── test_moments_consistency_rolling.py
+    │   ├── tseries/
+    │   │   ├── __init__.py
+    │   │   ├── api.py
+    │   │   ├── frequencies.py
+    │   │   ├── holiday.py
+    │   │   └── offsets.py
+    │   └── util/
+    │       ├── __init__.py
+    │       ├── _decorators.py
+    │       ├── _doctools.py
+    │       ├── _exceptions.py
+    │       ├── _print_versions.py
+    │       ├── _test_decorators.py
+    │       ├── _tester.py
+    │       ├── _validators.py
+    │       └── version/
+    │           └── __init__.py
+    ├── scripts/
+    │   ├── __init__.py
+    │   ├── check_for_inconsistent_pandas_namespace.py
+    │   ├── check_test_naming.py
+    │   ├── cibw_before_build.sh
+    │   ├── download_wheels.sh
+    │   ├── generate_pip_deps_from_conda.py
+    │   ├── pandas_errors_documented.py
+    │   ├── run_stubtest.py
+    │   ├── run_vulture.py
+    │   ├── sort_whatsnew_note.py
+    │   ├── validate_docstrings.py
+    │   ├── validate_exception_location.py
+    │   ├── validate_min_versions_in_sync.py
+    │   ├── validate_rst_title_capitalization.py
+    │   ├── validate_unwanted_patterns.py
+    │   └── tests/
+    │       ├── __init__.py
+    │       ├── conftest.py
+    │       ├── test_check_test_naming.py
+    │       ├── test_inconsistent_namespace_check.py
+    │       ├── test_sort_whatsnew_note.py
+    │       ├── test_validate_docstrings.py
+    │       ├── test_validate_exception_location.py
+    │       ├── test_validate_min_versions_in_sync.py
+    │       ├── test_validate_unwanted_patterns.py
+    │       └── data/
+    │           ├── deps_expected_duplicate_package.yaml
+    │           ├── deps_expected_no_version.yaml
+    │           ├── deps_expected_random.yaml
+    │           ├── deps_expected_range.yaml
+    │           ├── deps_expected_same_version.yaml
+    │           ├── deps_minimum.toml
+    │           ├── deps_unmodified_duplicate_package.yaml
+    │           ├── deps_unmodified_no_version.yaml
+    │           ├── deps_unmodified_random.yaml
+    │           ├── deps_unmodified_range.yaml
+    │           └── deps_unmodified_same_version.yaml
+    ├── typings/
+    │   └── numba.pyi
+    ├── web/
+    │   ├── README.md
+    │   ├── pandas_web.py
+    │   ├── interactive_terminal/
+    │   │   ├── README.md
+    │   │   ├── jupyter-lite.json
+    │   │   └── jupyter_lite_config.json
+    │   ├── pandas/
+    │   │   ├── config.yml
+    │   │   ├── contribute.md
+    │   │   ├── getting_started.md
+    │   │   ├── index.html
+    │   │   ├── robots.txt
+    │   │   ├── try.md
+    │   │   ├── versions.json
+    │   │   ├── _templates/
+    │   │   │   └── layout.html
+    │   │   ├── about/
+    │   │   │   ├── citing.md
+    │   │   │   ├── governance.md
+    │   │   │   ├── index.md
+    │   │   │   ├── roadmap.md
+    │   │   │   ├── sponsors.md
+    │   │   │   └── team.md
+    │   │   ├── community/
+    │   │   │   ├── benchmarks.md
+    │   │   │   ├── coc.md
+    │   │   │   ├── ecosystem.md
+    │   │   │   └── blog/
+    │   │   │       ├── 2019-user-survey.md
+    │   │   │       ├── asv-pandas-grant.md
+    │   │   │       ├── extension-arrays.md
+    │   │   │       ├── index.html
+    │   │   │       └── pandas-1.0.md
+    │   │   ├── pdeps/
+    │   │   │   ├── 0001-purpose-and-guidelines.md
+    │   │   │   ├── 0004-consistent-to-datetime-parsing.md
+    │   │   │   ├── 0005-no-default-index-mode.md
+    │   │   │   ├── 0006-ban-upcasting.md
+    │   │   │   ├── 0007-copy-on-write.md
+    │   │   │   ├── 0008-inplace-methods-in-pandas.md
+    │   │   │   ├── 0009-io-extensions.md
+    │   │   │   ├── 0010-required-pyarrow-dependency.md
+    │   │   │   ├── 0012-compact-and-reversible-JSON-interface.md
+    │   │   │   ├── 0014-string-dtype.md
+    │   │   │   └── 0017-backwards-compatibility-and-deprecation-policy.md
+    │   │   └── static/
+    │   │       └── css/
+    │   │           ├── codehilite.css
+    │   │           └── pandas.css
+    │   └── tests/
+    │       └── test_pandas_web.py
+    └── .github/
+        ├── CODEOWNERS
+        ├── dependabot.yml
+        ├── PULL_REQUEST_TEMPLATE.md
+        ├── actions/
+        │   ├── build_pandas/
+        │   │   └── action.yml
+        │   ├── run-tests/
+        │   │   └── action.yml
+        │   └── setup-conda/
+        │       └── action.yml
+        ├── ISSUE_TEMPLATE/
+        │   ├── bug_report.yaml
+        │   ├── documentation_improvement.yaml
+        │   ├── feature_request.yaml
+        │   ├── installation_issue.yaml
+        │   ├── pdep_vote.yaml
+        │   ├── performance_issue.yaml
+        │   └── submit_question.yml
+        └── workflows/
+            ├── broken-linkcheck.yml
+            ├── cache-cleanup-daily.yml
+            ├── cache-cleanup.yml
+            ├── code-checks.yml
+            ├── codeql.yml
+            ├── comment-commands.yml
+            ├── deprecation-tracking-bot.yml
+            ├── docbuild-and-upload.yml
+            ├── package-checks.yml
+            ├── stale-pr.yml
+            ├── unit-tests.yml
+            └── wheels.yml

@@ -1,0 +1,5 @@
+Repository: pallets/click
+Commit: 2a0e3ba907927ade6951d5732b775f11b54cb766
+Files analyzed: 135
+
+Estimated tokens: 257.2k

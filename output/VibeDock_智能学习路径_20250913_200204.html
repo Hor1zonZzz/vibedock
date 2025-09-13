@@ -1,0 +1,958 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeDock 智能学习路径报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-green: #059669;
+            --secondary-gray: #64748b;
+            --bg-gray: #f8fafc;
+            --warning-red: #dc2626;
+            --purple-accent: #7c3aed;
+            --white: #ffffff;
+            --border-light: #e5e7eb;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            color: #1f2937;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-sm) var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--purple-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timestamp {
+            color: var(--secondary-gray);
+            font-size: 0.875rem;
+        }
+
+        /* 侧边导航 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 260px;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-md);
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: block;
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            color: var(--secondary-gray);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-gray);
+            color: var(--primary-blue);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary-blue), var(--purple-accent));
+            color: var(--white);
+        }
+
+        /* 主内容区 */
+        .main-container {
+            margin-left: 260px;
+            margin-top: 80px;
+            padding: var(--spacing-lg);
+            max-width: 1140px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: #1f2937;
+        }
+
+        /* 技能差距分析 */
+        .gap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .gap-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gap-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--purple-accent));
+        }
+
+        .gap-card.high::before {
+            background: var(--warning-red);
+        }
+
+        .gap-card.medium::before {
+            background: #f59e0b;
+        }
+
+        .gap-card.low::before {
+            background: var(--primary-green);
+        }
+
+        .gap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .priority-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: #fee2e2;
+            color: var(--warning-red);
+        }
+
+        .priority-medium {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .priority-low {
+            background: #d1fae5;
+            color: var(--primary-green);
+        }
+
+        /* 学习资源卡片 */
+        .resource-grid {
+            display: grid;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .resource-item {
+            background: var(--bg-gray);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: #e5e7eb;
+            transform: translateX(4px);
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .resource-desc {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+        }
+
+        /* 按钮样式 */
+        .btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--purple-accent));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-gray);
+            color: var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* 进度环 */
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto var(--spacing-sm);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* 技术栈标签 */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+        }
+
+        .tech-tag {
+            padding: 6px 12px;
+            background: var(--bg-gray);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .tech-tag.primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--purple-accent));
+            color: var(--white);
+            border: none;
+        }
+
+        /* 时间线 */
+        .timeline {
+            position: relative;
+            padding-left: var(--spacing-lg);
+            margin-top: var(--spacing-md);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--primary-blue);
+        }
+
+        .timeline-content {
+            background: var(--bg-gray);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--secondary-gray);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: var(--spacing-md);
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--purple-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--secondary-gray);
+            font-size: 0.875rem;
+            margin-top: var(--spacing-xs);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-container {
+                margin-left: 0;
+                padding: var(--spacing-sm);
+            }
+            
+            .gap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+                    <path d="M16 8L22 14L16 20L10 14L16 8Z" fill="white"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#2563eb"/>
+                            <stop offset="1" stop-color="#7c3aed"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                VibeDock 智能学习路径报告
+            </div>
+            <div class="timestamp">生成时间：2024年12月20日 14:30</div>
+        </div>
+    </header>
+
+    <!-- 侧边导航 -->
+    <nav class="sidebar">
+        <a href="#overview" class="nav-item active">📊 总览</a>
+        <a href="#gap-analysis" class="nav-item">🎯 技能差距分析</a>
+        <a href="#learning-path" class="nav-item">📚 学习路径推荐</a>
+        <a href="#tech-stack" class="nav-item">💻 技术栈洞察</a>
+        <a href="#timeline" class="nav-item">📅 30天学习计划</a>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-container">
+        <!-- 总览部分 -->
+        <section id="overview" class="fade-in">
+            <div class="card">
+                <h2 class="card-title">📊 学习目标总览</h2>
+                <p style="color: var(--secondary-gray); margin-bottom: var(--spacing-md);">
+                    基于您的学习目标：理解项目工作原理，我们为您生成了个性化的学习路径。您在大部分核心技术上有扎实的基础，但在CLI框架和界面展示方面存在关键差距。
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">关键技能差距</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">15</div>
+                        <div class="stat-label">项目技术栈</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">30天</div>
+                        <div class="stat-label">建议学习周期</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">推荐学习资源</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能差距分析 -->
+        <section id="gap-analysis" class="fade-in">
+            <div class="card">
+                <h2 class="card-title">🎯 技能差距分析</h2>
+                <div class="chart-container">
+                    <canvas id="skillRadar"></canvas>
+                </div>
+                
+                <div class="gap-grid">
+                    <!-- Click CLI Framework -->
+                    <div class="gap-card high">
+                        <div class="gap-header">
+                            <h3>Click CLI 框架</h3>
+                            <span class="priority-badge priority-high">高优先级</span>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-bottom: var(--spacing-xs);">
+                            当前水平：无基础 | 需求水平：中级
+                        </p>
+                        <p style="font-size: 0.875rem; margin-bottom: var(--spacing-sm);">
+                            Click是项目第二常用库（11次使用），构成CLI界面的骨架。不理解Click将难以理解用户交互流程。
+                        </p>
+                        <div class="progress-ring">
+                            <svg width="120" height="120">
+                                <circle cx="60" cy="60" r="54" stroke="#fee2e2" stroke-width="8" fill="none"/>
+                                <circle class="progress-ring-circle" cx="60" cy="60" r="54" 
+                                        stroke="#dc2626" stroke-width="8" fill="none"
+                                        stroke-dasharray="339.292" stroke-dashoffset="305"/>
+                            </svg>
+                            <div style="margin-top: -80px; text-align: center; font-size: 1.5rem; font-weight: 700; color: var(--warning-red);">10%</div>
+                        </div>
+                    </div>
+
+                    <!-- Rich Library -->
+                    <div class="gap-card high">
+                        <div class="gap-header">
+                            <h3>Rich 可视化库</h3>
+                            <span class="priority-badge priority-high">高优先级</span>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-bottom: var(--spacing-xs);">
+                            当前水平：基础 | 需求水平：中级
+                        </p>
+                        <p style="font-size: 0.875rem; margin-bottom: var(--spacing-sm);">
+                            Rich是最常用库（23次使用），用于创建项目用户界面。您需要掌握Table、Panel、Text格式化等高级功能。
+                        </p>
+                        <div class="progress-ring">
+                            <svg width="120" height="120">
+                                <circle cx="60" cy="60" r="54" stroke="#fee2e2" stroke-width="8" fill="none"/>
+                                <circle class="progress-ring-circle" cx="60" cy="60" r="54" 
+                                        stroke="#dc2626" stroke-width="8" fill="none"
+                                        stroke-dasharray="339.292" stroke-dashoffset="237"/>
+                            </svg>
+                            <div style="margin-top: -80px; text-align: center; font-size: 1.5rem; font-weight: 700; color: var(--warning-red);">30%</div>
+                        </div>
+                    </div>
+
+                    <!-- Project Architecture -->
+                    <div class="gap-card medium">
+                        <div class="gap-header">
+                            <h3>项目架构理解</h3>
+                            <span class="priority-badge priority-medium">中优先级</span>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-bottom: var(--spacing-xs);">
+                            当前水平：无了解 | 需求水平：基础
+                        </p>
+                        <p style="font-size: 0.875rem; margin-bottom: var(--spacing-sm);">
+                            项目使用自定义模块形成处理管道。理解其交互对于理解整体工作流程至关重要。
+                        </p>
+                        <div class="progress-ring">
+                            <svg width="120" height="120">
+                                <circle cx="60" cy="60" r="54" stroke="#fed7aa" stroke-width="8" fill="none"/>
+                                <circle class="progress-ring-circle" cx="60" cy="60" r="54" 
+                                        stroke="#f59e0b" stroke-width="8" fill="none"
+                                        stroke-dasharray="339.292" stroke-dashoffset="339"/>
+                            </svg>
+                            <div style="margin-top: -80px; text-align: center; font-size: 1.5rem; font-weight: 700; color: #f59e0b;">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习路径推荐 -->
+        <section id="learning-path" class="fade-in">
+            <div class="card">
+                <h2 class="card-title">📚 智能学习路径推荐</h2>
+                
+                <!-- Click CLI 学习资源 -->
+                <div style="margin-top: var(--spacing-md);">
+                    <h3 style="color: var(--warning-red); margin-bottom: var(--spacing-sm);">🔴 Click CLI 框架学习资源</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">Click 官方快速入门</div>
+                                <div class="resource-desc">掌握@click.command()、@click.group()、@click.option()装饰器</div>
+                            </div>
+                            <a href="https://click.palletsprojects.com/en/8.1.x/quickstart/" target="_blank" class="btn btn-primary">
+                                开始学习 →
+                            </a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">项目CLI源码分析</div>
+                                <div class="resource-desc">研究vibehacks\cli.py文件，理解命令结构</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="alert('请在本地项目中查看 vibehacks/cli.py 文件')">
+                                查看源码 →
+                            </button>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">Click实战教程视频</div>
+                                <div class="resource-desc">通过视频教程快速掌握Click框架核心概念</div>
+                            </div>
+                            <a href="https://www.youtube.com/watch?v=kNke39OZ2k0" target="_blank" class="btn btn-primary">
+                                观看视频 →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rich Library 学习资源 -->
+                <div style="margin-top: var(--spacing-lg);">
+                    <h3 style="color: var(--warning-red); margin-bottom: var(--spacing-sm);">🔴 Rich 可视化库学习资源</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">Rich Tables 文档</div>
+                                <div class="resource-desc">学习Table API，包括ROUNDED、SIMPLE等box样式</div>
+                            </div>
+                            <a href="https://rich.readthedocs.io/en/stable/tables.html" target="_blank" class="btn btn-primary">
+                                开始学习 →
+                            </a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">Rich Panel与格式化</div>
+                                <div class="resource-desc">掌握Panel和Text类的高级格式化输出</div>
+                            </div>
+                            <a href="https://rich.readthedocs.io/en/stable/panel.html" target="_blank" class="btn btn-primary">
+                                开始学习 →
+                            </a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">Rich GitHub示例库</div>
+                                <div class="resource-desc">通过实际示例学习Rich的各种用法</div>
+                            </div>
+                            <a href="https://github.com/Textualize/rich/tree/master/examples" target="_blank" class="btn btn-primary">
+                                查看示例 →
+                            </a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">项目Rich使用分析</div>
+                                <div class="resource-desc">分析stage1_processor.py和tech_stack_questionnaire.py中的Rich模式</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="alert('请查看项目中的 stage1_processor.py 文件')">
+                                查看源码 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目架构学习资源 -->
+                <div style="margin-top: var(--spacing-lg);">
+                    <h3 style="color: #f59e0b; margin-bottom: var(--spacing-sm);">🟡 项目架构理解资源</h3>
+                    <div class="resource-grid">
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">数据流程图绘制</div>
+                                <div class="resource-desc">绘制CLI → stage1 → stage2 → analyzer → reporter流程图</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="alert('建议使用draw.io或其他流程图工具绘制')">
+                                开始绘制 →
+                            </button>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">模块功能文档</div>
+                                <div class="resource-desc">阅读每个模块的主要函数，理解其职责</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="alert('请逐个查看项目模块文件')">
+                                查看文档 →
+                            </button>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-info">
+                                <div class="resource-title">命令执行追踪</div>
+                                <div class="resource-desc">追踪单个命令在整个管道中的执行过程</div>
+                            </div>
+                            <button class="btn btn-primary" onclick="alert('使用调试器逐步追踪命令执行')">
+                                开始调试 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术栈洞察 -->
+        <section id="tech-stack" class="fade-in">
+            <div class="card">
+                <h2 class="card-title">💻 项目技术栈洞察</h2>
+                <p style="color: var(--secondary-gray); margin-bottom: var(--spacing-md);">
+                    项目共使用15个第三方包，总计63次调用。以下是核心技术栈分析：
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="techChart"></canvas>
+                </div>
+                
+                <h3 style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">核心技术标签</h3>
+                <div class="tech-tags">
+                    <span class="tech-tag primary">Rich (23次)</span>
+                    <span class="tech-tag primary">Click (11次)</span>
+                    <span class="tech-tag primary">AST (9次)</span>
+                    <span class="tech-tag">python-dotenv (4次)</span>
+                    <span class="tech-tag">OpenAI API (4次)</span>
+                    <span class="tech-tag">pandas (3次)</span>
+                    <span class="tech-tag">gitingest (1次)</span>
+                    <span class="tech-tag">webbrowser</span>
+                    <span class="tech-tag">fileprocess</span>
+                    <span class="tech-tag">stage1_processor</span>
+                    <span class="tech-tag">stage2_processor</span>
+                    <span class="tech-tag">analyzer</span>
+                    <span class="tech-tag">reporter</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 30天学习计划 -->
+        <section id="timeline" class="fade-in">
+            <div class="card">
+                <h2 class="card-title">📅 30天学习计划</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">第1-5天</div>
+                            <div class="timeline-title">Click CLI框架基础</div>
+                            <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-top: var(--spacing-xs);">
+                                学习Click装饰器模式，理解命令、组、选项和参数的使用
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">第6-10天</div>
+                            <div class="timeline-title">Click实战练习</div>
+                            <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-top: var(--spacing-xs);">
+                                创建多命令CLI应用，研究项目cli.py文件
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">第11-15天</div>
+                            <div class="timeline-title">Rich库基础学习</div>
+                            <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-top: var(--spacing-xs);">
+                                掌握Table、Panel、Text格式化，学习各种box样式
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">第16-20天</div>
+                            <div class="timeline-title">Rich高级特性</div>
+                            <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-top: var(--spacing-xs);">
+                                学习Prompt.ask()交互方法，研究项目中的Rich使用模式
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">第21-25天</div>
+                            <div class="timeline-title">项目架构深入理解</div>
+                            <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-top: var(--spacing-xs);">
+                                绘制数据流程图，理解两阶段处理管道和组件交互
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">第26-30天</div>
+                            <div class="timeline-title">综合实践与总结</div>
+                            <p style="font-size: 0.875rem; color: var(--secondary-gray); margin-top: var(--spacing-xs);">
+                                追踪完整命令执行流程，编写项目文档，巩固所学知识
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 技能雷达图
+        const radarCtx = document.getElementById('skillRadar').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Click CLI', 'Rich库', 'AST', 'OpenAI API', 'pandas', '项目架构'],
+                datasets: [{
+                    label: '当前水平',
+                    data: [10, 30, 90, 85, 90, 0],
+                    borderColor: '#dc2626',
+                    backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                    pointBackgroundColor: '#dc2626',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#dc2626'
+                }, {
+                    label: '需求水平',
+                    data: [70, 70, 60, 60, 50, 60],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    pointBackgroundColor: '#2563eb',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#2563eb'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // 技术栈使用频率图
+        const techCtx = document.getElementById('techChart').getContext('2d');
+        new Chart(techCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rich', 'Click', 'AST', 'dotenv', 'OpenAI', 'pandas', '其他'],
+                datasets: [{
+                    label: '使用次数',
+                    data: [23, 11, 9, 4, 4, 3, 9],
+                    backgroundColor: [
+                        'rgba(37, 99, 235, 0.8)',
+                        'rgba(124, 58, 237, 0.8)',
+                        'rgba(5, 150, 105, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(220, 38, 38, 0.8)',
+                        'rgba(100, 116, 139, 0.8)',
+                        'rgba(156, 163, 175, 0.8)'
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // 滚动时更新导航状态
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').substring(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+```

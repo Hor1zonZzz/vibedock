@@ -1,0 +1,5 @@
+Repository: pandas-dev/pandas
+Commit: cc40732889b59d0ebd867b087691f02221e5666c
+Files analyzed: 2371
+
+Estimated tokens: 8.2M

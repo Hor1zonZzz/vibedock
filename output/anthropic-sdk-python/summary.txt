@@ -1,0 +1,5 @@
+Repository: anthropics/anthropic-sdk-python
+Commit: f31b3a2c750429e211af7a1d7bb4b8fc61caedd3
+Files analyzed: 454
+
+Estimated tokens: 562.3k

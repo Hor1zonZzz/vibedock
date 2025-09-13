@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vibehacks"
+version = "0.1.0"
+description = "Codebase analysis tool for Python projects"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ast-tools>=0.1.0",
+    "click>=8.0.0",
+    "rich>=13.0.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "google-adk>=1.14.0",
+    "gitingest>=0.3.1",
+    "anthropic>=0.67.0",
+    "openai>=1.107.2",
+    "pydantic>=2.11.8",
+    "python-dotenv>=1.1.1",
+
+]
+
+[tool.setuptools.packages.find]
+include = ["analyzer*", "reporter*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0"
+]
+
+[project.scripts]
+vibehacks = "vibehacks.cli:main"

@@ -1,0 +1,5 @@
+Repository: openai/openai-python
+Commit: 4756247cee3d9548397b26a29109e76cc9522379
+Files analyzed: 1080
+
+Estimated tokens: 971.7k

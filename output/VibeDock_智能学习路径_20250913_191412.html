@@ -1,0 +1,556 @@
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeDock 智能学习路径报告</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary: #1e293b;
+            --primary-light: #334155;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-gold: #f59e0b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --border-radius: 12px;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .priority-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .priority-high {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .priority-medium {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .priority-low {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .gap-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gap-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .gap-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .gap-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .gap-description {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease-in-out;
+        }
+
+        .resources-list {
+            margin-top: 15px;
+        }
+
+        .resource-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .resource-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .resource-type {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .btn-outline:hover {
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .tech-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .tech-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .tech-count {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .action-plan {
+            margin-top: 40px;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--accent-cyan);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-date {
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .export-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tech-stack-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="fade-in">
+            <h1>VibeDock 智能学习路径报告</h1>
+            <p class="subtitle">基于AI驱动的个性化技能差距分析与学习规划</p>
+        </header>
+
+        <section class="dashboard-grid">
+            <div class="card fade-in">
+                <div class="card-header">
+                    <h2 class="card-title">技能掌握概览</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="skillsRadarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card fade-in">
+                <div class="card-header">
+                    <h2 class="card-title">技术栈分析</h2>
+                </div>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">
+                        <div class="tech-name">Rich</div>
+                        <div class="tech-count">23</div>
+                        <div class="tech-desc">使用次数</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">Click</div>
+                        <div class="tech-count">11</div>
+                        <div class="tech-desc">使用次数</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">AST</div>
+                        <div class="tech-count">9</div>
+                        <div class="tech-desc">使用次数</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-name">OpenAI</div>
+                        <div class="tech-count">4</div>
+                        <div class="tech-desc">使用次数</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card fade-in">
+            <div class="card-header">
+                <h2 class="card-title">个性化技能差距分析</h2>
+            </div>
+            
+            <div class="gap-item">
+                <div class="gap-title">
+                    <span class="gap-icon">🔴</span>
+                    CLI Framework (Click)
+                </div>
+                <span class="priority-badge priority-high">高优先级</span>
+                
+                <div class="gap-description">
+                    当前水平：对Click功能和模式了解有限 | 需要达到：理解命令结构、装饰器和输出处理
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>掌握进度</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%; background: var(--danger);"></div>
+                    </div>
+                </div>
+                
+                <h3>推荐学习资源：</h3>
+                <div class="resources-list">
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-title">Click官方文档</div>
+                            <div class="resource-type">官方文档</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.open('https://click.palletsprojects.com/', '_blank')">开始学习</button>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-title">Python CLI开发实战教程</div>
+                            <div class="resource-type">视频教程</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.open('https://realpython.com/command-line-interfaces-python-click/', '_blank')">开始学习</button>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-title">创建简单CLI工具项目</div>
+                            <div class="resource-type">实战项目</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.open('https://github.com/pallets/click/tree/main/examples', '_blank')">开始学习</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gap-item">
+                <div class="gap-title">
+                    <span class="gap-icon">🔴</span>
+                    Code Analysis (AST Module)
+                </div>
+                <span class="priority-badge priority-high">高优先级</span>
+                
+                <div class="gap-description">
+                    当前水平：不熟悉AST解析概念 | 需要达到：理解AST节点类型和遍历进行代码分析
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>掌握进度</span>
+                        <span>20%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%; background: var(--danger);"></div>
+                    </div>
+                </div>
+                
+                <h3>推荐学习资源：</h3>
+                <div class="resources-list">
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-title">Python AST模块官方文档</div>
+                            <div class="resource-type">官方文档</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.open('https://docs.python.org/3/library/ast.html', '_blank')">开始学习</button>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-title">AST代码分析实战教程</div>
+                            <div class="resource-type">视频教程</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.open('https://greentreesnakes.readthedocs.io/', '_blank')">开始学习</button>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <div class="resource-title">代码分析器实现项目</div>
+                            <div class="resource-type">实战项目</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.open('https://github.com/python/cpython/tree/main/Lib/ast', '_blank')">开始学习</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gap-item">
+                <div class="gap-title">
+                    <span class="gap-icon">🟡</span>
+                    Console UI (Rich Library)
+                </div>
+                <span class="priority-badge priority-medium">中优先级</span>
+                
+                <div class="gap-description">
+                    当前水平：对Rich组件有基本了解 | 需要达到：理解表格创建、样式和交互提示
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>掌握进度
