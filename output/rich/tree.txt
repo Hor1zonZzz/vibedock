@@ -1,0 +1,519 @@
+Directory structure:
+└── textualize-rich/
+    ├── README.cn.md
+    ├── README.de-ch.md
+    ├── README.de.md
+    ├── README.es.md
+    ├── README.fa.md
+    ├── README.fr.md
+    ├── README.hi.md
+    ├── README.id.md
+    ├── README.it.md
+    ├── README.ja.md
+    ├── README.kr.md
+    ├── README.md
+    ├── README.pl.md
+    ├── README.pt-br.md
+    ├── README.ru.md
+    ├── README.sv.md
+    ├── README.tr.md
+    ├── README.zh-tw.md
+    ├── asv.conf.json
+    ├── asvhashfile
+    ├── CHANGELOG.md
+    ├── CODE_OF_CONDUCT.md
+    ├── CONTRIBUTING.md
+    ├── CONTRIBUTORS.md
+    ├── FAQ.md
+    ├── faq.yml
+    ├── LICENSE
+    ├── make.bat
+    ├── Makefile
+    ├── pyproject.toml
+    ├── SECURITY.md
+    ├── setup.py
+    ├── tox.ini
+    ├── .coveragerc
+    ├── .pre-commit-config.yaml
+    ├── .readthedocs.yml
+    ├── assets/
+    │   ├── logo.ai
+    │   └── logo.txt
+    ├── benchmarks/
+    │   ├── README.md
+    │   ├── __init__.py
+    │   ├── benchmarks.py
+    │   ├── snippets.py
+    │   └── results/
+    │       ├── benchmarks.json
+    │       └── darrenburns-2022-mbp/
+    │           ├── 008854c4-virtualenv-py3.10.json
+    │           ├── 03392a1b-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 038e22eb-virtualenv-py3.10.json
+    │           ├── 03a52134-virtualenv-py3.10.json
+    │           ├── 06922006-virtualenv-py3.10.json
+    │           ├── 06aa1271-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 07d51ffc-virtualenv-py3.10.json
+    │           ├── 0a3fcb9c-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 0ac4e308-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 0d2aeb75-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 0d69004c-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 0db0cbd0-virtualenv-py3.10.json
+    │           ├── 0e8df8cd-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 0fd6bc56-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 11c00224-virtualenv-py3.10.json
+    │           ├── 11c305e1-virtualenv-py3.10.json
+    │           ├── 1442dd77-virtualenv-py3.10.json
+    │           ├── 15623c5a-virtualenv-py3.10.json
+    │           ├── 177958c5-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 189a2a3f-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 19e26c94-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 1cdcd1ae-virtualenv-py3.10.json
+    │           ├── 1daa1771-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 1f3f7f1e-virtualenv-py3.10.json
+    │           ├── 1ffbd443-virtualenv-py3.10.json
+    │           ├── 20024635-virtualenv-py3.10.json
+    │           ├── 21432b4c-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 2356d7c0-virtualenv-py3.10.json
+    │           ├── 23aa7177-virtualenv-py3.10.json
+    │           ├── 24743154-virtualenv-py3.10.json
+    │           ├── 25a1bf06-virtualenv-py3.10.json
+    │           ├── 26fe4667-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 27ab1732-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 2aea8526-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 2ba277ac-virtualenv-py3.10.json
+    │           ├── 2c93dce9-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 2d3152a2-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 2d3ec69f-virtualenv-py3.10.json
+    │           ├── 2ea7e586-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 2ea7e586-virtualenv-py3.10.json
+    │           ├── 30498f59-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 3473658d-virtualenv-py3.10.json
+    │           ├── 36efcb5a-virtualenv-py3.10.json
+    │           ├── 3827b4ae-virtualenv-py3.10.json
+    │           ├── 3be88c08-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 3db6396a-virtualenv-py3.10.json
+    │           ├── 3f7d3e4e-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 3f7d3e4e-virtualenv-py3.10.json
+    │           ├── 4020d5a9-virtualenv-py3.10.json
+    │           ├── 41279bca-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 416033ff-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 43a26c0a-virtualenv-py3.10.json
+    │           ├── 43d4c4e5-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 43d4c4e5-virtualenv-py3.10.json
+    │           ├── 44f54dd8-virtualenv-py3.10.json
+    │           ├── 464e4e33-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 489fafc6-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 48da2791-virtualenv-py3.10.json
+    │           ├── 4b123ddf-virtualenv-py3.10.json
+    │           ├── 4b3b6531-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 4bf3f19c-virtualenv-py3.10.json
+    │           ├── 4d6a6d88-virtualenv-py3.10.json
+    │           ├── 4dc1d4cb-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 4f8908a6-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 52d159aa-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 52d159aa-virtualenv-py3.10.json
+    │           ├── 53cda574-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 53d9eeaf-virtualenv-py3.10.json
+    │           ├── 550d3911-virtualenv-py3.10.json
+    │           ├── 55e11902-virtualenv-py3.10.json
+    │           ├── 573125e9-virtualenv-py3.10.json
+    │           ├── 579a29c8-virtualenv-py3.10.json
+    │           ├── 588f0331-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 58bfa48f-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 5f021978-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 5f021978-virtualenv-py3.10.json
+    │           ├── 5f03e3ba-virtualenv-py3.10.json
+    │           ├── 5f55063b-virtualenv-py3.10.json
+    │           ├── 5f82274a-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 5fafb92f-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 60dadaf2-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 64471afc-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 646d933d-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 64755d41-virtualenv-py3.10.json
+    │           ├── 656b7a18-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 666d0cf2-virtualenv-py3.10.json
+    │           ├── 690507d4-virtualenv-py3.10.json
+    │           ├── 6d7ba589-virtualenv-py3.10.json
+    │           ├── 71135d19-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 7441bf27-virtualenv-py3.10.json
+    │           ├── 76620730-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 7bad81d5-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 7d00fa83-virtualenv-py3.10.json
+    │           ├── 7d02d29b-virtualenv-py3.10.json
+    │           ├── 7e4a2db4-virtualenv-py3.10.json
+    │           ├── 7edd619f-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 7ef7ffee-virtualenv-py3.10.json
+    │           ├── 83756d62-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 837b6d7e-virtualenv-py3.10.json
+    │           ├── 877c53d9-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 88b07b3e-virtualenv-py3.10.json
+    │           ├── 8a7f5d82-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 8a7f5d82-virtualenv-py3.10.json
+    │           ├── 8b185610-virtualenv-py3.10.json
+    │           ├── 8b47f338-virtualenv-py3.10.json
+    │           ├── 8c3e6be4-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 8e649fea-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 911d305f-virtualenv-py3.10.json
+    │           ├── 932e26b6-virtualenv-py3.10.json
+    │           ├── 949e1f72-virtualenv-py3.10.json
+    │           ├── 95d8bf98-virtualenv-py3.10.json
+    │           ├── 96ea5fed-virtualenv-py3.10.json
+    │           ├── 972dedff-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 972dedff-virtualenv-py3.10.json
+    │           ├── 99831099-virtualenv-py3.10.json
+    │           ├── 9a4fbf83-virtualenv-py3.10.json
+    │           ├── 9abc0292-virtualenv-py3.10.json
+    │           ├── 9bfb6190-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── 9f2a426e-virtualenv-py3.10.json
+    │           ├── a27a3ee2-virtualenv-py3.10.json
+    │           ├── a2f6688e-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── a6d1d784-virtualenv-py3.10.json
+    │           ├── a6ea9890-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── a81230bc-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── a81230bc-virtualenv-py3.10.json
+    │           ├── a8d2bb20-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── aa4546ac-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── aa7926c1-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── aaea99f7-virtualenv-py3.10.json
+    │           ├── ac1a33da-virtualenv-py3.10.json
+    │           ├── aca0b60b-virtualenv-py3.10.json
+    │           ├── ad6e3dea-virtualenv-py3.10.json
+    │           ├── ae5865eb-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── b15bc18c-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── b391635e-virtualenv-py3.10.json
+    │           ├── b9e0014a-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── b9e0014a-virtualenv-py3.10.json
+    │           ├── ba5d0c2c-virtualenv-py3.10.json
+    │           ├── bd34e0a1-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── bd34e0a1-virtualenv-py3.10.json
+    │           ├── bf728dbc-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── c24ab497-virtualenv-py3.10.json
+    │           ├── c3d0e358-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── c3d0e358-virtualenv-py3.10.json
+    │           ├── c3ee3b05-virtualenv-py3.10.json
+    │           ├── c57e1f50-virtualenv-py3.10.json
+    │           ├── c9afafdd-virtualenv-py3.10.json
+    │           ├── cefafdc1-virtualenv-py3.10.json
+    │           ├── cf606f0a-virtualenv-py3.10.json
+    │           ├── d06540a2-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── d1ea01d0-virtualenv-py3.10.json
+    │           ├── d6e6a762-virtualenv-py3.10.json
+    │           ├── d9d59c6e-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── d9d59c6e-virtualenv-py3.10.json
+    │           ├── dc3f0623-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── e0a1fd30-virtualenv-py3.10.json
+    │           ├── e21ac11a-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── e338ab14-virtualenv-py3.10.json
+    │           ├── e34eadb3-virtualenv-py3.10.json
+    │           ├── e5246436-virtualenv-py3.10.json
+    │           ├── e7849495-virtualenv-py3.10.json
+    │           ├── e78acae6-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── e7de32a0-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── e9e72000-virtualenv-py3.10.json
+    │           ├── ea049ffc-virtualenv-py3.10.json
+    │           ├── ea2ed337-virtualenv-py3.10.json
+    │           ├── eab3fe8e-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── ecf3d7f1-virtualenv-py3.10.json
+    │           ├── edcb6f9e-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── ef80460f-virtualenv-py3.10.json
+    │           ├── f2845e12-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── f2af8c9d-virtualenv-py3.10.json
+    │           ├── f5ed5bde-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── f82a4ccf-virtualenv-py3.10-setuptools59.2.0.json
+    │           ├── f84d5dee-virtualenv-py3.10.json
+    │           └── machine.json
+    ├── docs/
+    │   ├── make.bat
+    │   ├── Makefile
+    │   ├── requirements.txt
+    │   └── source/
+    │       ├── appendix.rst
+    │       ├── columns.rst
+    │       ├── conf.py
+    │       ├── console.rst
+    │       ├── group.rst
+    │       ├── highlighting.rst
+    │       ├── index.rst
+    │       ├── introduction.rst
+    │       ├── layout.rst
+    │       ├── live.rst
+    │       ├── logging.rst
+    │       ├── markdown.rst
+    │       ├── markup.rst
+    │       ├── padding.rst
+    │       ├── panel.rst
+    │       ├── pretty.rst
+    │       ├── progress.rst
+    │       ├── prompt.rst
+    │       ├── protocol.rst
+    │       ├── reference.rst
+    │       ├── style.rst
+    │       ├── syntax.rst
+    │       ├── tables.rst
+    │       ├── text.rst
+    │       ├── traceback.rst
+    │       ├── tree.rst
+    │       ├── appendix/
+    │       │   ├── box.rst
+    │       │   └── colors.rst
+    │       └── reference/
+    │           ├── abc.rst
+    │           ├── align.rst
+    │           ├── bar.rst
+    │           ├── color.rst
+    │           ├── columns.rst
+    │           ├── console.rst
+    │           ├── control.rst
+    │           ├── emoji.rst
+    │           ├── highlighter.rst
+    │           ├── init.rst
+    │           ├── json.rst
+    │           ├── layout.rst
+    │           ├── live.rst
+    │           ├── logging.rst
+    │           ├── markdown.rst
+    │           ├── markup.rst
+    │           ├── measure.rst
+    │           ├── padding.rst
+    │           ├── panel.rst
+    │           ├── pretty.rst
+    │           ├── progress.rst
+    │           ├── progress_bar.rst
+    │           ├── prompt.rst
+    │           ├── protocol.rst
+    │           ├── rule.rst
+    │           ├── segment.rst
+    │           ├── spinner.rst
+    │           ├── status.rst
+    │           ├── style.rst
+    │           ├── styled.rst
+    │           ├── syntax.rst
+    │           ├── table.rst
+    │           ├── text.rst
+    │           ├── theme.rst
+    │           ├── traceback.rst
+    │           └── tree.rst
+    ├── examples/
+    │   ├── README.md
+    │   ├── attrs.py
+    │   ├── bars.py
+    │   ├── columns.py
+    │   ├── cp_progress.py
+    │   ├── downloader.py
+    │   ├── dynamic_progress.py
+    │   ├── exception.py
+    │   ├── export.py
+    │   ├── file_progress.py
+    │   ├── fullscreen.py
+    │   ├── group.py
+    │   ├── group2.py
+    │   ├── highlighter.py
+    │   ├── jobs.py
+    │   ├── justify.py
+    │   ├── justify2.py
+    │   ├── layout.py
+    │   ├── link.py
+    │   ├── listdir.py
+    │   ├── live_progress.py
+    │   ├── log.py
+    │   ├── overflow.py
+    │   ├── padding.py
+    │   ├── print_calendar.py
+    │   ├── rainbow.py
+    │   ├── recursive_error.py
+    │   ├── repr.py
+    │   ├── save_table_svg.py
+    │   ├── screen.py
+    │   ├── spinners.py
+    │   ├── status.py
+    │   ├── suppress.py
+    │   ├── table.py
+    │   ├── table_movie.py
+    │   ├── top_lite_simulator.py
+    │   └── tree.py
+    ├── questions/
+    │   ├── README.md
+    │   ├── ansi_escapes.question.md
+    │   ├── emoji_broken.question.md
+    │   ├── highlighting_unexpected.question.md
+    │   ├── log_renderables.question.md
+    │   ├── logging_color.question.md
+    │   ├── rich_spinner.question.md
+    │   ├── square_brackets.question.md
+    │   └── tracebacks_installed.question.md
+    ├── rich/
+    │   ├── __init__.py
+    │   ├── __main__.py
+    │   ├── _cell_widths.py
+    │   ├── _emoji_codes.py
+    │   ├── _emoji_replace.py
+    │   ├── _export_format.py
+    │   ├── _extension.py
+    │   ├── _fileno.py
+    │   ├── _inspect.py
+    │   ├── _log_render.py
+    │   ├── _loop.py
+    │   ├── _null_file.py
+    │   ├── _palettes.py
+    │   ├── _pick.py
+    │   ├── _ratio.py
+    │   ├── _spinners.py
+    │   ├── _stack.py
+    │   ├── _timer.py
+    │   ├── _win32_console.py
+    │   ├── _windows.py
+    │   ├── _windows_renderer.py
+    │   ├── _wrap.py
+    │   ├── abc.py
+    │   ├── align.py
+    │   ├── ansi.py
+    │   ├── bar.py
+    │   ├── box.py
+    │   ├── cells.py
+    │   ├── color.py
+    │   ├── color_triplet.py
+    │   ├── columns.py
+    │   ├── console.py
+    │   ├── constrain.py
+    │   ├── containers.py
+    │   ├── control.py
+    │   ├── default_styles.py
+    │   ├── diagnose.py
+    │   ├── emoji.py
+    │   ├── errors.py
+    │   ├── file_proxy.py
+    │   ├── filesize.py
+    │   ├── highlighter.py
+    │   ├── json.py
+    │   ├── jupyter.py
+    │   ├── layout.py
+    │   ├── live.py
+    │   ├── live_render.py
+    │   ├── logging.py
+    │   ├── markdown.py
+    │   ├── markup.py
+    │   ├── measure.py
+    │   ├── padding.py
+    │   ├── pager.py
+    │   ├── palette.py
+    │   ├── panel.py
+    │   ├── pretty.py
+    │   ├── progress.py
+    │   ├── progress_bar.py
+    │   ├── prompt.py
+    │   ├── protocol.py
+    │   ├── py.typed
+    │   ├── region.py
+    │   ├── repr.py
+    │   ├── rule.py
+    │   ├── scope.py
+    │   ├── screen.py
+    │   ├── segment.py
+    │   ├── spinner.py
+    │   ├── status.py
+    │   ├── style.py
+    │   ├── styled.py
+    │   ├── syntax.py
+    │   ├── table.py
+    │   ├── terminal_theme.py
+    │   ├── text.py
+    │   ├── theme.py
+    │   ├── themes.py
+    │   ├── traceback.py
+    │   └── tree.py
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── _card_render.py
+    │   ├── conftest.py
+    │   ├── pytest.ini
+    │   ├── render.py
+    │   ├── test_align.py
+    │   ├── test_ansi.py
+    │   ├── test_bar.py
+    │   ├── test_block_bar.py
+    │   ├── test_box.py
+    │   ├── test_card.py
+    │   ├── test_cells.py
+    │   ├── test_color.py
+    │   ├── test_color_triplet.py
+    │   ├── test_columns.py
+    │   ├── test_columns_align.py
+    │   ├── test_console.py
+    │   ├── test_constrain.py
+    │   ├── test_containers.py
+    │   ├── test_control.py
+    │   ├── test_emoji.py
+    │   ├── test_file_proxy.py
+    │   ├── test_filesize.py
+    │   ├── test_getfileno.py
+    │   ├── test_highlighter.py
+    │   ├── test_inspect.py
+    │   ├── test_json.py
+    │   ├── test_jupyter.py
+    │   ├── test_layout.py
+    │   ├── test_live.py
+    │   ├── test_live_render.py
+    │   ├── test_log.py
+    │   ├── test_logging.py
+    │   ├── test_markdown.py
+    │   ├── test_markdown_no_hyperlinks.py
+    │   ├── test_markup.py
+    │   ├── test_measure.py
+    │   ├── test_null_file.py
+    │   ├── test_padding.py
+    │   ├── test_palette.py
+    │   ├── test_panel.py
+    │   ├── test_pick.py
+    │   ├── test_pretty.py
+    │   ├── test_progress.py
+    │   ├── test_prompt.py
+    │   ├── test_protocol.py
+    │   ├── test_ratio.py
+    │   ├── test_repr.py
+    │   ├── test_rich_print.py
+    │   ├── test_rule.py
+    │   ├── test_rule_in_table.py
+    │   ├── test_screen.py
+    │   ├── test_segment.py
+    │   ├── test_spinner.py
+    │   ├── test_stack.py
+    │   ├── test_status.py
+    │   ├── test_style.py
+    │   ├── test_styled.py
+    │   ├── test_syntax.py
+    │   ├── test_table.py
+    │   ├── test_text.py
+    │   ├── test_theme.py
+    │   ├── test_tools.py
+    │   ├── test_traceback.py
+    │   ├── test_tree.py
+    │   ├── test_win32_console.py
+    │   └── test_windows_renderer.py
+    ├── tools/
+    │   ├── README.md
+    │   ├── cats.json
+    │   ├── make_emoji.py
+    │   ├── make_terminal_widths.py
+    │   ├── movies.md
+    │   ├── profile_divide.py
+    │   ├── profile_pretty.py
+    │   └── stress_test_pretty.py
+    ├── .faq/
+    │   ├── FAQ.md
+    │   └── suggest.md
+    └── .github/
+        ├── dependabot.yml
+        ├── FUNDING.yml
+        ├── pull_request_template.md
+        ├── ISSUE_TEMPLATE/
+        │   ├── bug_report.md
+        │   └── feature_request.md
+        └── workflows/
+            ├── codeql.yml
+            ├── codespell.yml
+            ├── comment.yml
+            ├── newissue.yml
+            ├── pythonpackage.yml
+            └── readmechanged.yml

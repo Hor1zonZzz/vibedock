@@ -1,0 +1,490 @@
+Directory structure:
+└── anthropics-anthropic-sdk-python/
+    ├── README.md
+    ├── api.md
+    ├── Brewfile
+    ├── CHANGELOG.md
+    ├── CONTRIBUTING.md
+    ├── helpers.md
+    ├── LICENSE
+    ├── pyproject.toml
+    ├── release-please-config.json
+    ├── requirements-dev.lock
+    ├── SECURITY.md
+    ├── uv.lock
+    ├── .python-version
+    ├── .release-please-manifest.json
+    ├── .stats.yml
+    ├── examples/
+    │   ├── batch_results.py
+    │   ├── bedrock.py
+    │   ├── images.py
+    │   ├── mcp.py
+    │   ├── messages.py
+    │   ├── messages_stream.py
+    │   ├── text_completions_demo_async.py
+    │   ├── text_completions_demo_sync.py
+    │   ├── text_completions_streaming.py
+    │   ├── thinking.py
+    │   ├── thinking_stream.py
+    │   ├── tools.py
+    │   ├── tools_stream.py
+    │   ├── vertex.py
+    │   ├── web_search.py
+    │   ├── web_search_stream.py
+    │   └── .keep
+    ├── scripts/
+    │   ├── bootstrap
+    │   ├── detect-breaking-changes
+    │   ├── detect-breaking-changes.py
+    │   ├── format
+    │   ├── lint
+    │   ├── mock
+    │   ├── test
+    │   └── utils/
+    │       ├── ruffen-docs.py
+    │       └── upload-artifact.sh
+    ├── src/
+    │   └── anthropic/
+    │       ├── __init__.py
+    │       ├── _base_client.py
+    │       ├── _client.py
+    │       ├── _compat.py
+    │       ├── _constants.py
+    │       ├── _exceptions.py
+    │       ├── _files.py
+    │       ├── _legacy_response.py
+    │       ├── _models.py
+    │       ├── _qs.py
+    │       ├── _resource.py
+    │       ├── _response.py
+    │       ├── _streaming.py
+    │       ├── _types.py
+    │       ├── _version.py
+    │       ├── pagination.py
+    │       ├── py.typed
+    │       ├── _decoders/
+    │       │   └── jsonl.py
+    │       ├── _utils/
+    │       │   ├── __init__.py
+    │       │   ├── _compat.py
+    │       │   ├── _datetime_parse.py
+    │       │   ├── _httpx.py
+    │       │   ├── _logs.py
+    │       │   ├── _proxy.py
+    │       │   ├── _reflection.py
+    │       │   ├── _resources_proxy.py
+    │       │   ├── _streams.py
+    │       │   ├── _sync.py
+    │       │   ├── _transform.py
+    │       │   ├── _typing.py
+    │       │   └── _utils.py
+    │       ├── lib/
+    │       │   ├── __init__.py
+    │       │   ├── .keep
+    │       │   ├── _extras/
+    │       │   │   ├── __init__.py
+    │       │   │   ├── _common.py
+    │       │   │   └── _google_auth.py
+    │       │   ├── bedrock/
+    │       │   │   ├── __init__.py
+    │       │   │   ├── _auth.py
+    │       │   │   ├── _beta.py
+    │       │   │   ├── _beta_messages.py
+    │       │   │   ├── _client.py
+    │       │   │   ├── _stream.py
+    │       │   │   └── _stream_decoder.py
+    │       │   ├── streaming/
+    │       │   │   ├── __init__.py
+    │       │   │   ├── _beta_messages.py
+    │       │   │   ├── _beta_types.py
+    │       │   │   ├── _messages.py
+    │       │   │   └── _types.py
+    │       │   └── vertex/
+    │       │       ├── __init__.py
+    │       │       ├── _auth.py
+    │       │       ├── _beta.py
+    │       │       ├── _beta_messages.py
+    │       │       └── _client.py
+    │       ├── resources/
+    │       │   ├── __init__.py
+    │       │   ├── completions.py
+    │       │   ├── models.py
+    │       │   ├── beta/
+    │       │   │   ├── __init__.py
+    │       │   │   ├── beta.py
+    │       │   │   ├── files.py
+    │       │   │   ├── models.py
+    │       │   │   └── messages/
+    │       │   │       ├── __init__.py
+    │       │   │       ├── batches.py
+    │       │   │       └── messages.py
+    │       │   └── messages/
+    │       │       ├── __init__.py
+    │       │       ├── batches.py
+    │       │       └── messages.py
+    │       └── types/
+    │           ├── __init__.py
+    │           ├── anthropic_beta_param.py
+    │           ├── base64_image_source_param.py
+    │           ├── base64_pdf_source_param.py
+    │           ├── beta_api_error.py
+    │           ├── beta_authentication_error.py
+    │           ├── beta_billing_error.py
+    │           ├── beta_error.py
+    │           ├── beta_error_response.py
+    │           ├── beta_gateway_timeout_error.py
+    │           ├── beta_invalid_request_error.py
+    │           ├── beta_not_found_error.py
+    │           ├── beta_overloaded_error.py
+    │           ├── beta_permission_error.py
+    │           ├── beta_rate_limit_error.py
+    │           ├── cache_control_ephemeral_param.py
+    │           ├── cache_creation.py
+    │           ├── citation_char_location.py
+    │           ├── citation_char_location_param.py
+    │           ├── citation_content_block_location.py
+    │           ├── citation_content_block_location_param.py
+    │           ├── citation_page_location.py
+    │           ├── citation_page_location_param.py
+    │           ├── citation_search_result_location_param.py
+    │           ├── citation_web_search_result_location_param.py
+    │           ├── citations_config_param.py
+    │           ├── citations_delta.py
+    │           ├── citations_search_result_location.py
+    │           ├── citations_web_search_result_location.py
+    │           ├── completion.py
+    │           ├── completion_create_params.py
+    │           ├── content_block.py
+    │           ├── content_block_delta_event.py
+    │           ├── content_block_param.py
+    │           ├── content_block_source_content_param.py
+    │           ├── content_block_source_param.py
+    │           ├── content_block_start_event.py
+    │           ├── content_block_stop_event.py
+    │           ├── document_block_param.py
+    │           ├── image_block_param.py
+    │           ├── input_json_delta.py
+    │           ├── message.py
+    │           ├── message_count_tokens_params.py
+    │           ├── message_count_tokens_tool_param.py
+    │           ├── message_create_params.py
+    │           ├── message_delta_event.py
+    │           ├── message_delta_usage.py
+    │           ├── message_param.py
+    │           ├── message_start_event.py
+    │           ├── message_stop_event.py
+    │           ├── message_stream_event.py
+    │           ├── message_tokens_count.py
+    │           ├── metadata_param.py
+    │           ├── model.py
+    │           ├── model_info.py
+    │           ├── model_list_params.py
+    │           ├── model_param.py
+    │           ├── plain_text_source_param.py
+    │           ├── raw_content_block_delta.py
+    │           ├── raw_content_block_delta_event.py
+    │           ├── raw_content_block_start_event.py
+    │           ├── raw_content_block_stop_event.py
+    │           ├── raw_message_delta_event.py
+    │           ├── raw_message_start_event.py
+    │           ├── raw_message_stop_event.py
+    │           ├── raw_message_stream_event.py
+    │           ├── redacted_thinking_block.py
+    │           ├── redacted_thinking_block_param.py
+    │           ├── search_result_block_param.py
+    │           ├── server_tool_usage.py
+    │           ├── server_tool_use_block.py
+    │           ├── server_tool_use_block_param.py
+    │           ├── signature_delta.py
+    │           ├── stop_reason.py
+    │           ├── text_block.py
+    │           ├── text_block_param.py
+    │           ├── text_citation.py
+    │           ├── text_citation_param.py
+    │           ├── text_delta.py
+    │           ├── thinking_block.py
+    │           ├── thinking_block_param.py
+    │           ├── thinking_config_disabled_param.py
+    │           ├── thinking_config_enabled_param.py
+    │           ├── thinking_config_param.py
+    │           ├── thinking_delta.py
+    │           ├── tool_bash_20250124_param.py
+    │           ├── tool_choice_any_param.py
+    │           ├── tool_choice_auto_param.py
+    │           ├── tool_choice_none_param.py
+    │           ├── tool_choice_param.py
+    │           ├── tool_choice_tool_param.py
+    │           ├── tool_param.py
+    │           ├── tool_result_block_param.py
+    │           ├── tool_text_editor_20250124_param.py
+    │           ├── tool_text_editor_20250429_param.py
+    │           ├── tool_text_editor_20250728_param.py
+    │           ├── tool_union_param.py
+    │           ├── tool_use_block.py
+    │           ├── tool_use_block_param.py
+    │           ├── url_image_source_param.py
+    │           ├── url_pdf_source_param.py
+    │           ├── usage.py
+    │           ├── web_search_result_block.py
+    │           ├── web_search_result_block_param.py
+    │           ├── web_search_tool_20250305_param.py
+    │           ├── web_search_tool_request_error_param.py
+    │           ├── web_search_tool_result_block.py
+    │           ├── web_search_tool_result_block_content.py
+    │           ├── web_search_tool_result_block_param.py
+    │           ├── web_search_tool_result_block_param_content_param.py
+    │           ├── web_search_tool_result_error.py
+    │           ├── beta/
+    │           │   ├── __init__.py
+    │           │   ├── beta_base64_image_source_param.py
+    │           │   ├── beta_base64_pdf_block_param.py
+    │           │   ├── beta_base64_pdf_source.py
+    │           │   ├── beta_base64_pdf_source_param.py
+    │           │   ├── beta_bash_code_execution_output_block.py
+    │           │   ├── beta_bash_code_execution_output_block_param.py
+    │           │   ├── beta_bash_code_execution_result_block.py
+    │           │   ├── beta_bash_code_execution_result_block_param.py
+    │           │   ├── beta_bash_code_execution_tool_result_block.py
+    │           │   ├── beta_bash_code_execution_tool_result_block_param.py
+    │           │   ├── beta_bash_code_execution_tool_result_error.py
+    │           │   ├── beta_bash_code_execution_tool_result_error_param.py
+    │           │   ├── beta_cache_control_ephemeral_param.py
+    │           │   ├── beta_cache_creation.py
+    │           │   ├── beta_citation_char_location.py
+    │           │   ├── beta_citation_char_location_param.py
+    │           │   ├── beta_citation_config.py
+    │           │   ├── beta_citation_content_block_location.py
+    │           │   ├── beta_citation_content_block_location_param.py
+    │           │   ├── beta_citation_page_location.py
+    │           │   ├── beta_citation_page_location_param.py
+    │           │   ├── beta_citation_search_result_location.py
+    │           │   ├── beta_citation_search_result_location_param.py
+    │           │   ├── beta_citation_web_search_result_location_param.py
+    │           │   ├── beta_citations_config_param.py
+    │           │   ├── beta_citations_delta.py
+    │           │   ├── beta_citations_web_search_result_location.py
+    │           │   ├── beta_code_execution_output_block.py
+    │           │   ├── beta_code_execution_output_block_param.py
+    │           │   ├── beta_code_execution_result_block.py
+    │           │   ├── beta_code_execution_result_block_param.py
+    │           │   ├── beta_code_execution_tool_20250522_param.py
+    │           │   ├── beta_code_execution_tool_20250825_param.py
+    │           │   ├── beta_code_execution_tool_result_block.py
+    │           │   ├── beta_code_execution_tool_result_block_content.py
+    │           │   ├── beta_code_execution_tool_result_block_param.py
+    │           │   ├── beta_code_execution_tool_result_block_param_content_param.py
+    │           │   ├── beta_code_execution_tool_result_error.py
+    │           │   ├── beta_code_execution_tool_result_error_code.py
+    │           │   ├── beta_code_execution_tool_result_error_param.py
+    │           │   ├── beta_container.py
+    │           │   ├── beta_container_upload_block.py
+    │           │   ├── beta_container_upload_block_param.py
+    │           │   ├── beta_content_block.py
+    │           │   ├── beta_content_block_param.py
+    │           │   ├── beta_content_block_source_content_param.py
+    │           │   ├── beta_content_block_source_param.py
+    │           │   ├── beta_document_block.py
+    │           │   ├── beta_file_document_source_param.py
+    │           │   ├── beta_file_image_source_param.py
+    │           │   ├── beta_image_block_param.py
+    │           │   ├── beta_input_json_delta.py
+    │           │   ├── beta_mcp_tool_result_block.py
+    │           │   ├── beta_mcp_tool_use_block.py
+    │           │   ├── beta_mcp_tool_use_block_param.py
+    │           │   ├── beta_message.py
+    │           │   ├── beta_message_delta_usage.py
+    │           │   ├── beta_message_param.py
+    │           │   ├── beta_message_tokens_count.py
+    │           │   ├── beta_metadata_param.py
+    │           │   ├── beta_model_info.py
+    │           │   ├── beta_plain_text_source.py
+    │           │   ├── beta_plain_text_source_param.py
+    │           │   ├── beta_raw_content_block_delta.py
+    │           │   ├── beta_raw_content_block_delta_event.py
+    │           │   ├── beta_raw_content_block_start_event.py
+    │           │   ├── beta_raw_content_block_stop_event.py
+    │           │   ├── beta_raw_message_delta_event.py
+    │           │   ├── beta_raw_message_start_event.py
+    │           │   ├── beta_raw_message_stop_event.py
+    │           │   ├── beta_raw_message_stream_event.py
+    │           │   ├── beta_redacted_thinking_block.py
+    │           │   ├── beta_redacted_thinking_block_param.py
+    │           │   ├── beta_request_document_block_param.py
+    │           │   ├── beta_request_mcp_server_tool_configuration_param.py
+    │           │   ├── beta_request_mcp_server_url_definition_param.py
+    │           │   ├── beta_request_mcp_tool_result_block_param.py
+    │           │   ├── beta_search_result_block_param.py
+    │           │   ├── beta_server_tool_usage.py
+    │           │   ├── beta_server_tool_use_block.py
+    │           │   ├── beta_server_tool_use_block_param.py
+    │           │   ├── beta_signature_delta.py
+    │           │   ├── beta_stop_reason.py
+    │           │   ├── beta_text_block.py
+    │           │   ├── beta_text_block_param.py
+    │           │   ├── beta_text_citation.py
+    │           │   ├── beta_text_citation_param.py
+    │           │   ├── beta_text_delta.py
+    │           │   ├── beta_text_editor_code_execution_create_result_block.py
+    │           │   ├── beta_text_editor_code_execution_create_result_block_param.py
+    │           │   ├── beta_text_editor_code_execution_str_replace_result_block.py
+    │           │   ├── beta_text_editor_code_execution_str_replace_result_block_param.py
+    │           │   ├── beta_text_editor_code_execution_tool_result_block.py
+    │           │   ├── beta_text_editor_code_execution_tool_result_block_param.py
+    │           │   ├── beta_text_editor_code_execution_tool_result_error.py
+    │           │   ├── beta_text_editor_code_execution_tool_result_error_param.py
+    │           │   ├── beta_text_editor_code_execution_view_result_block.py
+    │           │   ├── beta_text_editor_code_execution_view_result_block_param.py
+    │           │   ├── beta_thinking_block.py
+    │           │   ├── beta_thinking_block_param.py
+    │           │   ├── beta_thinking_config_disabled_param.py
+    │           │   ├── beta_thinking_config_enabled_param.py
+    │           │   ├── beta_thinking_config_param.py
+    │           │   ├── beta_thinking_delta.py
+    │           │   ├── beta_tool_bash_20241022_param.py
+    │           │   ├── beta_tool_bash_20250124_param.py
+    │           │   ├── beta_tool_choice_any_param.py
+    │           │   ├── beta_tool_choice_auto_param.py
+    │           │   ├── beta_tool_choice_none_param.py
+    │           │   ├── beta_tool_choice_param.py
+    │           │   ├── beta_tool_choice_tool_param.py
+    │           │   ├── beta_tool_computer_use_20241022_param.py
+    │           │   ├── beta_tool_computer_use_20250124_param.py
+    │           │   ├── beta_tool_param.py
+    │           │   ├── beta_tool_result_block_param.py
+    │           │   ├── beta_tool_text_editor_20241022_param.py
+    │           │   ├── beta_tool_text_editor_20250124_param.py
+    │           │   ├── beta_tool_text_editor_20250429_param.py
+    │           │   ├── beta_tool_text_editor_20250728_param.py
+    │           │   ├── beta_tool_union_param.py
+    │           │   ├── beta_tool_use_block.py
+    │           │   ├── beta_tool_use_block_param.py
+    │           │   ├── beta_url_image_source_param.py
+    │           │   ├── beta_url_pdf_source_param.py
+    │           │   ├── beta_usage.py
+    │           │   ├── beta_web_fetch_block.py
+    │           │   ├── beta_web_fetch_block_param.py
+    │           │   ├── beta_web_fetch_tool_20250910_param.py
+    │           │   ├── beta_web_fetch_tool_result_block.py
+    │           │   ├── beta_web_fetch_tool_result_block_param.py
+    │           │   ├── beta_web_fetch_tool_result_error_block.py
+    │           │   ├── beta_web_fetch_tool_result_error_block_param.py
+    │           │   ├── beta_web_fetch_tool_result_error_code.py
+    │           │   ├── beta_web_search_result_block.py
+    │           │   ├── beta_web_search_result_block_param.py
+    │           │   ├── beta_web_search_tool_20250305_param.py
+    │           │   ├── beta_web_search_tool_request_error_param.py
+    │           │   ├── beta_web_search_tool_result_block.py
+    │           │   ├── beta_web_search_tool_result_block_content.py
+    │           │   ├── beta_web_search_tool_result_block_param.py
+    │           │   ├── beta_web_search_tool_result_block_param_content_param.py
+    │           │   ├── beta_web_search_tool_result_error.py
+    │           │   ├── beta_web_search_tool_result_error_code.py
+    │           │   ├── deleted_file.py
+    │           │   ├── file_list_params.py
+    │           │   ├── file_metadata.py
+    │           │   ├── file_upload_params.py
+    │           │   ├── message_count_tokens_params.py
+    │           │   ├── message_create_params.py
+    │           │   ├── model_list_params.py
+    │           │   └── messages/
+    │           │       ├── __init__.py
+    │           │       ├── batch_create_params.py
+    │           │       ├── batch_list_params.py
+    │           │       ├── beta_deleted_message_batch.py
+    │           │       ├── beta_message_batch.py
+    │           │       ├── beta_message_batch_canceled_result.py
+    │           │       ├── beta_message_batch_errored_result.py
+    │           │       ├── beta_message_batch_expired_result.py
+    │           │       ├── beta_message_batch_individual_response.py
+    │           │       ├── beta_message_batch_request_counts.py
+    │           │       ├── beta_message_batch_result.py
+    │           │       └── beta_message_batch_succeeded_result.py
+    │           ├── messages/
+    │           │   ├── __init__.py
+    │           │   ├── batch_create_params.py
+    │           │   ├── batch_list_params.py
+    │           │   ├── deleted_message_batch.py
+    │           │   ├── message_batch.py
+    │           │   ├── message_batch_canceled_result.py
+    │           │   ├── message_batch_errored_result.py
+    │           │   ├── message_batch_expired_result.py
+    │           │   ├── message_batch_individual_response.py
+    │           │   ├── message_batch_request_counts.py
+    │           │   ├── message_batch_result.py
+    │           │   └── message_batch_succeeded_result.py
+    │           └── shared/
+    │               ├── __init__.py
+    │               ├── api_error_object.py
+    │               ├── authentication_error.py
+    │               ├── billing_error.py
+    │               ├── error_object.py
+    │               ├── error_response.py
+    │               ├── gateway_timeout_error.py
+    │               ├── invalid_request_error.py
+    │               ├── not_found_error.py
+    │               ├── overloaded_error.py
+    │               ├── permission_error.py
+    │               └── rate_limit_error.py
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── conftest.py
+    │   ├── sample_file.txt
+    │   ├── test_client.py
+    │   ├── test_deepcopy.py
+    │   ├── test_extract_files.py
+    │   ├── test_files.py
+    │   ├── test_legacy_response.py
+    │   ├── test_models.py
+    │   ├── test_qs.py
+    │   ├── test_required_args.py
+    │   ├── test_response.py
+    │   ├── test_streaming.py
+    │   ├── test_transform.py
+    │   ├── utils.py
+    │   ├── api_resources/
+    │   │   ├── __init__.py
+    │   │   ├── test_completions.py
+    │   │   ├── test_messages.py
+    │   │   ├── test_models.py
+    │   │   ├── beta/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── test_files.py
+    │   │   │   ├── test_messages.py
+    │   │   │   ├── test_models.py
+    │   │   │   └── messages/
+    │   │   │       ├── __init__.py
+    │   │   │       └── test_batches.py
+    │   │   └── messages/
+    │   │       ├── __init__.py
+    │   │       └── test_batches.py
+    │   ├── decoders/
+    │   │   └── test_jsonl.py
+    │   ├── lib/
+    │   │   ├── test_bedrock.py
+    │   │   ├── test_vertex.py
+    │   │   └── streaming/
+    │   │       ├── __init__.py
+    │   │       ├── helpers.py
+    │   │       ├── test_beta_messages.py
+    │   │       ├── test_messages.py
+    │   │       ├── test_partial_json.py
+    │   │       └── fixtures/
+    │   │           ├── basic_response.txt
+    │   │           ├── incomplete_partial_json_response.txt
+    │   │           └── tool_use_response.txt
+    │   └── test_utils/
+    │       ├── test_datetime_parse.py
+    │       ├── test_proxy.py
+    │       └── test_typing.py
+    ├── .devcontainer/
+    │   ├── devcontainer.json
+    │   └── Dockerfile
+    └── .github/
+        ├── CODEOWNERS
+        └── workflows/
+            ├── ci.yml
+            ├── create-releases.yml
+            ├── detect-breaking-changes.yml
+            ├── publish-pypi.yml
+            └── release-doctor.yml

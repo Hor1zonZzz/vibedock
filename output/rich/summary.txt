@@ -1,0 +1,5 @@
+Repository: textualize/rich
+Commit: ea9d4db5d84b4e834979304e3053bf757daae322
+Files analyzed: 500
+
+Estimated tokens: 956.2k

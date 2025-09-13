@@ -1,0 +1,129 @@
+Directory structure:
+└── cyclotruc-gitingest/
+    ├── README.md
+    ├── CHANGELOG.md
+    ├── CODE_OF_CONDUCT.md
+    ├── compose.yml
+    ├── CONTRIBUTING.md
+    ├── Dockerfile
+    ├── eslint.config.cjs
+    ├── LICENSE
+    ├── pyproject.toml
+    ├── release-please-config.json
+    ├── renovate.json
+    ├── requirements-dev.txt
+    ├── requirements.txt
+    ├── SECURITY.md
+    ├── .dockerignore
+    ├── .env.example
+    ├── .pre-commit-config.yaml
+    ├── .release-please-manifest.json
+    ├── src/
+    │   ├── gitingest/
+    │   │   ├── __init__.py
+    │   │   ├── __main__.py
+    │   │   ├── clone.py
+    │   │   ├── config.py
+    │   │   ├── entrypoint.py
+    │   │   ├── ingestion.py
+    │   │   ├── output_formatter.py
+    │   │   ├── query_parser.py
+    │   │   ├── schemas/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── cloning.py
+    │   │   │   ├── filesystem.py
+    │   │   │   └── ingestion.py
+    │   │   └── utils/
+    │   │       ├── __init__.py
+    │   │       ├── auth.py
+    │   │       ├── compat_func.py
+    │   │       ├── compat_typing.py
+    │   │       ├── exceptions.py
+    │   │       ├── file_utils.py
+    │   │       ├── git_utils.py
+    │   │       ├── ignore_patterns.py
+    │   │       ├── ingestion_utils.py
+    │   │       ├── logging_config.py
+    │   │       ├── notebook.py
+    │   │       ├── os_utils.py
+    │   │       ├── pattern_utils.py
+    │   │       ├── query_parser_utils.py
+    │   │       └── timeout_wrapper.py
+    │   ├── server/
+    │   │   ├── __init__.py
+    │   │   ├── __main__.py
+    │   │   ├── form_types.py
+    │   │   ├── main.py
+    │   │   ├── metrics_server.py
+    │   │   ├── models.py
+    │   │   ├── query_processor.py
+    │   │   ├── routers_utils.py
+    │   │   ├── s3_utils.py
+    │   │   ├── server_config.py
+    │   │   ├── server_utils.py
+    │   │   ├── routers/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── dynamic.py
+    │   │   │   ├── index.py
+    │   │   │   └── ingest.py
+    │   │   └── templates/
+    │   │       ├── base.jinja
+    │   │       ├── git.jinja
+    │   │       ├── index.jinja
+    │   │       ├── swagger_ui.jinja
+    │   │       └── components/
+    │   │           ├── _macros.jinja
+    │   │           ├── footer.jinja
+    │   │           ├── git_form.jinja
+    │   │           ├── navbar.jinja
+    │   │           ├── result.jinja
+    │   │           └── tailwind_components.html
+    │   └── static/
+    │       ├── llms.txt
+    │       ├── robots.txt
+    │       └── js/
+    │           ├── git.js
+    │           ├── git_form.js
+    │           ├── index.js
+    │           ├── navbar.js
+    │           ├── posthog.js
+    │           └── utils.js
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── conftest.py
+    │   ├── test_cli.py
+    │   ├── test_clone.py
+    │   ├── test_git_utils.py
+    │   ├── test_gitignore_feature.py
+    │   ├── test_ingestion.py
+    │   ├── test_notebook_utils.py
+    │   ├── test_pattern_utils.py
+    │   ├── test_summary.py
+    │   ├── .pylintrc
+    │   ├── query_parser/
+    │   │   ├── __init__.py
+    │   │   ├── test_git_host_agnostic.py
+    │   │   └── test_query_parser.py
+    │   └── server/
+    │       ├── __init__.py
+    │       └── test_flow_integration.py
+    ├── .docker/
+    │   └── minio/
+    │       └── setup.sh
+    └── .github/
+        ├── ISSUE_TEMPLATE/
+        │   ├── bug_report.yml
+        │   └── feature_request.yml
+        └── workflows/
+            ├── ci.yml
+            ├── codeql.yml
+            ├── dependency-review.yml
+            ├── deploy-pr.yml
+            ├── docker-build.ecr.yml
+            ├── docker-build.ghcr.yml
+            ├── pr-title-check.yml
+            ├── publish_to_pypi.yml
+            ├── rebase-needed.yml
+            ├── release-please.yml
+            ├── scorecard.yml
+            └── stale.yml
