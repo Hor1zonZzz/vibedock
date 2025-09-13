@@ -327,8 +327,17 @@ def send_ai_request(prompt, max_tokens=None, system_message=None):
         return None
 
 
-# 测试函数
-if __name__ == "__main__":
+async def run_complete_analysis(project_path=".", output_file="report.md"):
+    """
+    运行完整的项目分析流程
+
+    Args:
+        project_path (str): 要分析的项目路径，默认为当前目录
+        output_file (str): 输出文件名，默认为report.md
+
+    Returns:
+        list: GitHub链接列表
+    """
     print("=" * 60)
     print("VibeDock")
     print("=" * 60)
@@ -342,10 +351,6 @@ if __name__ == "__main__":
     output_file = input("请输入输出文件名 (直接回车使用 report.md): ").strip()
     if not output_file:
         output_file = "report.md"
-
-    print(f"\n[配置] 项目路径: {project_path}")
-    print(f"[配置] 输出文件: {output_file}")
-    print()
 
     # 生成项目分析报告并获取库信息
     print("正在生成项目分析报告...")
@@ -406,6 +411,21 @@ if __name__ == "__main__":
     print(github_links)
 
     # 异步获取所有仓库上下文
-    import asyncio
+    await get_all_repos_context(github_links)
 
-    asyncio.run(get_all_repos_context(github_links))
+    return github_links
+
+
+# 测试函数
+if __name__ == "__main__":
+    # 让用户输入项目路径
+    project_path = input("请输入要分析的项目路径 (直接回车使用当前目录): ").strip()
+    if not project_path:
+        project_path = "."
+
+    # 让用户输入输出文件名
+    output_file = input("请输入输出文件名 (直接回车使用 report.md): ").strip()
+    if not output_file:
+        output_file = "report.md"
+
+    run_complete_analysis(project_path, output_file)

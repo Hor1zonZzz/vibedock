@@ -1,10 +1,14 @@
 import asyncio
 from tech_stack_questionnaire import run_questionnaire
+import fileprocess
 
 async def main():
     """Main entry point for the Tech Stack Questionnaire application"""
+    # First run the complete analysis to generate report
+    await fileprocess.run_complete_analysis()
+
     results = await run_questionnaire('report.md')
-    
+
     # Display results summary if available
     if results:
         print("\n✅ Assessment completed successfully!")

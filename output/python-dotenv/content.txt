@@ -1,0 +1,3431 @@
+================================================
+FILE: README.md
+================================================
+Error reading file with 'cp936': 'gbk' codec can't decode byte 0x80 in position 1963: illegal multibyte sequence
+
+
+================================================
+FILE: CHANGELOG.md
+================================================
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
+project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased] - 2025-06-24
+
+- Add support for disabling of `load_dotenv()` using `PYTHON_DOTENV_DISABLED` env var.
+
+## [1.1.1] - 2025-06-24
+
+### Fixed
+
+* CLI: Ensure `find_dotenv` work reliably on python 3.13 by [@theskumar] in [#563](https://github.com/theskumar/python-dotenv/pull/563)
+* CLI: revert the use of execvpe on Windows by [@wrongontheinternet] in [#566](https://github.com/theskumar/python-dotenv/pull/566)
+
+
+## [1.1.0] - 2025-03-25
+
+**Feature**
+
+- Add support for python 3.13
+- Enhance `dotenv run`, switch to `execvpe` for better resource management and signal handling ([#523]) by [@eekstunt]
+
+**Fixed**
+
+- `find_dotenv` and `load_dotenv` now correctly looks up at the current directory when running in debugger or pdb ([#553] by [@randomseed42])
+
+**Misc**
+
+- Drop support for Python 3.8
+
+## [1.0.1] - 2024-01-23
+
+**Fixed**
+
+* Gracefully handle code which has been imported from a zipfile ([#456] by [@samwyma])
+* Allow modules using `load_dotenv` to be reloaded when launched in a separate thread ([#497] by [@freddyaboulton])
+* Fix file not closed after deletion, handle error in the rewrite function ([#469] by [@Qwerty-133])
+
+**Misc**
+* Use pathlib.Path in tests ([#466] by [@eumiro])
+* Fix year in release date in changelog.md ([#454] by [@jankislinger])
+* Use https in README links ([#474] by [@Nicals])
+
+## [1.0.0] - 2023-02-24
+
+**Fixed**
+
+* Drop support for python 3.7, add python 3.12-dev (#449 by [@theskumar])
+* Handle situations where the cwd does not exist. (#446 by [@jctanner])
+
+## [0.21.1] - 2023-01-21
+
+**Added**
+
+* Use Python 3.11 non-beta in CI (#438 by [@bbc2])
+* Modernize variables code (#434 by [@Nougat-Waffle])
+* Modernize main.py and parser.py code (#435 by [@Nougat-Waffle])
+* Improve conciseness of cli.py and __init__.py (#439 by [@Nougat-Waffle])
+* Improve error message for `get` and `list` commands when env file can't be opened (#441 by [@bbc2])
+* Updated License to align with BSD OSI template (#433 by [@lsmith77])
+
+
+**Fixed**
+
+* Fix Out-of-scope error when "dest" variable is undefined (#413 by [@theGOTOguy])
+* Fix IPython test warning about deprecated `magic` (#440 by [@bbc2])
+* Fix type hint for dotenv_path var, add StrPath alias (#432 by [@eaf])
+
+## [0.21.0] - 2022-09-03
+
+**Added**
+
+* CLI: add support for invocations via 'python -m'. (#395 by [@theskumar])
+* `load_dotenv` function now returns `False`. (#388 by [@larsks])
+* CLI: add --format= option to list command. (#407 by [@sammck])
+
+**Fixed**
+
+* Drop Python 3.5 and 3.6 and upgrade GA (#393 by [@eggplants])
+* Use `open` instead of `io.open`. (#389 by [@rabinadk1])
+* Improve documentation for variables without a value (#390 by [@bbc2])
+* Add `parse_it` to Related Projects (#410 by [@naorlivne])
+* Update README.md (#415 by [@harveer07])
+* Improve documentation with direct use of MkDocs (#398 by [@bbc2])
+
+## [0.20.0] - 2022-03-24
+
+**Added**
+
+- Add `encoding` (`Optional[str]`) parameter to `get_key`, `set_key` and `unset_key`.
+  (#379 by [@bbc2])
+
+**Fixed**
+
+- Use dict to specify the `entry_points` parameter of `setuptools.setup` (#376 by
+  [@mgorny]).
+- Don't build universal wheels (#387 by [@bbc2]).
+
+## [0.19.2] - 2021-11-11
+
+**Fixed**
+
+- In `set_key`, add missing newline character before new entry if necessary. (#361 by
+  [@bbc2])
+
+## [0.19.1] - 2021-08-09
+
+**Added**
+
+- Add support for Python 3.10. (#359 by [@theskumar])
+
+## [0.19.0] - 2021-07-24
+
+**Changed**
+
+- Require Python 3.5 or a later version.  Python 2 and 3.4 are no longer supported. (#341
+  by [@bbc2]).
+
+**Added**
+
+- The `dotenv_path` argument of `set_key` and `unset_key` now has a type of `Union[str,
+  os.PathLike]` instead of just `os.PathLike` (#347 by [@bbc2]).
+- The `stream` argument of `load_dotenv` and `dotenv_values` can now be a text stream
+  (`IO[str]`), which includes values like `io.StringIO("foo")` and `open("file.env",
+  "r")` (#348 by [@bbc2]).
+
+## [0.18.0] - 2021-06-20
+
+**Changed**
+
+- Raise `ValueError` if `quote_mode` isn't one of `always`, `auto` or `never` in
+  `set_key` (#330 by [@bbc2]).
+- When writing a value to a .env file with `set_key` or `dotenv set <key> <value>` (#330
+  by [@bbc2]):
+  - Use single quotes instead of double quotes.
+  - Don't strip surrounding quotes.
+  - In `auto` mode, don't add quotes if the value is only made of alphanumeric characters
+    (as determined by `string.isalnum`).
+
+## [0.17.1] - 2021-04-29
+
+**Fixed**
+
+- Fixed tests for build environments relying on `PYTHONPATH` (#318 by [@befeleme]).
+
+## [0.17.0] - 2021-04-02
+
+**Changed**
+
+- Make `dotenv get <key>` only show the value, not `key=value` (#313 by [@bbc2]).
+
+**Added**
+
+- Add `--override`/`--no-override` option to `dotenv run` (#312 by [@zueve] and [@bbc2]).
+
+## [0.16.0] - 2021-03-27
+
+**Changed**
+
+- The default value of the `encoding` parameter for `load_dotenv` and `dotenv_values` is
+  now `"utf-8"` instead of `None` (#306 by [@bbc2]).
+- Fix resolution order in variable expansion with `override=False` (#287 by [@bbc2]).
+
+## [0.15.0] - 2020-10-28
+
+**Added**
+
+- Add `--export` option to `set` to make it prepend the binding with `export` (#270 by
+  [@jadutter]).
+
+**Changed**
+
+- Make `set` command create the `.env` file in the current directory if no `.env` file was
+  found (#270 by [@jadutter]).
+
+**Fixed**
+
+- Fix potentially empty expanded value for duplicate key (#260 by [@bbc2]).
+- Fix import error on Python 3.5.0 and 3.5.1 (#267 by [@gongqingkui]).
+- Fix parsing of unquoted values containing several adjacent space or tab characters
+  (#277 by [@bbc2], review by [@x-yuri]).
+
+## [0.14.0] - 2020-07-03
+
+**Changed**
+
+- Privilege definition in file over the environment in variable expansion (#256 by
+  [@elbehery95]).
+
+**Fixed**
+
+- Improve error message for when file isn't found (#245 by [@snobu]).
+- Use HTTPS URL in package meta data (#251 by [@ekohl]).
+
+## [0.13.0] - 2020-04-16
+
+**Added**
+
+- Add support for a Bash-like default value in variable expansion (#248 by [@bbc2]).
+
+## [0.12.0] - 2020-02-28
+
+**Changed**
+
+- Use current working directory to find `.env` when bundled by PyInstaller (#213 by
+  [@gergelyk]).
+
+**Fixed**
+
+- Fix escaping of quoted values written by `set_key` (#236 by [@bbc2]).
+- Fix `dotenv run` crashing on environment variables without values (#237 by [@yannham]).
+- Remove warning when last line is empty (#238 by [@bbc2]).
+
+## [0.11.0] - 2020-02-07
+
+**Added**
+
+- Add `interpolate` argument to `load_dotenv` and `dotenv_values` to disable interpolation
+  (#232 by [@ulyssessouza]).
+
+**Changed**
+
+- Use logging instead of warnings (#231 by [@bbc2]).
+
+**Fixed**
+
+- Fix installation in non-UTF-8 environments (#225 by [@altendky]).
+- Fix PyPI classifiers (#228 by [@bbc2]).
+
+## [0.10.5] - 2020-01-19
+
+**Fixed**
+
+- Fix handling of malformed lines and lines without a value (#222 by [@bbc2]):
+  - Don't print warning when key has no value.
+  - Reject more malformed lines (e.g. "A: B", "a='b',c").
+- Fix handling of lines with just a comment (#224 by [@bbc2]).
+
+## [0.10.4] - 2020-01-17
+
+**Added**
+
+- Make typing optional (#179 by [@techalchemy]).
+- Print a warning on malformed line (#211 by [@bbc2]).
+- Support keys without a value (#220 by [@ulyssessouza]).
+
+## 0.10.3
+
+- Improve interactive mode detection ([@andrewsmith])([#183]).
+- Refactor parser to fix parsing inconsistencies ([@bbc2])([#170]).
+  - Interpret escapes as control characters only in double-quoted strings.
+  - Interpret `#` as start of comment only if preceded by whitespace.
+
+## 0.10.2
+
+- Add type hints and expose them to users ([@qnighy])([#172])
+- `load_dotenv` and `dotenv_values` now accept an `encoding` parameter, defaults to `None`
+  ([@theskumar])([@earlbread])([#161])
+- Fix `str`/`unicode` inconsistency in Python 2: values are always `str` now. ([@bbc2])([#121])
+- Fix Unicode error in Python 2, introduced in 0.10.0. ([@bbc2])([#176])
+
+## 0.10.1
+- Fix parsing of variable without a value ([@asyncee])([@bbc2])([#158])
+
+## 0.10.0
+
+- Add support for UTF-8 in unquoted values ([@bbc2])([#148])
+- Add support for trailing comments ([@bbc2])([#148])
+- Add backslashes support in values ([@bbc2])([#148])
+- Add support for newlines in values ([@bbc2])([#148])
+- Force environment variables to str with Python2 on Windows ([@greyli])
+- Drop Python 3.3 support ([@greyli])
+- Fix stderr/-out/-in redirection ([@venthur])
+
+
+## 0.9.0
+
+- Add `--version` parameter to cli ([@venthur])
+- Enable loading from current directory ([@cjauvin])
+- Add 'dotenv run' command for calling arbitrary shell script with .env ([@venthur])
+
+## 0.8.1
+
+-   Add tests for docs ([@Flimm])
+-   Make 'cli' support optional. Use `pip install python-dotenv[cli]`. ([@theskumar])
+
+## 0.8.0
+
+-   `set_key` and `unset_key` only modified the affected file instead of
+    parsing and re-writing file, this causes comments and other file
+    entact as it is.
+-   Add support for `export` prefix in the line.
+-   Internal refractoring ([@theskumar])
+-   Allow `load_dotenv` and `dotenv_values` to work with `StringIO())` ([@alanjds])([@theskumar])([#78])
+
+## 0.7.1
+
+-   Remove hard dependency on iPython ([@theskumar])
+
+## 0.7.0
+
+-   Add support to override system environment variable via .env.
+    ([@milonimrod](https://github.com/milonimrod))
+    ([\#63](https://github.com/theskumar/python-dotenv/issues/63))
+-   Disable ".env not found" warning by default
+    ([@maxkoryukov](https://github.com/maxkoryukov))
+    ([\#57](https://github.com/theskumar/python-dotenv/issues/57))
+
+## 0.6.5
+
+-   Add support for special characters `\`.
+    ([@pjona](https://github.com/pjona))
+    ([\#60](https://github.com/theskumar/python-dotenv/issues/60))
+
+## 0.6.4
+
+-   Fix issue with single quotes ([@Flimm])
+    ([\#52](https://github.com/theskumar/python-dotenv/issues/52))
+
+## 0.6.3
+
+-   Handle unicode exception in setup.py
+    ([\#46](https://github.com/theskumar/python-dotenv/issues/46))
+
+## 0.6.2
+
+-   Fix dotenv list command ([@ticosax](https://github.com/ticosax))
+-   Add iPython Support
+    ([@tillahoffmann](https://github.com/tillahoffmann))
+
+## 0.6.0
+
+-   Drop support for Python 2.6
+-   Handle escaped characters and newlines in quoted values. (Thanks
+    [@iameugenejo](https://github.com/iameugenejo))
+-   Remove any spaces around unquoted key/value. (Thanks
+    [@paulochf](https://github.com/paulochf))
+-   Added POSIX variable expansion. (Thanks
+    [@hugochinchilla](https://github.com/hugochinchilla))
+
+## 0.5.1
+
+-   Fix `find_dotenv` - it now start search from the file where this
+    function is called from.
+
+## 0.5.0
+
+-   Add `find_dotenv` method that will try to find a `.env` file.
+    (Thanks [@isms](https://github.com/isms))
+
+## 0.4.0
+
+-   cli: Added `-q/--quote` option to control the behaviour of quotes
+    around values in `.env`. (Thanks
+    [@hugochinchilla](https://github.com/hugochinchilla)).
+-   Improved test coverage.
+
+[#78]: https://github.com/theskumar/python-dotenv/issues/78
+[#121]: https://github.com/theskumar/python-dotenv/issues/121
+[#148]: https://github.com/theskumar/python-dotenv/issues/148
+[#158]: https://github.com/theskumar/python-dotenv/issues/158
+[#170]: https://github.com/theskumar/python-dotenv/issues/170
+[#172]: https://github.com/theskumar/python-dotenv/issues/172
+[#176]: https://github.com/theskumar/python-dotenv/issues/176
+[#183]: https://github.com/theskumar/python-dotenv/issues/183
+[#359]: https://github.com/theskumar/python-dotenv/issues/359
+[#469]: https://github.com/theskumar/python-dotenv/issues/469
+[#456]: https://github.com/theskumar/python-dotenv/issues/456
+[#466]: https://github.com/theskumar/python-dotenv/issues/466
+[#454]: https://github.com/theskumar/python-dotenv/issues/454
+[#474]: https://github.com/theskumar/python-dotenv/issues/474
+[#523]: https://github.com/theskumar/python-dotenv/issues/523
+[#553]: https://github.com/theskumar/python-dotenv/issues/553
+
+[@alanjds]: https://github.com/alanjds
+[@altendky]: https://github.com/altendky
+[@andrewsmith]: https://github.com/andrewsmith
+[@asyncee]: https://github.com/asyncee
+[@bbc2]: https://github.com/bbc2
+[@befeleme]: https://github.com/befeleme
+[@cjauvin]: https://github.com/cjauvin
+[@eaf]: https://github.com/eaf
+[@earlbread]: https://github.com/earlbread
+[@eekstunt]: https://github.com/eekstunt
+[@eggplants]: https://github.com/@eggplants
+[@ekohl]: https://github.com/ekohl
+[@elbehery95]: https://github.com/elbehery95
+[@eumiro]: https://github.com/eumiro
+[@Flimm]: https://github.com/Flimm
+[@freddyaboulton]: https://github.com/freddyaboulton
+[@gergelyk]: https://github.com/gergelyk
+[@gongqingkui]: https://github.com/gongqingkui
+[@greyli]: https://github.com/greyli
+[@harveer07]: https://github.com/@harveer07
+[@jadutter]: https://github.com/jadutter
+[@jankislinger]: https://github.com/jankislinger
+[@jctanner]: https://github.com/jctanner
+[@larsks]: https://github.com/@larsks
+[@lsmith77]: https://github.com/lsmith77
+[@mgorny]: https://github.com/mgorny
+[@naorlivne]: https://github.com/@naorlivne
+[@Nicals]: https://github.com/Nicals
+[@Nougat-Waffle]: https://github.com/Nougat-Waffle
+[@qnighy]: https://github.com/qnighy
+[@Qwerty-133]: https://github.com/Qwerty-133
+[@rabinadk1]: https://github.com/@rabinadk1
+[@sammck]: https://github.com/@sammck
+[@samwyma]: https://github.com/samwyma
+[@snobu]: https://github.com/snobu
+[@techalchemy]: https://github.com/techalchemy
+[@theGOTOguy]: https://github.com/theGOTOguy
+[@theskumar]: https://github.com/theskumar
+[@ulyssessouza]: https://github.com/ulyssessouza
+[@venthur]: https://github.com/venthur
+[@x-yuri]: https://github.com/x-yuri
+[@yannham]: https://github.com/yannham
+[@zueve]: https://github.com/zueve
+[@randomseed42]: https://github.com/zueve
+[@wrongontheinternet]: https://github.com/wrongontheinternet
+
+[Unreleased]: https://github.com/theskumar/python-dotenv/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/theskumar/python-dotenv/compare/v1.1.0...1.1.1
+[1.1.0]: https://github.com/theskumar/python-dotenv/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/theskumar/python-dotenv/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/theskumar/python-dotenv/compare/v0.21.0...v1.0.0
+[0.21.1]: https://github.com/theskumar/python-dotenv/compare/v0.21.0...v0.21.1
+[0.21.0]: https://github.com/theskumar/python-dotenv/compare/v0.20.0...v0.21.0
+[0.20.0]: https://github.com/theskumar/python-dotenv/compare/v0.19.2...v0.20.0
+[0.19.2]: https://github.com/theskumar/python-dotenv/compare/v0.19.1...v0.19.2
+[0.19.1]: https://github.com/theskumar/python-dotenv/compare/v0.19.0...v0.19.1
+[0.19.0]: https://github.com/theskumar/python-dotenv/compare/v0.18.0...v0.19.0
+[0.18.0]: https://github.com/theskumar/python-dotenv/compare/v0.17.1...v0.18.0
+[0.17.1]: https://github.com/theskumar/python-dotenv/compare/v0.17.0...v0.17.1
+[0.17.0]: https://github.com/theskumar/python-dotenv/compare/v0.16.0...v0.17.0
+[0.16.0]: https://github.com/theskumar/python-dotenv/compare/v0.15.0...v0.16.0
+[0.15.0]: https://github.com/theskumar/python-dotenv/compare/v0.14.0...v0.15.0
+[0.14.0]: https://github.com/theskumar/python-dotenv/compare/v0.13.0...v0.14.0
+[0.13.0]: https://github.com/theskumar/python-dotenv/compare/v0.12.0...v0.13.0
+[0.12.0]: https://github.com/theskumar/python-dotenv/compare/v0.11.0...v0.12.0
+[0.11.0]: https://github.com/theskumar/python-dotenv/compare/v0.10.5...v0.11.0
+[0.10.5]: https://github.com/theskumar/python-dotenv/compare/v0.10.4...v0.10.5
+[0.10.4]: https://github.com/theskumar/python-dotenv/compare/v0.10.3...v0.10.4
+
+
+
+================================================
+FILE: CONTRIBUTING.md
+================================================
+Contributing
+============
+
+All the contributions are welcome! Please open [an
+issue](https://github.com/theskumar/python-dotenv/issues/new) or send us
+a pull request.
+
+Executing the tests:
+
+    $ uv venv
+    $ uv pip install -r requirements.txt
+    $ uv pip install -e .
+    $ uv ruff check .
+    $ uv format .
+    $ uv run pytest
+
+or with [tox](https://pypi.org/project/tox/) installed:
+
+    $ tox
+
+
+Use of pre-commit is recommended:
+
+    $ uv run precommit install
+
+
+Documentation is published with [mkdocs]():
+
+```shell
+$ uv pip install -r requirements-docs.txt
+$ uv pip install -e .
+$ uv run mkdocs serve
+```
+
+Open http://127.0.0.1:8000/ to view the documentation locally.
+
+
+
+================================================
+FILE: LICENSE
+================================================
+Copyright (c) 2014, Saurabh Kumar (python-dotenv), 2013, Ted Tieken (django-dotenv-rw), 2013, Jacob Kaplan-Moss (django-dotenv)
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+- Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+- Neither the name of django-dotenv nor the names of its contributors
+  may be used to endorse or promote products derived from this software
+  without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+================================================
+FILE: Makefile
+================================================
+.PHONY: clean-pyc clean-build test
+
+clean: clean-build clean-pyc
+
+clean-build:
+	rm -fr build/
+	rm -fr dist/
+	rm -fr src/*.egg-info
+
+clean-pyc:
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+
+release: sdist
+	twine check dist/*
+	twine upload dist/*
+
+release-test: sdist
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+sdist: clean
+	python setup.py sdist bdist_wheel
+	ls -l dist
+
+test:
+	uv pip install -e .
+	ruff check .
+	pytest tests/
+
+coverage:
+	coverage run --source=dotenv --omit='*tests*' -m py.test tests/ -v --tb=native
+	coverage report
+
+coverage-html: coverage
+	coverage html
+
+
+
+================================================
+FILE: MANIFEST.in
+================================================
+include LICENSE *.md *.yml *.yaml *.toml
+
+include tox.ini
+recursive-include docs *.md
+recursive-include tests *.py
+
+include .bumpversion.cfg
+include .coveragerc
+include .editorconfig
+include Makefile
+include requirements.txt
+include requirements-docs.txt
+include src/dotenv/py.typed
+
+
+
+================================================
+FILE: mkdocs.yml
+================================================
+site_name: python-dotenv
+repo_url: https://github.com/theskumar/python-dotenv
+edit_uri: ""
+theme:
+  name: material
+  palette:
+    primary: green
+  features:
+    - toc.follow
+    - navigation.sections
+
+markdown_extensions:
+  - mdx_truly_sane_lists
+
+plugins:
+  - mkdocstrings
+  - search
+nav:
+  - Home: index.md
+  - Changelog: changelog.md
+  - Contributing: contributing.md
+  - Reference: reference.md
+  - License: license.md
+
+
+
+================================================
+FILE: requirements-docs.txt
+================================================
+mdx_truly_sane_lists~=1.2
+mkdocs-include-markdown-plugin~=3.3.0
+mkdocs-material~=8.2.9
+mkdocstrings[python]~=0.18.1
+mkdocs~=1.3.0
+
+
+
+================================================
+FILE: requirements.txt
+================================================
+bumpversion
+click
+ipython
+pytest-cov
+pytest>=3.9
+sh>=2
+tox
+twine
+wheel
+ruff
+pre-commit
+
+
+
+================================================
+FILE: ruff.toml
+================================================
+[lint]
+select = [
+    # pycodestyle
+    "E4",
+    "E7",
+    "E9",
+
+    # Pyflakes
+    "F",
+
+    # flake8-bugbear
+    "B",
+
+    # iSort
+    "I",
+
+    # flake8-builtins
+    "A",
+]
+
+
+
+================================================
+FILE: setup.cfg
+================================================
+[bumpversion]
+current_version = 1.1.1
+commit = True
+tag = True
+
+[bumpversion:file:src/dotenv/version.py]
+
+[flake8]
+max-line-length = 120
+exclude = .tox,.git,docs,venv,.venv,build
+
+[mypy]
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[metadata]
+description_file = README.md
+
+[tool:pytest]
+testpaths = tests
+
+[coverage:run]
+relative_files = True
+source = dotenv
+
+[coverage:paths]
+source = 
+	src/dotenv
+	.tox/*/lib/python*/site-packages/dotenv
+	.tox/pypy*/site-packages/dotenv
+
+[coverage:report]
+show_missing = True
+include = */site-packages/dotenv/*
+exclude_lines = 
+	if IS_TYPE_CHECKING:
+	pragma: no cover
+
+
+
+================================================
+FILE: setup.py
+================================================
+from setuptools import setup
+
+
+def read_files(files):
+    data = []
+    for file in files:
+        with open(file, encoding="utf-8") as f:
+            data.append(f.read())
+    return "\n".join(data)
+
+
+long_description = read_files(["README.md", "CHANGELOG.md"])
+
+meta = {}
+with open("./src/dotenv/version.py", encoding="utf-8") as f:
+    exec(f.read(), meta)
+
+setup(
+    name="python-dotenv",
+    description="Read key-value pairs from a .env file and set them as environment variables",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    version=meta["__version__"],
+    author="Saurabh Kumar",
+    author_email="me+github@saurabh-kumar.com",
+    url="https://github.com/theskumar/python-dotenv",
+    keywords=[
+        "environment variables",
+        "deployments",
+        "settings",
+        "env",
+        "dotenv",
+        "configurations",
+        "python",
+    ],
+    packages=["dotenv"],
+    package_dir={"": "src"},
+    package_data={
+        "dotenv": ["py.typed"],
+    },
+    python_requires=">=3.9",
+    extras_require={
+        "cli": [
+            "click>=5.0",
+        ],
+    },
+    entry_points={
+        "console_scripts": [
+            "dotenv=dotenv.__main__:cli",
+        ],
+    },
+    license="BSD-3-Clause",
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Intended Audience :: Developers",
+        "Intended Audience :: System Administrators",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: OS Independent",
+        "Topic :: System :: Systems Administration",
+        "Topic :: Utilities",
+        "Environment :: Web Environment",
+    ],
+)
+
+
+
+================================================
+FILE: tox.ini
+================================================
+[tox]
+envlist = lint,py{39,310,311,312,313},pypy3,manifest,coverage-report
+
+[gh-actions]
+python =
+    3.9: py39
+    3.10: py310
+    3.11: py311
+    3.12: py312
+    3.13: py313, lint, manifest
+    pypy-3.9: pypy3
+
+[testenv]
+deps =
+    pytest
+    pytest-cov
+    sh >= 2.0.2, <3
+    click
+    py{39,310,311,312,313,pypy3}: ipython
+commands = pytest --cov --cov-report=term-missing --cov-config setup.cfg {posargs}
+depends =
+    py{39,310,311,312,313},pypy3: coverage-clean
+    coverage-report: py{39,310,311,312,313},pypy3
+
+[testenv:lint]
+skip_install = true
+deps =
+    ruff
+    mypy
+commands =
+    ruff check src
+    ruff check tests
+    mypy --python-version=3.13 src tests
+    mypy --python-version=3.12 src tests
+    mypy --python-version=3.11 src tests
+    mypy --python-version=3.10 src tests
+    mypy --python-version=3.9 src tests
+
+[testenv:manifest]
+deps = check-manifest
+skip_install = true
+commands = check-manifest
+
+[testenv:coverage-clean]
+deps = coverage
+skip_install = true
+commands = coverage erase
+
+[testenv:coverage-report]
+deps = coverage
+skip_install = true
+commands =
+    coverage report
+
+
+
+================================================
+FILE: .editorconfig
+================================================
+# see: http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{py,rst,ini}]
+indent_style = space
+indent_size = 4
+
+[*.yml]
+indent_style = space
+indent_size = 2
+
+
+
+================================================
+FILE: .pre-commit-config.yaml
+================================================
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.0
+    hooks:
+      # Run the linter.
+      - id: ruff
+      # Run the formatter.
+      - id: ruff-format
+
+
+
+================================================
+FILE: docs/changelog.md
+================================================
+../CHANGELOG.md
+
+
+================================================
+FILE: docs/contributing.md
+================================================
+../CONTRIBUTING.md
+
+
+================================================
+FILE: docs/index.md
+================================================
+../README.md
+
+
+================================================
+FILE: docs/license.md
+================================================
+../LICENSE
+
+
+================================================
+FILE: docs/reference.md
+================================================
+# ::: dotenv
+
+
+
+
+================================================
+FILE: src/dotenv/__init__.py
+================================================
+from typing import Any, Optional
+
+from .main import dotenv_values, find_dotenv, get_key, load_dotenv, set_key, unset_key
+
+
+def load_ipython_extension(ipython: Any) -> None:
+    from .ipython import load_ipython_extension
+
+    load_ipython_extension(ipython)
+
+
+def get_cli_string(
+    path: Optional[str] = None,
+    action: Optional[str] = None,
+    key: Optional[str] = None,
+    value: Optional[str] = None,
+    quote: Optional[str] = None,
+):
+    """Returns a string suitable for running as a shell script.
+
+    Useful for converting a arguments passed to a fabric task
+    to be passed to a `local` or `run` command.
+    """
+    command = ["dotenv"]
+    if quote:
+        command.append(f"-q {quote}")
+    if path:
+        command.append(f"-f {path}")
+    if action:
+        command.append(action)
+        if key:
+            command.append(key)
+            if value:
+                if " " in value:
+                    command.append(f'"{value}"')
+                else:
+                    command.append(value)
+
+    return " ".join(command).strip()
+
+
+__all__ = [
+    "get_cli_string",
+    "load_dotenv",
+    "dotenv_values",
+    "get_key",
+    "set_key",
+    "unset_key",
+    "find_dotenv",
+    "load_ipython_extension",
+]
+
+
+
+================================================
+FILE: src/dotenv/__main__.py
+================================================
+"""Entry point for cli, enables execution with `python -m dotenv`"""
+
+from .cli import cli
+
+if __name__ == "__main__":
+    cli()
+
+
+
+================================================
+FILE: src/dotenv/cli.py
+================================================
+import json
+import os
+import shlex
+import sys
+from contextlib import contextmanager
+from typing import IO, Any, Dict, Iterator, List, Optional
+
+if sys.platform == "win32":
+    from subprocess import Popen
+
+try:
+    import click
+except ImportError:
+    sys.stderr.write(
+        "It seems python-dotenv is not installed with cli option. \n"
+        'Run pip install "python-dotenv[cli]" to fix this.'
+    )
+    sys.exit(1)
+
+from .main import dotenv_values, set_key, unset_key
+from .version import __version__
+
+
+def enumerate_env() -> Optional[str]:
+    """
+    Return a path for the ${pwd}/.env file.
+
+    If pwd does not exist, return None.
+    """
+    try:
+        cwd = os.getcwd()
+    except FileNotFoundError:
+        return None
+    path = os.path.join(cwd, ".env")
+    return path
+
+
+@click.group()
+@click.option(
+    "-f",
+    "--file",
+    default=enumerate_env(),
+    type=click.Path(file_okay=True),
+    help="Location of the .env file, defaults to .env file in current working directory.",
+)
+@click.option(
+    "-q",
+    "--quote",
+    default="always",
+    type=click.Choice(["always", "never", "auto"]),
+    help="Whether to quote or not the variable values. Default mode is always. This does not affect parsing.",
+)
+@click.option(
+    "-e",
+    "--export",
+    default=False,
+    type=click.BOOL,
+    help="Whether to write the dot file as an executable bash script.",
+)
+@click.version_option(version=__version__)
+@click.pass_context
+def cli(ctx: click.Context, file: Any, quote: Any, export: Any) -> None:
+    """This script is used to set, get or unset values from a .env file."""
+    ctx.obj = {"QUOTE": quote, "EXPORT": export, "FILE": file}
+
+
+@contextmanager
+def stream_file(path: os.PathLike) -> Iterator[IO[str]]:
+    """
+    Open a file and yield the corresponding (decoded) stream.
+
+    Exits with error code 2 if the file cannot be opened.
+    """
+
+    try:
+        with open(path) as stream:
+            yield stream
+    except OSError as exc:
+        print(f"Error opening env file: {exc}", file=sys.stderr)
+        sys.exit(2)
+
+
+@cli.command(name="list")
+@click.pass_context
+@click.option(
+    "--format",
+    "output_format",
+    default="simple",
+    type=click.Choice(["simple", "json", "shell", "export"]),
+    help="The format in which to display the list. Default format is simple, "
+    "which displays name=value without quotes.",
+)
+def list_values(ctx: click.Context, output_format: str) -> None:
+    """Display all the stored key/value."""
+    file = ctx.obj["FILE"]
+
+    with stream_file(file) as stream:
+        values = dotenv_values(stream=stream)
+
+    if output_format == "json":
+        click.echo(json.dumps(values, indent=2, sort_keys=True))
+    else:
+        prefix = "export " if output_format == "export" else ""
+        for k in sorted(values):
+            v = values[k]
+            if v is not None:
+                if output_format in ("export", "shell"):
+                    v = shlex.quote(v)
+                click.echo(f"{prefix}{k}={v}")
+
+
+@cli.command(name="set")
+@click.pass_context
+@click.argument("key", required=True)
+@click.argument("value", required=True)
+def set_value(ctx: click.Context, key: Any, value: Any) -> None:
+    """Store the given key/value."""
+    file = ctx.obj["FILE"]
+    quote = ctx.obj["QUOTE"]
+    export = ctx.obj["EXPORT"]
+    success, key, value = set_key(file, key, value, quote, export)
+    if success:
+        click.echo(f"{key}={value}")
+    else:
+        sys.exit(1)
+
+
+@cli.command()
+@click.pass_context
+@click.argument("key", required=True)
+def get(ctx: click.Context, key: Any) -> None:
+    """Retrieve the value for the given key."""
+    file = ctx.obj["FILE"]
+
+    with stream_file(file) as stream:
+        values = dotenv_values(stream=stream)
+
+    stored_value = values.get(key)
+    if stored_value:
+        click.echo(stored_value)
+    else:
+        sys.exit(1)
+
+
+@cli.command()
+@click.pass_context
+@click.argument("key", required=True)
+def unset(ctx: click.Context, key: Any) -> None:
+    """Removes the given key."""
+    file = ctx.obj["FILE"]
+    quote = ctx.obj["QUOTE"]
+    success, key = unset_key(file, key, quote)
+    if success:
+        click.echo(f"Successfully removed {key}")
+    else:
+        sys.exit(1)
+
+
+@cli.command(context_settings={"ignore_unknown_options": True})
+@click.pass_context
+@click.option(
+    "--override/--no-override",
+    default=True,
+    help="Override variables from the environment file with those from the .env file.",
+)
+@click.argument("commandline", nargs=-1, type=click.UNPROCESSED)
+def run(ctx: click.Context, override: bool, commandline: List[str]) -> None:
+    """Run command with environment variables present."""
+    file = ctx.obj["FILE"]
+    if not os.path.isfile(file):
+        raise click.BadParameter(
+            f"Invalid value for '-f' \"{file}\" does not exist.", ctx=ctx
+        )
+    dotenv_as_dict = {
+        k: v
+        for (k, v) in dotenv_values(file).items()
+        if v is not None and (override or k not in os.environ)
+    }
+
+    if not commandline:
+        click.echo("No command given.")
+        sys.exit(1)
+    run_command(commandline, dotenv_as_dict)
+
+
+def run_command(command: List[str], env: Dict[str, str]) -> None:
+    """Replace the current process with the specified command.
+
+    Replaces the current process with the specified command and the variables from `env`
+    added in the current environment variables.
+
+    Parameters
+    ----------
+    command: List[str]
+        The command and it's parameters
+    env: Dict
+        The additional environment variables
+
+    Returns
+    -------
+    None
+        This function does not return any value. It replaces the current process with the new one.
+
+    """
+    # copy the current environment variables and add the vales from
+    # `env`
+    cmd_env = os.environ.copy()
+    cmd_env.update(env)
+
+    if sys.platform == "win32":
+        # execvpe on Windows returns control immediately
+        # rather than once the command has finished.
+        p = Popen(command, universal_newlines=True, bufsize=0, shell=False, env=cmd_env)
+        _, _ = p.communicate()
+
+        sys.exit(p.returncode)
+    else:
+        os.execvpe(command[0], args=command, env=cmd_env)
+
+
+
+================================================
+FILE: src/dotenv/ipython.py
+================================================
+from IPython.core.magic import Magics, line_magic, magics_class  # type: ignore
+from IPython.core.magic_arguments import (
+    argument,
+    magic_arguments,
+    parse_argstring,
+)  # type: ignore
+
+from .main import find_dotenv, load_dotenv
+
+
+@magics_class
+class IPythonDotEnv(Magics):
+    @magic_arguments()
+    @argument(
+        "-o",
+        "--override",
+        action="store_true",
+        help="Indicate to override existing variables",
+    )
+    @argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Indicate function calls to be verbose",
+    )
+    @argument(
+        "dotenv_path",
+        nargs="?",
+        type=str,
+        default=".env",
+        help="Search in increasingly higher folders for the `dotenv_path`",
+    )
+    @line_magic
+    def dotenv(self, line):
+        args = parse_argstring(self.dotenv, line)
+        # Locate the .env file
+        dotenv_path = args.dotenv_path
+        try:
+            dotenv_path = find_dotenv(dotenv_path, True, True)
+        except IOError:
+            print("cannot find .env file")
+            return
+
+        # Load the .env file
+        load_dotenv(dotenv_path, verbose=args.verbose, override=args.override)
+
+
+def load_ipython_extension(ipython):
+    """Register the %dotenv magic."""
+    ipython.register_magics(IPythonDotEnv)
+
+
+
+================================================
+FILE: src/dotenv/main.py
+================================================
+import io
+import logging
+import os
+import pathlib
+import shutil
+import sys
+import tempfile
+from collections import OrderedDict
+from contextlib import contextmanager
+from typing import IO, Dict, Iterable, Iterator, Mapping, Optional, Tuple, Union
+
+from .parser import Binding, parse_stream
+from .variables import parse_variables
+
+# A type alias for a string path to be used for the paths in this file.
+# These paths may flow to `open()` and `shutil.move()`; `shutil.move()`
+# only accepts string paths, not byte paths or file descriptors. See
+# https://github.com/python/typeshed/pull/6832.
+StrPath = Union[str, "os.PathLike[str]"]
+
+logger = logging.getLogger(__name__)
+
+
+def _load_dotenv_disabled() -> bool:
+    """
+    Determine if dotenv loading has been disabled.
+    """
+    if "PYTHON_DOTENV_DISABLED" not in os.environ:
+        return False
+    value = os.environ["PYTHON_DOTENV_DISABLED"].casefold()
+    return value in {"1", "true", "t", "yes", "y"}
+
+
+def with_warn_for_invalid_lines(mappings: Iterator[Binding]) -> Iterator[Binding]:
+    for mapping in mappings:
+        if mapping.error:
+            logger.warning(
+                "python-dotenv could not parse statement starting at line %s",
+                mapping.original.line,
+            )
+        yield mapping
+
+
+class DotEnv:
+    def __init__(
+        self,
+        dotenv_path: Optional[StrPath],
+        stream: Optional[IO[str]] = None,
+        verbose: bool = False,
+        encoding: Optional[str] = None,
+        interpolate: bool = True,
+        override: bool = True,
+    ) -> None:
+        self.dotenv_path: Optional[StrPath] = dotenv_path
+        self.stream: Optional[IO[str]] = stream
+        self._dict: Optional[Dict[str, Optional[str]]] = None
+        self.verbose: bool = verbose
+        self.encoding: Optional[str] = encoding
+        self.interpolate: bool = interpolate
+        self.override: bool = override
+
+    @contextmanager
+    def _get_stream(self) -> Iterator[IO[str]]:
+        if self.dotenv_path and os.path.isfile(self.dotenv_path):
+            with open(self.dotenv_path, encoding=self.encoding) as stream:
+                yield stream
+        elif self.stream is not None:
+            yield self.stream
+        else:
+            if self.verbose:
+                logger.info(
+                    "python-dotenv could not find configuration file %s.",
+                    self.dotenv_path or ".env",
+                )
+            yield io.StringIO("")
+
+    def dict(self) -> Dict[str, Optional[str]]:
+        """Return dotenv as dict"""
+        if self._dict:
+            return self._dict
+
+        raw_values = self.parse()
+
+        if self.interpolate:
+            self._dict = OrderedDict(
+                resolve_variables(raw_values, override=self.override)
+            )
+        else:
+            self._dict = OrderedDict(raw_values)
+
+        return self._dict
+
+    def parse(self) -> Iterator[Tuple[str, Optional[str]]]:
+        with self._get_stream() as stream:
+            for mapping in with_warn_for_invalid_lines(parse_stream(stream)):
+                if mapping.key is not None:
+                    yield mapping.key, mapping.value
+
+    def set_as_environment_variables(self) -> bool:
+        """
+        Load the current dotenv as system environment variable.
+        """
+        if not self.dict():
+            return False
+
+        for k, v in self.dict().items():
+            if k in os.environ and not self.override:
+                continue
+            if v is not None:
+                os.environ[k] = v
+
+        return True
+
+    def get(self, key: str) -> Optional[str]:
+        """ """
+        data = self.dict()
+
+        if key in data:
+            return data[key]
+
+        if self.verbose:
+            logger.warning("Key %s not found in %s.", key, self.dotenv_path)
+
+        return None
+
+
+def get_key(
+    dotenv_path: StrPath,
+    key_to_get: str,
+    encoding: Optional[str] = "utf-8",
+) -> Optional[str]:
+    """
+    Get the value of a given key from the given .env.
+
+    Returns `None` if the key isn't found or doesn't have a value.
+    """
+    return DotEnv(dotenv_path, verbose=True, encoding=encoding).get(key_to_get)
+
+
+@contextmanager
+def rewrite(
+    path: StrPath,
+    encoding: Optional[str],
+) -> Iterator[Tuple[IO[str], IO[str]]]:
+    pathlib.Path(path).touch()
+
+    with tempfile.NamedTemporaryFile(mode="w", encoding=encoding, delete=False) as dest:
+        error = None
+        try:
+            with open(path, encoding=encoding) as source:
+                yield (source, dest)
+        except BaseException as err:
+            error = err
+
+    if error is None:
+        shutil.move(dest.name, path)
+    else:
+        os.unlink(dest.name)
+        raise error from None
+
+
+def set_key(
+    dotenv_path: StrPath,
+    key_to_set: str,
+    value_to_set: str,
+    quote_mode: str = "always",
+    export: bool = False,
+    encoding: Optional[str] = "utf-8",
+) -> Tuple[Optional[bool], str, str]:
+    """
+    Adds or Updates a key/value to the given .env
+
+    If the .env path given doesn't exist, fails instead of risking creating
+    an orphan .env somewhere in the filesystem
+    """
+    if quote_mode not in ("always", "auto", "never"):
+        raise ValueError(f"Unknown quote_mode: {quote_mode}")
+
+    quote = quote_mode == "always" or (
+        quote_mode == "auto" and not value_to_set.isalnum()
+    )
+
+    if quote:
+        value_out = "'{}'".format(value_to_set.replace("'", "\\'"))
+    else:
+        value_out = value_to_set
+    if export:
+        line_out = f"export {key_to_set}={value_out}\n"
+    else:
+        line_out = f"{key_to_set}={value_out}\n"
+
+    with rewrite(dotenv_path, encoding=encoding) as (source, dest):
+        replaced = False
+        missing_newline = False
+        for mapping in with_warn_for_invalid_lines(parse_stream(source)):
+            if mapping.key == key_to_set:
+                dest.write(line_out)
+                replaced = True
+            else:
+                dest.write(mapping.original.string)
+                missing_newline = not mapping.original.string.endswith("\n")
+        if not replaced:
+            if missing_newline:
+                dest.write("\n")
+            dest.write(line_out)
+
+    return True, key_to_set, value_to_set
+
+
+def unset_key(
+    dotenv_path: StrPath,
+    key_to_unset: str,
+    quote_mode: str = "always",
+    encoding: Optional[str] = "utf-8",
+) -> Tuple[Optional[bool], str]:
+    """
+    Removes a given key from the given `.env` file.
+
+    If the .env path given doesn't exist, fails.
+    If the given key doesn't exist in the .env, fails.
+    """
+    if not os.path.exists(dotenv_path):
+        logger.warning("Can't delete from %s - it doesn't exist.", dotenv_path)
+        return None, key_to_unset
+
+    removed = False
+    with rewrite(dotenv_path, encoding=encoding) as (source, dest):
+        for mapping in with_warn_for_invalid_lines(parse_stream(source)):
+            if mapping.key == key_to_unset:
+                removed = True
+            else:
+                dest.write(mapping.original.string)
+
+    if not removed:
+        logger.warning(
+            "Key %s not removed from %s - key doesn't exist.", key_to_unset, dotenv_path
+        )
+        return None, key_to_unset
+
+    return removed, key_to_unset
+
+
+def resolve_variables(
+    values: Iterable[Tuple[str, Optional[str]]],
+    override: bool,
+) -> Mapping[str, Optional[str]]:
+    new_values: Dict[str, Optional[str]] = {}
+
+    for name, value in values:
+        if value is None:
+            result = None
+        else:
+            atoms = parse_variables(value)
+            env: Dict[str, Optional[str]] = {}
+            if override:
+                env.update(os.environ)  # type: ignore
+                env.update(new_values)
+            else:
+                env.update(new_values)
+                env.update(os.environ)  # type: ignore
+            result = "".join(atom.resolve(env) for atom in atoms)
+
+        new_values[name] = result
+
+    return new_values
+
+
+def _walk_to_root(path: str) -> Iterator[str]:
+    """
+    Yield directories starting from the given directory up to the root
+    """
+    if not os.path.exists(path):
+        raise IOError("Starting path not found")
+
+    if os.path.isfile(path):
+        path = os.path.dirname(path)
+
+    last_dir = None
+    current_dir = os.path.abspath(path)
+    while last_dir != current_dir:
+        yield current_dir
+        parent_dir = os.path.abspath(os.path.join(current_dir, os.path.pardir))
+        last_dir, current_dir = current_dir, parent_dir
+
+
+def find_dotenv(
+    filename: str = ".env",
+    raise_error_if_not_found: bool = False,
+    usecwd: bool = False,
+) -> str:
+    """
+    Search in increasingly higher folders for the given file
+
+    Returns path to the file if found, or an empty string otherwise
+    """
+
+    def _is_interactive():
+        """Decide whether this is running in a REPL or IPython notebook"""
+        if hasattr(sys, "ps1") or hasattr(sys, "ps2"):
+            return True
+        try:
+            main = __import__("__main__", None, None, fromlist=["__file__"])
+        except ModuleNotFoundError:
+            return False
+        return not hasattr(main, "__file__")
+
+    def _is_debugger():
+        return sys.gettrace() is not None
+
+    if usecwd or _is_interactive() or _is_debugger() or getattr(sys, "frozen", False):
+        # Should work without __file__, e.g. in REPL or IPython notebook.
+        path = os.getcwd()
+    else:
+        # will work for .py files
+        frame = sys._getframe()
+        current_file = __file__
+
+        while frame.f_code.co_filename == current_file or not os.path.exists(
+            frame.f_code.co_filename
+        ):
+            assert frame.f_back is not None
+            frame = frame.f_back
+        frame_filename = frame.f_code.co_filename
+        path = os.path.dirname(os.path.abspath(frame_filename))
+
+    for dirname in _walk_to_root(path):
+        check_path = os.path.join(dirname, filename)
+        if os.path.isfile(check_path):
+            return check_path
+
+    if raise_error_if_not_found:
+        raise IOError("File not found")
+
+    return ""
+
+
+def load_dotenv(
+    dotenv_path: Optional[StrPath] = None,
+    stream: Optional[IO[str]] = None,
+    verbose: bool = False,
+    override: bool = False,
+    interpolate: bool = True,
+    encoding: Optional[str] = "utf-8",
+) -> bool:
+    """Parse a .env file and then load all the variables found as environment variables.
+
+    Parameters:
+        dotenv_path: Absolute or relative path to .env file.
+        stream: Text stream (such as `io.StringIO`) with .env content, used if
+            `dotenv_path` is `None`.
+        verbose: Whether to output a warning the .env file is missing.
+        override: Whether to override the system environment variables with the variables
+            from the `.env` file.
+        encoding: Encoding to be used to read the file.
+    Returns:
+        Bool: True if at least one environment variable is set else False
+
+    If both `dotenv_path` and `stream` are `None`, `find_dotenv()` is used to find the
+    .env file with it's default parameters. If you need to change the default parameters
+    of `find_dotenv()`, you can explicitly call `find_dotenv()` and pass the result
+    to this function as `dotenv_path`.
+
+    If the environment variable `PYTHON_DOTENV_DISABLED` is set to a truthy value,
+    .env loading is disabled.
+    """
+    if _load_dotenv_disabled():
+        logger.debug(
+            "python-dotenv: .env loading disabled by PYTHON_DOTENV_DISABLED environment variable"
+        )
+        return False
+
+    if dotenv_path is None and stream is None:
+        dotenv_path = find_dotenv()
+
+    dotenv = DotEnv(
+        dotenv_path=dotenv_path,
+        stream=stream,
+        verbose=verbose,
+        interpolate=interpolate,
+        override=override,
+        encoding=encoding,
+    )
+    return dotenv.set_as_environment_variables()
+
+
+def dotenv_values(
+    dotenv_path: Optional[StrPath] = None,
+    stream: Optional[IO[str]] = None,
+    verbose: bool = False,
+    interpolate: bool = True,
+    encoding: Optional[str] = "utf-8",
+) -> Dict[str, Optional[str]]:
+    """
+    Parse a .env file and return its content as a dict.
+
+    The returned dict will have `None` values for keys without values in the .env file.
+    For example, `foo=bar` results in `{"foo": "bar"}` whereas `foo` alone results in
+    `{"foo": None}`
+
+    Parameters:
+        dotenv_path: Absolute or relative path to the .env file.
+        stream: `StringIO` object with .env content, used if `dotenv_path` is `None`.
+        verbose: Whether to output a warning if the .env file is missing.
+        encoding: Encoding to be used to read the file.
+
+    If both `dotenv_path` and `stream` are `None`, `find_dotenv()` is used to find the
+    .env file.
+    """
+    if dotenv_path is None and stream is None:
+        dotenv_path = find_dotenv()
+
+    return DotEnv(
+        dotenv_path=dotenv_path,
+        stream=stream,
+        verbose=verbose,
+        interpolate=interpolate,
+        override=True,
+        encoding=encoding,
+    ).dict()
+
+
+
+================================================
+FILE: src/dotenv/parser.py
+================================================
+import codecs
+import re
+from typing import (
+    IO,
+    Iterator,
+    Match,
+    NamedTuple,
+    Optional,
+    Pattern,
+    Sequence,
+)
+
+
+def make_regex(string: str, extra_flags: int = 0) -> Pattern[str]:
+    return re.compile(string, re.UNICODE | extra_flags)
+
+
+_newline = make_regex(r"(\r\n|\n|\r)")
+_multiline_whitespace = make_regex(r"\s*", extra_flags=re.MULTILINE)
+_whitespace = make_regex(r"[^\S\r\n]*")
+_export = make_regex(r"(?:export[^\S\r\n]+)?")
+_single_quoted_key = make_regex(r"'([^']+)'")
+_unquoted_key = make_regex(r"([^=\#\s]+)")
+_equal_sign = make_regex(r"(=[^\S\r\n]*)")
+_single_quoted_value = make_regex(r"'((?:\\'|[^'])*)'")
+_double_quoted_value = make_regex(r'"((?:\\"|[^"])*)"')
+_unquoted_value = make_regex(r"([^\r\n]*)")
+_comment = make_regex(r"(?:[^\S\r\n]*#[^\r\n]*)?")
+_end_of_line = make_regex(r"[^\S\r\n]*(?:\r\n|\n|\r|$)")
+_rest_of_line = make_regex(r"[^\r\n]*(?:\r|\n|\r\n)?")
+_double_quote_escapes = make_regex(r"\\[\\'\"abfnrtv]")
+_single_quote_escapes = make_regex(r"\\[\\']")
+
+
+class Original(NamedTuple):
+    string: str
+    line: int
+
+
+class Binding(NamedTuple):
+    key: Optional[str]
+    value: Optional[str]
+    original: Original
+    error: bool
+
+
+class Position:
+    def __init__(self, chars: int, line: int) -> None:
+        self.chars = chars
+        self.line = line
+
+    @classmethod
+    def start(cls) -> "Position":
+        return cls(chars=0, line=1)
+
+    def set(self, other: "Position") -> None:
+        self.chars = other.chars
+        self.line = other.line
+
+    def advance(self, string: str) -> None:
+        self.chars += len(string)
+        self.line += len(re.findall(_newline, string))
+
+
+class Error(Exception):
+    pass
+
+
+class Reader:
+    def __init__(self, stream: IO[str]) -> None:
+        self.string = stream.read()
+        self.position = Position.start()
+        self.mark = Position.start()
+
+    def has_next(self) -> bool:
+        return self.position.chars < len(self.string)
+
+    def set_mark(self) -> None:
+        self.mark.set(self.position)
+
+    def get_marked(self) -> Original:
+        return Original(
+            string=self.string[self.mark.chars : self.position.chars],
+            line=self.mark.line,
+        )
+
+    def peek(self, count: int) -> str:
+        return self.string[self.position.chars : self.position.chars + count]
+
+    def read(self, count: int) -> str:
+        result = self.string[self.position.chars : self.position.chars + count]
+        if len(result) < count:
+            raise Error("read: End of string")
+        self.position.advance(result)
+        return result
+
+    def read_regex(self, regex: Pattern[str]) -> Sequence[str]:
+        match = regex.match(self.string, self.position.chars)
+        if match is None:
+            raise Error("read_regex: Pattern not found")
+        self.position.advance(self.string[match.start() : match.end()])
+        return match.groups()
+
+
+def decode_escapes(regex: Pattern[str], string: str) -> str:
+    def decode_match(match: Match[str]) -> str:
+        return codecs.decode(match.group(0), "unicode-escape")  # type: ignore
+
+    return regex.sub(decode_match, string)
+
+
+def parse_key(reader: Reader) -> Optional[str]:
+    char = reader.peek(1)
+    if char == "#":
+        return None
+    elif char == "'":
+        (key,) = reader.read_regex(_single_quoted_key)
+    else:
+        (key,) = reader.read_regex(_unquoted_key)
+    return key
+
+
+def parse_unquoted_value(reader: Reader) -> str:
+    (part,) = reader.read_regex(_unquoted_value)
+    return re.sub(r"\s+#.*", "", part).rstrip()
+
+
+def parse_value(reader: Reader) -> str:
+    char = reader.peek(1)
+    if char == "'":
+        (value,) = reader.read_regex(_single_quoted_value)
+        return decode_escapes(_single_quote_escapes, value)
+    elif char == '"':
+        (value,) = reader.read_regex(_double_quoted_value)
+        return decode_escapes(_double_quote_escapes, value)
+    elif char in ("", "\n", "\r"):
+        return ""
+    else:
+        return parse_unquoted_value(reader)
+
+
+def parse_binding(reader: Reader) -> Binding:
+    reader.set_mark()
+    try:
+        reader.read_regex(_multiline_whitespace)
+        if not reader.has_next():
+            return Binding(
+                key=None,
+                value=None,
+                original=reader.get_marked(),
+                error=False,
+            )
+        reader.read_regex(_export)
+        key = parse_key(reader)
+        reader.read_regex(_whitespace)
+        if reader.peek(1) == "=":
+            reader.read_regex(_equal_sign)
+            value: Optional[str] = parse_value(reader)
+        else:
+            value = None
+        reader.read_regex(_comment)
+        reader.read_regex(_end_of_line)
+        return Binding(
+            key=key,
+            value=value,
+            original=reader.get_marked(),
+            error=False,
+        )
+    except Error:
+        reader.read_regex(_rest_of_line)
+        return Binding(
+            key=None,
+            value=None,
+            original=reader.get_marked(),
+            error=True,
+        )
+
+
+def parse_stream(stream: IO[str]) -> Iterator[Binding]:
+    reader = Reader(stream)
+    while reader.has_next():
+        yield parse_binding(reader)
+
+
+
+================================================
+FILE: src/dotenv/py.typed
+================================================
+# Marker file for PEP 561
+
+
+
+================================================
+FILE: src/dotenv/variables.py
+================================================
+import re
+from abc import ABCMeta, abstractmethod
+from typing import Iterator, Mapping, Optional, Pattern
+
+_posix_variable: Pattern[str] = re.compile(
+    r"""
+    \$\{
+        (?P<name>[^\}:]*)
+        (?::-
+            (?P<default>[^\}]*)
+        )?
+    \}
+    """,
+    re.VERBOSE,
+)
+
+
+class Atom(metaclass=ABCMeta):
+    def __ne__(self, other: object) -> bool:
+        result = self.__eq__(other)
+        if result is NotImplemented:
+            return NotImplemented
+        return not result
+
+    @abstractmethod
+    def resolve(self, env: Mapping[str, Optional[str]]) -> str: ...
+
+
+class Literal(Atom):
+    def __init__(self, value: str) -> None:
+        self.value = value
+
+    def __repr__(self) -> str:
+        return f"Literal(value={self.value})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        return self.value == other.value
+
+    def __hash__(self) -> int:
+        return hash((self.__class__, self.value))
+
+    def resolve(self, env: Mapping[str, Optional[str]]) -> str:
+        return self.value
+
+
+class Variable(Atom):
+    def __init__(self, name: str, default: Optional[str]) -> None:
+        self.name = name
+        self.default = default
+
+    def __repr__(self) -> str:
+        return f"Variable(name={self.name}, default={self.default})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        return (self.name, self.default) == (other.name, other.default)
+
+    def __hash__(self) -> int:
+        return hash((self.__class__, self.name, self.default))
+
+    def resolve(self, env: Mapping[str, Optional[str]]) -> str:
+        default = self.default if self.default is not None else ""
+        result = env.get(self.name, default)
+        return result if result is not None else ""
+
+
+def parse_variables(value: str) -> Iterator[Atom]:
+    cursor = 0
+
+    for match in _posix_variable.finditer(value):
+        (start, end) = match.span()
+        name = match["name"]
+        default = match["default"]
+
+        if start > cursor:
+            yield Literal(value=value[cursor:start])
+
+        yield Variable(name=name, default=default)
+        cursor = end
+
+    length = len(value)
+    if cursor < length:
+        yield Literal(value=value[cursor:length])
+
+
+
+================================================
+FILE: src/dotenv/version.py
+================================================
+__version__ = "1.1.1"
+
+
+
+================================================
+FILE: tests/__init__.py
+================================================
+[Empty file]
+
+
+================================================
+FILE: tests/conftest.py
+================================================
+import pytest
+from click.testing import CliRunner
+
+
+@pytest.fixture
+def cli():
+    runner = CliRunner()
+    with runner.isolated_filesystem():
+        yield runner
+
+
+@pytest.fixture
+def dotenv_path(tmp_path):
+    path = tmp_path / ".env"
+    path.write_bytes(b"")
+    yield path
+
+
+
+================================================
+FILE: tests/test_cli.py
+================================================
+import os
+from pathlib import Path
+from typing import Optional
+
+import pytest
+import sh
+
+import dotenv
+from dotenv.cli import cli as dotenv_cli
+from dotenv.version import __version__
+
+
+@pytest.mark.parametrize(
+    "output_format,content,expected",
+    (
+        (None, "x='a b c'", """x=a b c\n"""),
+        ("simple", "x='a b c'", """x=a b c\n"""),
+        ("simple", """x='"a b c"'""", """x="a b c"\n"""),
+        ("simple", '''x="'a b c'"''', """x='a b c'\n"""),
+        ("json", "x='a b c'", """{\n  "x": "a b c"\n}\n"""),
+        ("shell", "x='a b c'", "x='a b c'\n"),
+        ("shell", """x='"a b c"'""", """x='"a b c"'\n"""),
+        ("shell", '''x="'a b c'"''', """x=''"'"'a b c'"'"''\n"""),
+        ("shell", "x='a\nb\nc'", "x='a\nb\nc'\n"),
+        ("export", "x='a b c'", """export x='a b c'\n"""),
+    ),
+)
+def test_list(
+    cli, dotenv_path, output_format: Optional[str], content: str, expected: str
+):
+    dotenv_path.write_text(content + "\n")
+
+    args = ["--file", dotenv_path, "list"]
+    if format is not None:
+        args.extend(["--format", output_format])
+
+    result = cli.invoke(dotenv_cli, args)
+
+    assert (result.exit_code, result.output) == (0, expected)
+
+
+def test_list_non_existent_file(cli):
+    result = cli.invoke(dotenv_cli, ["--file", "nx_file", "list"])
+
+    assert result.exit_code == 2, result.output
+    assert "Error opening env file" in result.output
+
+
+def test_list_not_a_file(cli):
+    result = cli.invoke(dotenv_cli, ["--file", ".", "list"])
+
+    assert result.exit_code == 2, result.output
+    assert "Error opening env file" in result.output
+
+
+def test_list_no_file(cli):
+    result = cli.invoke(dotenv.cli.list_values, [])
+
+    assert (result.exit_code, result.output) == (1, "")
+
+
+def test_get_existing_value(cli, dotenv_path):
+    dotenv_path.write_text("a=b")
+
+    result = cli.invoke(dotenv_cli, ["--file", dotenv_path, "get", "a"])
+
+    assert (result.exit_code, result.output) == (0, "b\n")
+
+
+def test_get_non_existent_value(cli, dotenv_path):
+    result = cli.invoke(dotenv_cli, ["--file", dotenv_path, "get", "a"])
+
+    assert (result.exit_code, result.output) == (1, "")
+
+
+def test_get_non_existent_file(cli):
+    result = cli.invoke(dotenv_cli, ["--file", "nx_file", "get", "a"])
+
+    assert result.exit_code == 2
+    assert "Error opening env file" in result.output
+
+
+def test_get_not_a_file(cli):
+    result = cli.invoke(dotenv_cli, ["--file", ".", "get", "a"])
+
+    assert result.exit_code == 2
+    assert "Error opening env file" in result.output
+
+
+def test_unset_existing_value(cli, dotenv_path):
+    dotenv_path.write_text("a=b")
+
+    result = cli.invoke(dotenv_cli, ["--file", dotenv_path, "unset", "a"])
+
+    assert (result.exit_code, result.output) == (0, "Successfully removed a\n")
+    assert dotenv_path.read_text() == ""
+
+
+def test_unset_non_existent_value(cli, dotenv_path):
+    result = cli.invoke(dotenv_cli, ["--file", dotenv_path, "unset", "a"])
+
+    assert (result.exit_code, result.output) == (1, "")
+    assert dotenv_path.read_text() == ""
+
+
+@pytest.mark.parametrize(
+    "quote_mode,variable,value,expected",
+    (
+        ("always", "a", "x", "a='x'\n"),
+        ("never", "a", "x", "a=x\n"),
+        ("auto", "a", "x", "a=x\n"),
+        ("auto", "a", "x y", "a='x y'\n"),
+        ("auto", "a", "$", "a='$'\n"),
+    ),
+)
+def test_set_quote_options(cli, dotenv_path, quote_mode, variable, value, expected):
+    result = cli.invoke(
+        dotenv_cli,
+        [
+            "--file",
+            dotenv_path,
+            "--export",
+            "false",
+            "--quote",
+            quote_mode,
+            "set",
+            variable,
+            value,
+        ],
+    )
+
+    assert (result.exit_code, result.output) == (0, "{}={}\n".format(variable, value))
+    assert dotenv_path.read_text() == expected
+
+
+@pytest.mark.parametrize(
+    "dotenv_path,export_mode,variable,value,expected",
+    (
+        (Path(".nx_file"), "true", "a", "x", "export a='x'\n"),
+        (Path(".nx_file"), "false", "a", "x", "a='x'\n"),
+    ),
+)
+def test_set_export(cli, dotenv_path, export_mode, variable, value, expected):
+    result = cli.invoke(
+        dotenv_cli,
+        [
+            "--file",
+            dotenv_path,
+            "--quote",
+            "always",
+            "--export",
+            export_mode,
+            "set",
+            variable,
+            value,
+        ],
+    )
+
+    assert (result.exit_code, result.output) == (0, "{}={}\n".format(variable, value))
+    assert dotenv_path.read_text() == expected
+
+
+def test_set_non_existent_file(cli):
+    result = cli.invoke(dotenv.cli.set_value, ["a", "b"])
+
+    assert (result.exit_code, result.output) == (1, "")
+
+
+def test_set_no_file(cli):
+    result = cli.invoke(dotenv_cli, ["--file", "nx_file", "set"])
+
+    assert result.exit_code == 2
+    assert "Missing argument" in result.output
+
+
+def test_get_default_path(tmp_path):
+    with sh.pushd(tmp_path):
+        (tmp_path / ".env").write_text("a=b")
+
+        result = sh.dotenv("get", "a")
+
+        assert result == "b\n"
+
+
+def test_run(tmp_path):
+    with sh.pushd(tmp_path):
+        (tmp_path / ".env").write_text("a=b")
+
+        result = sh.dotenv("run", "printenv", "a")
+
+        assert result == "b\n"
+
+
+def test_run_with_existing_variable(tmp_path):
+    with sh.pushd(tmp_path):
+        (tmp_path / ".env").write_text("a=b")
+        env = dict(os.environ)
+        env.update({"LANG": "en_US.UTF-8", "a": "c"})
+
+        result = sh.dotenv("run", "printenv", "a", _env=env)
+
+        assert result == "b\n"
+
+
+def test_run_with_existing_variable_not_overridden(tmp_path):
+    with sh.pushd(tmp_path):
+        (tmp_path / ".env").write_text("a=b")
+        env = dict(os.environ)
+        env.update({"LANG": "en_US.UTF-8", "a": "c"})
+
+        result = sh.dotenv("run", "--no-override", "printenv", "a", _env=env)
+
+        assert result == "c\n"
+
+
+def test_run_with_none_value(tmp_path):
+    with sh.pushd(tmp_path):
+        (tmp_path / ".env").write_text("a=b\nc")
+
+        result = sh.dotenv("run", "printenv", "a")
+
+        assert result == "b\n"
+
+
+def test_run_with_other_env(dotenv_path):
+    dotenv_path.write_text("a=b")
+
+    result = sh.dotenv("--file", dotenv_path, "run", "printenv", "a")
+
+    assert result == "b\n"
+
+
+def test_run_without_cmd(cli):
+    result = cli.invoke(dotenv_cli, ["run"])
+
+    assert result.exit_code == 2
+    assert "Invalid value for '-f'" in result.output
+
+
+def test_run_with_invalid_cmd(cli):
+    result = cli.invoke(dotenv_cli, ["run", "i_do_not_exist"])
+
+    assert result.exit_code == 2
+    assert "Invalid value for '-f'" in result.output
+
+
+def test_run_with_version(cli):
+    result = cli.invoke(dotenv_cli, ["--version"])
+
+    assert result.exit_code == 0
+    assert result.output.strip().endswith(__version__)
+
+
+
+================================================
+FILE: tests/test_ipython.py
+================================================
+import os
+from unittest import mock
+
+import pytest
+
+pytest.importorskip("IPython")
+
+
+@mock.patch.dict(os.environ, {}, clear=True)
+def test_ipython_existing_variable_no_override(tmp_path):
+    from IPython.terminal.embed import InteractiveShellEmbed
+
+    dotenv_file = tmp_path / ".env"
+    dotenv_file.write_text("a=b\n")
+    os.chdir(tmp_path)
+    os.environ["a"] = "c"
+
+    ipshell = InteractiveShellEmbed()
+    ipshell.run_line_magic("load_ext", "dotenv")
+    ipshell.run_line_magic("dotenv", "")
+
+    assert os.environ == {"a": "c"}
+
+
+@mock.patch.dict(os.environ, {}, clear=True)
+def test_ipython_existing_variable_override(tmp_path):
+    from IPython.terminal.embed import InteractiveShellEmbed
+
+    dotenv_file = tmp_path / ".env"
+    dotenv_file.write_text("a=b\n")
+    os.chdir(tmp_path)
+    os.environ["a"] = "c"
+
+    ipshell = InteractiveShellEmbed()
+    ipshell.run_line_magic("load_ext", "dotenv")
+    ipshell.run_line_magic("dotenv", "-o")
+
+    assert os.environ == {"a": "b"}
+
+
+@mock.patch.dict(os.environ, {}, clear=True)
+def test_ipython_new_variable(tmp_path):
+    from IPython.terminal.embed import InteractiveShellEmbed
+
+    dotenv_file = tmp_path / ".env"
+    dotenv_file.write_text("a=b\n")
+    os.chdir(tmp_path)
+
+    ipshell = InteractiveShellEmbed()
+    ipshell.run_line_magic("load_ext", "dotenv")
+    ipshell.run_line_magic("dotenv", "")
+
+    assert os.environ == {"a": "b"}
+
+
+
+================================================
+FILE: tests/test_is_interactive.py
+================================================
+import builtins
+import sys
+from unittest import mock
+
+from dotenv.main import find_dotenv
+
+
+class TestIsInteractive:
+    """Tests for the _is_interactive helper function within find_dotenv.
+
+    The _is_interactive function is used by find_dotenv to determine if the code
+    is running in an interactive environment (like a REPL, IPython notebook, etc.)
+    versus a normal script execution.
+
+    Interactive environments include:
+    - Python REPL (has sys.ps1 or sys.ps2)
+    - IPython notebooks (no __file__ in __main__)
+    - Interactive shells
+
+    Non-interactive environments include:
+    - Normal script execution (has __file__ in __main__)
+    - Module imports
+
+    Examples of the behavior:
+    >>> import sys
+    >>> # In a REPL:
+    >>> hasattr(sys, 'ps1')  # True
+    >>> # In a script:
+    >>> hasattr(sys, 'ps1')  # False
+    """
+
+    def _create_dotenv_file(self, tmp_path):
+        """Helper to create a test .env file."""
+        dotenv_path = tmp_path / ".env"
+        dotenv_path.write_text("TEST=value")
+        return dotenv_path
+
+    def _setup_subdir_and_chdir(self, tmp_path, monkeypatch):
+        """Helper to create subdirectory and change to it."""
+        test_dir = tmp_path / "subdir"
+        test_dir.mkdir()
+        monkeypatch.chdir(test_dir)
+        return test_dir
+
+    def _remove_ps_attributes(self, monkeypatch):
+        """Helper to remove ps1/ps2 attributes if they exist."""
+        if hasattr(sys, "ps1"):
+            monkeypatch.delattr(sys, "ps1")
+        if hasattr(sys, "ps2"):
+            monkeypatch.delattr(sys, "ps2")
+
+    def _mock_main_import(self, monkeypatch, mock_main_module):
+        """Helper to mock __main__ module import."""
+        original_import = builtins.__import__
+
+        def mock_import(name, *args, **kwargs):
+            if name == "__main__":
+                return mock_main_module
+            return original_import(name, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "__import__", mock_import)
+
+    def _mock_main_import_error(self, monkeypatch):
+        """Helper to mock __main__ module import that raises ModuleNotFoundError."""
+        original_import = builtins.__import__
+
+        def mock_import(name, *args, **kwargs):
+            if name == "__main__":
+                raise ModuleNotFoundError("No module named '__main__'")
+            return original_import(name, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "__import__", mock_import)
+
+    def test_is_interactive_with_ps1(self, tmp_path, monkeypatch):
+        """Test that _is_interactive returns True when sys.ps1 exists."""
+        dotenv_path = self._create_dotenv_file(tmp_path)
+
+        # Mock sys.ps1 to simulate interactive shell
+        monkeypatch.setattr(sys, "ps1", ">>> ", raising=False)
+
+        self._setup_subdir_and_chdir(tmp_path, monkeypatch)
+
+        # When _is_interactive() returns True, find_dotenv should search from cwd
+        result = find_dotenv()
+        assert result == str(dotenv_path)
+
+    def test_is_interactive_with_ps2(self, tmp_path, monkeypatch):
+        """Test that _is_interactive returns True when sys.ps2 exists."""
+        dotenv_path = self._create_dotenv_file(tmp_path)
+
+        # Mock sys.ps2 to simulate multi-line interactive input
+        monkeypatch.setattr(sys, "ps2", "... ", raising=False)
+
+        self._setup_subdir_and_chdir(tmp_path, monkeypatch)
+
+        # When _is_interactive() returns True, find_dotenv should search from cwd
+        result = find_dotenv()
+        assert result == str(dotenv_path)
+
+    def test_is_interactive_main_module_not_found(self, tmp_path, monkeypatch):
+        """Test that _is_interactive returns False when __main__ module import fails."""
+        self._remove_ps_attributes(monkeypatch)
+        self._mock_main_import_error(monkeypatch)
+
+        # Change to directory and test
+        monkeypatch.chdir(tmp_path)
+
+        # Since _is_interactive() returns False, find_dotenv should not find anything
+        # without usecwd=True
+        result = find_dotenv()
+        assert result == ""
+
+    def test_is_interactive_main_without_file(self, tmp_path, monkeypatch):
+        """Test that _is_interactive returns True when __main__ has no __file__ attribute."""
+        self._remove_ps_attributes(monkeypatch)
+        dotenv_path = self._create_dotenv_file(tmp_path)
+
+        # Mock __main__ module without __file__ attribute
+        mock_main = mock.MagicMock()
+        del mock_main.__file__  # Remove __file__ attribute
+
+        self._mock_main_import(monkeypatch, mock_main)
+        self._setup_subdir_and_chdir(tmp_path, monkeypatch)
+
+        # When _is_interactive() returns True, find_dotenv should search from cwd
+        result = find_dotenv()
+        assert result == str(dotenv_path)
+
+    def test_is_interactive_main_with_file(self, tmp_path, monkeypatch):
+        """Test that _is_interactive returns False when __main__ has __file__ attribute."""
+        self._remove_ps_attributes(monkeypatch)
+
+        # Mock __main__ module with __file__ attribute
+        mock_main = mock.MagicMock()
+        mock_main.__file__ = "/path/to/script.py"
+
+        self._mock_main_import(monkeypatch, mock_main)
+
+        # Change to directory and test
+        monkeypatch.chdir(tmp_path)
+
+        # Since _is_interactive() returns False, find_dotenv should not find anything
+        # without usecwd=True
+        result = find_dotenv()
+        assert result == ""
+
+    def test_is_interactive_precedence_ps1_over_main(self, tmp_path, monkeypatch):
+        """Test that ps1/ps2 attributes take precedence over __main__ module check."""
+        dotenv_path = self._create_dotenv_file(tmp_path)
+
+        # Set ps1 attribute
+        monkeypatch.setattr(sys, "ps1", ">>> ", raising=False)
+
+        # Mock __main__ module with __file__ attribute (which would normally return False)
+        mock_main = mock.MagicMock()
+        mock_main.__file__ = "/path/to/script.py"
+
+        self._mock_main_import(monkeypatch, mock_main)
+        self._setup_subdir_and_chdir(tmp_path, monkeypatch)
+
+        # ps1 should take precedence, so _is_interactive() returns True
+        result = find_dotenv()
+        assert result == str(dotenv_path)
+
+    def test_is_interactive_ps1_and_ps2_both_exist(self, tmp_path, monkeypatch):
+        """Test that _is_interactive returns True when both ps1 and ps2 exist."""
+        dotenv_path = self._create_dotenv_file(tmp_path)
+
+        # Set both ps1 and ps2 attributes
+        monkeypatch.setattr(sys, "ps1", ">>> ", raising=False)
+        monkeypatch.setattr(sys, "ps2", "... ", raising=False)
+
+        self._setup_subdir_and_chdir(tmp_path, monkeypatch)
+
+        # Should return True with either attribute present
+        result = find_dotenv()
+        assert result == str(dotenv_path)
+
+    def test_is_interactive_main_module_with_file_attribute_none(
+        self, tmp_path, monkeypatch
+    ):
+        """Test _is_interactive when __main__ has __file__ attribute set to None."""
+        self._remove_ps_attributes(monkeypatch)
+
+        # Mock __main__ module with __file__ = None
+        mock_main = mock.MagicMock()
+        mock_main.__file__ = None
+
+        self._mock_main_import(monkeypatch, mock_main)
+
+        # Mock sys.gettrace to ensure debugger detection returns False
+        monkeypatch.setattr("sys.gettrace", lambda: None)
+
+        monkeypatch.chdir(tmp_path)
+
+        # __file__ = None should still be considered non-interactive
+        # and with no debugger, find_dotenv should not search from cwd
+        result = find_dotenv()
+        assert result == ""
+
+    def test_is_interactive_no_ps_attributes_and_normal_execution(
+        self, tmp_path, monkeypatch
+    ):
+        """Test normal script execution scenario where _is_interactive should return False."""
+        self._remove_ps_attributes(monkeypatch)
+
+        # Don't mock anything - let it use the real __main__ module
+        # which should have a __file__ attribute in normal execution
+
+        # Change to directory and test
+        monkeypatch.chdir(tmp_path)
+
+        # In normal execution, _is_interactive() should return False
+        # so find_dotenv should not find anything without usecwd=True
+        result = find_dotenv()
+        assert result == ""
+
+    def test_is_interactive_with_usecwd_override(self, tmp_path, monkeypatch):
+        """Test that usecwd=True overrides _is_interactive behavior."""
+        self._remove_ps_attributes(monkeypatch)
+        dotenv_path = self._create_dotenv_file(tmp_path)
+
+        # Mock __main__ module with __file__ attribute (non-interactive)
+        mock_main = mock.MagicMock()
+        mock_main.__file__ = "/path/to/script.py"
+
+        self._mock_main_import(monkeypatch, mock_main)
+        self._setup_subdir_and_chdir(tmp_path, monkeypatch)
+
+        # Even though _is_interactive() returns False, usecwd=True should find the file
+        result = find_dotenv(usecwd=True)
+        assert result == str(dotenv_path)
+
+
+
+================================================
+FILE: tests/test_main.py
+================================================
+Error reading file with 'cp936': 'gbk' codec can't decode byte 0x80 in position 5763: illegal multibyte sequence
+
+
+================================================
+FILE: tests/test_parser.py
+================================================
+import io
+
+import pytest
+
+from dotenv.parser import Binding, Original, parse_stream
+
+
+@pytest.mark.parametrize(
+    "test_input,expected",
+    [
+        ("", []),
+        (
+            "a=b",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "'a'=b",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="'a'=b", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "[=b",
+            [
+                Binding(
+                    key="[",
+                    value="b",
+                    original=Original(string="[=b", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            " a = b ",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string=" a = b ", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "export a=b",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="export a=b", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            " export 'a'=b",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string=" export 'a'=b", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "# a=b",
+            [
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="# a=b", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b#c",
+            [
+                Binding(
+                    key="a",
+                    value="b#c",
+                    original=Original(string="a=b#c", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b #c",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b #c", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b\t#c",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\t#c", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b c",
+            [
+                Binding(
+                    key="a",
+                    value="b c",
+                    original=Original(string="a=b c", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b\tc",
+            [
+                Binding(
+                    key="a",
+                    value="b\tc",
+                    original=Original(string="a=b\tc", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b  c",
+            [
+                Binding(
+                    key="a",
+                    value="b  c",
+                    original=Original(string="a=b  c", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b\u00a0 c",
+            [
+                Binding(
+                    key="a",
+                    value="b\u00a0 c",
+                    original=Original(string="a=b\u00a0 c", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=b c ",
+            [
+                Binding(
+                    key="a",
+                    value="b c",
+                    original=Original(string="a=b c ", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a='b c '",
+            [
+                Binding(
+                    key="a",
+                    value="b c ",
+                    original=Original(string="a='b c '", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            'a="b c "',
+            [
+                Binding(
+                    key="a",
+                    value="b c ",
+                    original=Original(string='a="b c "', line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "export export_a=1",
+            [
+                Binding(
+                    key="export_a",
+                    value="1",
+                    original=Original(string="export export_a=1", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "export port=8000",
+            [
+                Binding(
+                    key="port",
+                    value="8000",
+                    original=Original(string="export port=8000", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            'a="b\nc"',
+            [
+                Binding(
+                    key="a",
+                    value="b\nc",
+                    original=Original(string='a="b\nc"', line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a='b\nc'",
+            [
+                Binding(
+                    key="a",
+                    value="b\nc",
+                    original=Original(string="a='b\nc'", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            'a="b\nc"',
+            [
+                Binding(
+                    key="a",
+                    value="b\nc",
+                    original=Original(string='a="b\nc"', line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            'a="b\\nc"',
+            [
+                Binding(
+                    key="a",
+                    value="b\nc",
+                    original=Original(string='a="b\\nc"', line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a='b\\nc'",
+            [
+                Binding(
+                    key="a",
+                    value="b\\nc",
+                    original=Original(string="a='b\\nc'", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            'a="b\\"c"',
+            [
+                Binding(
+                    key="a",
+                    value='b"c',
+                    original=Original(string='a="b\\"c"', line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a='b\\'c'",
+            [
+                Binding(
+                    key="a",
+                    value="b'c",
+                    original=Original(string="a='b\\'c'", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a=脿",
+            [
+                Binding(
+                    key="a",
+                    value="脿",
+                    original=Original(string="a=脿", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            'a="脿"',
+            [
+                Binding(
+                    key="a",
+                    value="脿",
+                    original=Original(string='a="脿"', line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "no_value_var",
+            [
+                Binding(
+                    key="no_value_var",
+                    value=None,
+                    original=Original(string="no_value_var", line=1),
+                    error=False,
+                )
+            ],
+        ),
+        (
+            "a: b",
+            [
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="a: b", line=1),
+                    error=True,
+                )
+            ],
+        ),
+        (
+            "a=b\nc=d",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key="c",
+                    value="d",
+                    original=Original(string="c=d", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "a=b\rc=d",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\r", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key="c",
+                    value="d",
+                    original=Original(string="c=d", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "a=b\r\nc=d",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\r\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key="c",
+                    value="d",
+                    original=Original(string="c=d", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "a=\nb=c",
+            [
+                Binding(
+                    key="a",
+                    value="",
+                    original=Original(string="a=\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key="b",
+                    value="c",
+                    original=Original(string="b=c", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "\n\n",
+            [
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="\n\n", line=1),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "a=b\n\n",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="\n", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "a=b\n\nc=d",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key="c",
+                    value="d",
+                    original=Original(string="\nc=d", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            'a="\nb=c',
+            [
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string='a="\n', line=1),
+                    error=True,
+                ),
+                Binding(
+                    key="b",
+                    value="c",
+                    original=Original(string="b=c", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            '# comment\na="b\nc"\nd=e\n',
+            [
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="# comment\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key="a",
+                    value="b\nc",
+                    original=Original(string='a="b\nc"\n', line=2),
+                    error=False,
+                ),
+                Binding(
+                    key="d",
+                    value="e",
+                    original=Original(string="d=e\n", line=4),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "a=b\n# comment 1",
+            [
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="# comment 1", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            "# comment 1\n# comment 2",
+            [
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="# comment 1\n", line=1),
+                    error=False,
+                ),
+                Binding(
+                    key=None,
+                    value=None,
+                    original=Original(string="# comment 2", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+        (
+            'uglyKey[%$="S3cr3t_P4ssw#rD" #\na=b',
+            [
+                Binding(
+                    key="uglyKey[%$",
+                    value="S3cr3t_P4ssw#rD",
+                    original=Original(
+                        string='uglyKey[%$="S3cr3t_P4ssw#rD" #\n', line=1
+                    ),
+                    error=False,
+                ),
+                Binding(
+                    key="a",
+                    value="b",
+                    original=Original(string="a=b", line=2),
+                    error=False,
+                ),
+            ],
+        ),
+    ],
+)
+def test_parse_stream(test_input, expected):
+    result = parse_stream(io.StringIO(test_input))
+
+    assert list(result) == expected
+
+
+
+================================================
+FILE: tests/test_utils.py
+================================================
+from dotenv import get_cli_string as c
+
+
+def test_to_cli_string():
+    assert c() == "dotenv"
+    assert c(path="/etc/.env") == "dotenv -f /etc/.env"
+    assert c(path="/etc/.env", action="list") == "dotenv -f /etc/.env list"
+    assert c(action="list") == "dotenv list"
+    assert c(action="get", key="DEBUG") == "dotenv get DEBUG"
+    assert c(action="set", key="DEBUG", value="True") == "dotenv set DEBUG True"
+    assert (
+        c(action="set", key="SECRET", value="=@asdfasf")
+        == "dotenv set SECRET =@asdfasf"
+    )
+    assert c(action="set", key="SECRET", value="a b") == 'dotenv set SECRET "a b"'
+    assert (
+        c(action="set", key="SECRET", value="a b", quote="always")
+        == 'dotenv -q always set SECRET "a b"'
+    )
+
+
+
+================================================
+FILE: tests/test_variables.py
+================================================
+import pytest
+
+from dotenv.variables import Literal, Variable, parse_variables
+
+
+@pytest.mark.parametrize(
+    "value,expected",
+    [
+        ("", []),
+        ("a", [Literal(value="a")]),
+        ("${a}", [Variable(name="a", default=None)]),
+        ("${a:-b}", [Variable(name="a", default="b")]),
+        (
+            "${a}${b}",
+            [
+                Variable(name="a", default=None),
+                Variable(name="b", default=None),
+            ],
+        ),
+        (
+            "a${b}c${d}e",
+            [
+                Literal(value="a"),
+                Variable(name="b", default=None),
+                Literal(value="c"),
+                Variable(name="d", default=None),
+                Literal(value="e"),
+            ],
+        ),
+    ],
+)
+def test_parse_variables(value, expected):
+    result = parse_variables(value)
+
+    assert list(result) == expected
+
+
+
+================================================
+FILE: tests/test_zip_imports.py
+================================================
+import os
+import sys
+import textwrap
+from typing import List
+from unittest import mock
+from zipfile import ZipFile
+
+import sh
+
+
+def walk_to_root(path: str):
+    last_dir = None
+    current_dir = path
+    while last_dir != current_dir:
+        yield current_dir
+        (parent_dir, _) = os.path.split(current_dir)
+        last_dir, current_dir = current_dir, parent_dir
+
+
+class FileToAdd:
+    def __init__(self, content: str, path: str):
+        self.content = content
+        self.path = path
+
+
+def setup_zipfile(path, files: List[FileToAdd]):
+    zip_file_path = path / "test.zip"
+    dirs_init_py_added_to = set()
+    with ZipFile(zip_file_path, "w") as zipfile:
+        for f in files:
+            zipfile.writestr(data=f.content, zinfo_or_arcname=f.path)
+            for dirname in walk_to_root(os.path.dirname(f.path)):
+                if dirname not in dirs_init_py_added_to:
+                    print(os.path.join(dirname, "__init__.py"))
+                    zipfile.writestr(
+                        data="", zinfo_or_arcname=os.path.join(dirname, "__init__.py")
+                    )
+                    dirs_init_py_added_to.add(dirname)
+    return zip_file_path
+
+
+@mock.patch.object(sys, "path", list(sys.path))
+def test_load_dotenv_gracefully_handles_zip_imports_when_no_env_file(tmp_path):
+    zip_file_path = setup_zipfile(
+        tmp_path,
+        [
+            FileToAdd(
+                content=textwrap.dedent(
+                    """
+            from dotenv import load_dotenv
+
+            load_dotenv()
+        """
+                ),
+                path="child1/child2/test.py",
+            ),
+        ],
+    )
+
+    # Should run without an error
+    sys.path.append(str(zip_file_path))
+    import child1.child2.test  # noqa
+
+
+def test_load_dotenv_outside_zip_file_when_called_in_zipfile(tmp_path):
+    zip_file_path = setup_zipfile(
+        tmp_path,
+        [
+            FileToAdd(
+                content=textwrap.dedent(
+                    """
+            from dotenv import load_dotenv
+
+            load_dotenv()
+        """
+                ),
+                path="child1/child2/test.py",
+            ),
+        ],
+    )
+    dotenv_path = tmp_path / ".env"
+    dotenv_path.write_bytes(b"a=b")
+    code_path = tmp_path / "code.py"
+    code_path.write_text(
+        textwrap.dedent(
+            f"""
+        import os
+        import sys
+
+        sys.path.append("{zip_file_path}")
+
+        import child1.child2.test
+
+        print(os.environ['a'])
+    """
+        )
+    )
+    os.chdir(str(tmp_path))
+
+    result = sh.Command(sys.executable)(code_path)
+
+    assert result == "b\n"
+
+
+
+================================================
+FILE: .github/dependabot.yml
+================================================
+# Keep GitHub Actions up to date with GitHub's Dependabot...
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    groups:
+      github-actions:
+        patterns:
+          - "*"  # Group all Actions updates into a single larger pull request
+    schedule:
+      interval: weekly
+
+
+
+================================================
+FILE: .github/SECURITY.md
+================================================
+# Security Policy
+
+## Supported Versions
+
+| Version   | Supported          |
+| --------- | ------------------ |
+| latest    | :white_check_mark: |
+| 0.x       | :x:                |
+
+## Reporting a Vulnerability
+
+If you believe you have identified a security issue with python-dotenv, please email
+python-dotenv@saurabh-kumar.com. A maintainer will contact you acknowledging the report
+and how to continue.
+
+Be sure to include as much detail as necessary in your report. As with reporting normal
+issues, a minimal reproducible example will help the maintainers address the issue faster.
+If you are able, you may also include a fix for the issue generated with `git format-patch`.
+
+
+
+================================================
+FILE: .github/workflows/release.yml
+================================================
+name: Upload Python Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+    - name: Build and publish
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: |
+        make release
+
+    - name: Publish Documentation
+      run: |
+        pip install -r requirements-docs.txt
+        pip install -e .
+        mkdocs gh-deploy --force
+
+
+
+================================================
+FILE: .github/workflows/test.yml
+================================================
+name: Run Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          ["3.9", "3.10", "3.11", "3.12", "3.13", pypy3.9, pypy3.10]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: pip install tox tox-gh-actions
+
+      - name: Test with tox
+        run: tox
+
+

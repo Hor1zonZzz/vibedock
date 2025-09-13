@@ -479,6 +479,27 @@ Directory structure:
     │   │   │           └── ujson/
     │   │   │               └── lib/
     │   │   │                   └── ultrajson.h
+    │   │   ├── src/
+    │   │   │   ├── datetime/
+    │   │   │   │   ├── date_conversions.c
+    │   │   │   │   └── pd_datetime.c
+    │   │   │   ├── parser/
+    │   │   │   │   ├── io.c
+    │   │   │   │   ├── pd_parser.c
+    │   │   │   │   └── tokenizer.c
+    │   │   │   └── vendored/
+    │   │   │       ├── numpy/
+    │   │   │       │   └── datetime/
+    │   │   │       │       ├── np_datetime.c
+    │   │   │       │       └── np_datetime_strings.c
+    │   │   │       └── ujson/
+    │   │   │           ├── lib/
+    │   │   │           │   ├── ultrajsondec.c
+    │   │   │           │   └── ultrajsonenc.c
+    │   │   │           └── python/
+    │   │   │               ├── JSONtoObj.c
+    │   │   │               ├── objToJSON.c
+    │   │   │               └── ujson.c
     │   │   ├── tslibs/
     │   │   │   ├── __init__.py
     │   │   │   ├── base.pxd

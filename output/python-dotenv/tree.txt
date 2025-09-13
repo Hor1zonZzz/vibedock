@@ -1,0 +1,51 @@
+Directory structure:
+└── theskumar-python-dotenv/
+    ├── README.md
+    ├── CHANGELOG.md
+    ├── CONTRIBUTING.md
+    ├── LICENSE
+    ├── Makefile
+    ├── MANIFEST.in
+    ├── mkdocs.yml
+    ├── requirements-docs.txt
+    ├── requirements.txt
+    ├── ruff.toml
+    ├── setup.cfg
+    ├── setup.py
+    ├── tox.ini
+    ├── .editorconfig
+    ├── .pre-commit-config.yaml
+    ├── docs/
+    │   ├── changelog.md
+    │   ├── contributing.md
+    │   ├── index.md
+    │   ├── license.md
+    │   └── reference.md
+    ├── src/
+    │   └── dotenv/
+    │       ├── __init__.py
+    │       ├── __main__.py
+    │       ├── cli.py
+    │       ├── ipython.py
+    │       ├── main.py
+    │       ├── parser.py
+    │       ├── py.typed
+    │       ├── variables.py
+    │       └── version.py
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── conftest.py
+    │   ├── test_cli.py
+    │   ├── test_ipython.py
+    │   ├── test_is_interactive.py
+    │   ├── test_main.py
+    │   ├── test_parser.py
+    │   ├── test_utils.py
+    │   ├── test_variables.py
+    │   └── test_zip_imports.py
+    └── .github/
+        ├── dependabot.yml
+        ├── SECURITY.md
+        └── workflows/
+            ├── release.yml
+            └── test.yml

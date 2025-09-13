@@ -18,6 +18,10 @@ dependencies = [
     "google-adk>=1.14.0",
     "gitingest>=0.3.1",
     "anthropic>=0.67.0",
+    "openai>=1.107.2",
+    "pydantic>=2.11.8",
+    "python-dotenv>=1.1.1",
+
 ]
 
 [tool.setuptools.packages.find]
