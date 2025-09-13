@@ -1,7 +1,8 @@
-
+whatthe fuck
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
             --dark-color: #2c3e50;
             --text-color: #333;
             --light-text: #f8f9fa;
-            --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
 
@@ -47,7 +48,7 @@
             padding: 2rem 0;
             text-align: center;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         header h1 {
@@ -123,7 +124,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
 
         .priority-high {
@@ -203,7 +204,8 @@
             margin: 1.5rem 0;
         }
 
-        .package-table th, .package-table td {
+        .package-table th,
+        .package-table td {
             padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -230,17 +232,18 @@
             .nav-container {
                 flex-direction: column;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .chart-container {
                 height: 300px;
             }
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -262,13 +265,14 @@
         <section id="executive-summary">
             <h2 class="section-title">执行摘要</h2>
             <div class="card">
-                <p>基于您理解该项目如何运作的目标，分析显示您对CLI框架(click)有良好的熟悉度，但需要更深入理解代码分析组件(AST)、异步AI客户端和丰富的控制台输出模式。您的学习应专注于核心技术分析工作流程，而不是外围工具。</p>
+                <p>基于您理解该项目如何运作的目标，分析显示您对CLI框架(click)有良好的熟悉度，但需要更深入理解代码分析组件(AST)、异步AI客户端和丰富的控制台输出模式。您的学习应专注于核心技术分析工作流程，而不是外围工具。
+                </p>
             </div>
         </section>
 
         <section id="gap-analysis">
             <h2 class="section-title">知识差距分析</h2>
-            
+
             <div class="card gap-card priority-high">
                 <h3><span class="gap-icon">🔴</span> AST代码分析 [高优先级]</h3>
                 <p><strong>当前水平:</strong> 基本识别ast.parse函数</p>
@@ -287,7 +291,8 @@
                 <p><strong>差距:</strong> 您知道使用了AsyncOpenAI，但需要理解async/await模式以及AI客户端如何集成到处理管道中</p>
                 <div class="action-plan">
                     <h4><i class="fas fa-tasks"></i> 行动计划</h4>
-                    <p>检查stage1_processor和stage2_processor如何使用AsyncOpenAI。学习Python async/await基础知识，并实现一个简单的异步客户端，通过OpenAI的API处理代码分析结果。</p>
+                    <p>检查stage1_processor和stage2_processor如何使用AsyncOpenAI。学习Python
+                        async/await基础知识，并实现一个简单的异步客户端，通过OpenAI的API处理代码分析结果。</p>
                 </div>
             </div>
 
@@ -298,7 +303,8 @@
                 <p><strong>差距:</strong> 您认识到Table的使用，但需要了解完整的rich实现，包括Panel、Text和控制台格式化，用于用户反馈和报告</p>
                 <div class="action-plan">
                     <h4><i class="fas fa-tasks"></i> 行动计划</h4>
-                    <p>分析reporter.py和tech_stack_questionnaire.py文件，了解rich.Table、rich.Panel和rich.Console如何创建交互式输出。构建一个简单的诊断工具，使用rich显示格式化的代码分析结果。</p>
+                    <p>分析reporter.py和tech_stack_questionnaire.py文件，了解rich.Table、rich.Panel和rich.Console如何创建交互式输出。构建一个简单的诊断工具，使用rich显示格式化的代码分析结果。
+                    </p>
                 </div>
             </div>
 
@@ -306,7 +312,8 @@
                 <h3><span class="gap-icon">🟡</span> 项目架构和自定义模块 [中优先级]</h3>
                 <p><strong>当前水平:</strong> 了解自定义模块的存在</p>
                 <p><strong>要求水平:</strong> 理解多阶段处理管道架构</p>
-                <p><strong>差距:</strong> 您知道自定义模块存在，但需要了解stage1_processor、stage2_processor、analyzer和reporter在处理管道中如何协同工作</p>
+                <p><strong>差距:</strong> 您知道自定义模块存在，但需要了解stage1_processor、stage2_processor、analyzer和reporter在处理管道中如何协同工作
+                </p>
                 <div class="action-plan">
                     <h4><i class="fas fa-tasks"></i> 行动计划</h4>
                     <p>跟踪从CLI命令通过stage1 → stage2 → analyzer → reporter的执行流程。创建一个图表，映射数据如何在这些组件之间流动，以及每个阶段对最终输出的贡献。</p>
@@ -327,7 +334,7 @@
 
         <section id="tech-stats">
             <h2 class="section-title">技术栈统计</h2>
-            
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">16</div>
@@ -406,11 +413,12 @@
 
         <section id="package-details">
             <h2 class="section-title">包详细信息</h2>
-            
+
             <div class="card">
                 <h3>rich</h3>
-                <p><strong>总使用次数:</strong> 23 | <strong>使用文件数:</strong> 3 | <strong>导入函数数:</strong> 1 | <strong>导入类数:</strong> 5</p>
-                
+                <p><strong>总使用次数:</strong> 23 | <strong>使用文件数:</strong> 3 | <strong>导入函数数:</strong> 1 |
+                    <strong>导入类数:</strong> 5</p>
+
                 <h4>函数使用情况</h4>
                 <table class="package-table">
                     <tr>
@@ -426,7 +434,7 @@
                         <td>2</td>
                     </tr>
                 </table>
-                
+
                 <h4>类使用情况</h4>
                 <table class="package-table">
                     <tr>
@@ -458,14 +466,15 @@
                         <td>1</td>
                     </tr>
                 </table>
-                
+
                 <p><strong>使用文件:</strong> stage1_processor.py, tech_stack_questionnaire.py, vibehacks\reporter.py</p>
             </div>
 
             <div class="card">
                 <h3>click</h3>
-                <p><strong>总使用次数:</strong> 11 | <strong>使用文件数:</strong> 1 | <strong>导入函数数:</strong> 0 | <strong>导入类数:</strong> 0</p>
-                
+                <p><strong>总使用次数:</strong> 11 | <strong>使用文件数:</strong> 1 | <strong>导入函数数:</strong> 0 |
+                    <strong>导入类数:</strong> 0</p>
+
                 <h4>函数使用情况</h4>
                 <table class="package-table">
                     <tr>
@@ -486,4 +495,3 @@
                     </tr>
                     <tr>
                         <td>argument</td>
-                       
